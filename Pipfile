@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 django = "*"
+pymysql = "*"
+validate-email = "*"
+requests = "*"
 
 [dev-packages]
 
