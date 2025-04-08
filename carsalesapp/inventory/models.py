@@ -36,8 +36,9 @@ class Model(models.Model):
     price = models.DecimalField(default=0, decimal_places=2, max_digits=12)
     image = models.ImageField(upload_to='uploads/Models/')
     createdon = models.DateField(default=now)
-    createdby = models.ForeignKey(to=User, on_delete=models.CASCADE)
     description = models.CharField(max_length=250, default='', blank=True, null=True)
+    is_sale = models.BooleanField(default=False)
+    sale_price = models.DecimalField(default=0, decimal_places=2, max_digits=12)
 
     def __str__(self):
         return self.name

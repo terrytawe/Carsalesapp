@@ -21,7 +21,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.index),
+    path('', views.index, name="index"),
     path('admin/', admin.site.urls),
     path('inventory/', include('inventory.urls')),
     path('customers/', include('customers.urls')),
