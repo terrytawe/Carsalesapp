@@ -10,6 +10,7 @@
   <body>
     <header class="p-3 text-bg-dark">
       <div class="container">
+        <!-- Navigation container-->
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
           <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
             <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap" /></svg>
@@ -29,18 +30,20 @@
           </ul>
 
           <div class="text-end">
-            <a href="#" class="nav-link px-2 text-white">Login/Register</a>
+            <a href="{% url "login" %}" class="nav-link px-2 text-white">Login/Register</a>
           </div>
         </div>
       </div>
     </header>
+    <!-- Main content-->
     <main>
-      <div class="container">
-        <div class="float-start search-container content">
-          <h4>Get your dream car today</h4>
+      <!-- Top Section: Search Content + Form -->
+      <div class="top-section">
+        <div class="search-container content mb-4">
+          <h3>Get your dream car today</h3>
           <p>Find the car that fits your lifestyle, budget, and dreams. Start exploring now, your perfect ride is just a search away!</p>
         </div>
-        <div class="float-start search-form mt-3">
+        <div class="search-form">
           <!-- Top Row -->
           <div class="row g-3 m-2">
             <div class="col-sm-9">
@@ -52,35 +55,43 @@
           </div>
           <!-- Middle Row-->
           <div class="row g-3 m-2">
-            <div class="col-sm-4">
-              <select name="selectYearId" class="form-select" aria-label="Default select example">
-                <option selected>Year</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+            <div class="col-sm-3">
+              <select name="selectYearId" class="form-select">
+                <option selected>Min Year</option>
+                <option value="1">2021</option>
+                <option value="2">2022</option>
+                <option value="3">2023</option>
               </select>
             </div>
-            <div class="col-sm-4">
-              <select name="selectMinPriceId" class="form-select" aria-label="Minimum Price">
+            <div class="col-sm-3">
+              <select name="selectMaxPriceId" class="form-select">
+                <option selected>Max Year</option>
+                <option value="1">2024</option>
+                <option value="2">2025</option>
+                <option value="3">2026</option>
+              </select>
+            </div>
+            <div class="col-sm-3">
+              <select name="selectMinPriceId" class="form-select">
                 <option selected>Min Price</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="1">$10,000</option>
+                <option value="2">$15,000</option>
+                <option value="3">$20,000</option>
               </select>
             </div>
-            <div class="col-sm-4">
-              <select name="selectMaxPriceId" class="form-select" aria-label="Maximum Price">
+            <div class="col-sm-3">
+              <select name="selectMaxPriceId" class="form-select">
                 <option selected>Max Price</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="1">$30,000</option>
+                <option value="2">$40,000</option>
+                <option value="3">$50,000</option>
               </select>
             </div>
           </div>
           <!-- Bottom Row-->
           <div class="row g-3 m-2">
             <div class="col-sm-2">
-              <button class="btn btn-primary d-inline-flex align-items-center" type="button">Search</button>
+              <button class="btn btn-primary" type="button">Search</button>
             </div>
             <div class="col-sm-3 mt-4">
               <a href="#" class="nav">Advanced search</a>

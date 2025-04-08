@@ -1,0 +1,39 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car sales · {% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static "css/styles.css" %}" /> <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" /> <link
+    rel="stylesheet" href="{% static "css/remixicon.css" %}">
+  </head>
+  <body>
+    <header class="p-3 text-bg-dark">
+      <div class="container">
+        <!-- Navigation container-->
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"> Car Sales </a>
+
+          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="#" class="nav-link px-2 text-white">Buy a car</a></li>
+            <li><a href="#" class="nav-link px-2 text-white">Sell my car</a></li>
+            <li>
+              <a href="#" class="nav-link px-2 text-white"
+                >Services
+                <i class="ri-arrow-down-s-fill"></i>
+              </a>
+            </li>
+            <li><a href="#" class="nav-link px-2 text-white">Reviews</a></li>
+            <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+          </ul>
+
+          <div class="text-end">
+            <a href="#" class="nav-link px-2 text-white">Login/Register</a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Main content-->
+    <main>{% block content %}{% endblock content %}</main>
+  </body>
+</html>

@@ -7,5 +7,5 @@ from django.views import View
 #--------------------------------------------------------------------------------------------------    
 class HomeView(View):
     def get(self, request):
-        return render(request, 'searchapp/index.html')
+        return render(request, 'searchapp/index.html', {})
 # Create your views here.
