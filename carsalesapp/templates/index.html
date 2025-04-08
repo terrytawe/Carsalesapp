@@ -1,0 +1,77 @@
+{% include "base.html" %}{% block title %} {% endblock title %}{% block content %} {% load static %}
+
+<div class="row mt-0">
+  <div class="column col-3"></div>
+  <div class="column col-6">
+    <!-- Top Section-->
+
+    <!--<section class="py-4 text-begin container">-->
+    <div class="row py-lg-4 mt-4">
+      <!--<div class="col-lg-8 col-md-6 mx-auto">-->
+      <h2 class="fw-light">Get your dream car today</h2>
+      <p>
+        Your next ride is closer than you think—affordable, reliable, and ready to roll. From first cars to dream cars, we make buying simple, fast,
+        and stress-free. Find it. Own it. Drive happy
+      </p>
+      <!--</div>-->
+    </div>
+    <!-- </section>-->
+
+    <!-- First row-->
+    <div class="row g-3 mt-3">
+      <div class="mb-1 col-9">
+        <input type="text" class="form-control" id="inputModelId" placeholder="Make or model" />
+      </div>
+      <div class="mb-1 col-3">
+        <input type="text" class="form-control" id="inputLocationId" placeholder="Location" />
+      </div>
+    </div>
+    <!-- Second row-->
+    <div class="row g-3 mt-2">
+      <div class="mb-1 col-3">
+        <select name="selectYearMinId" class="form-select" aria-label="Default select example">
+          <option selected>Year</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+      <div class="mb-1 col-3">
+        <select name="selectYearMaxId" class="form-select" aria-label="Default select example">
+          <option selected>Year</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+      <div class="mb-1 col-3">
+        <select name="selectMinPriceId" class="form-select" aria-label="Minimum Price">
+          <option selected>Min Price</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+      <div class="mb-1 col-3">
+        <select name="selectMaxPriceId" class="form-select" aria-label="Minimum Price">
+          <option selected>Min Price</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+    </div>
+    <!-- Third row-->
+    <div class="row g-3 mt-2">
+      <div class="mb-1 col-3">
+        <button class="btn btn-primary mr-3">Search vehicles</button>
+      </div>
+      <div class="mb-1">
+        <a class="ml-3" href="#">Advanced search</a>
+      </div>
+    </div>
+  </div>
+  <div class="column col-3"></div>
+</div>
+
+{% endblock content %}
