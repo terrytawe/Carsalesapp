@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 import os, json
 from django.conf import settings
-
+from django.contrib.auth.models import User
+from django.contrib import auth
 
 def index(request):
     data_years = []
@@ -22,8 +23,8 @@ def index(request):
             data_price.append({"key": k, "value": v})
     
     context = {
-        'years': data_years,
-        'prices': data_price    
+        'years'  : data_years,
+        'prices' : data_price, 
     }
-
+    
     return render(request, 'index.html', context)

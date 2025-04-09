@@ -21,9 +21,10 @@ from django.urls import path, include
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.index, name="index"),
+    path('', views.index, name="home"),
     path('admin/', admin.site.urls),
     path('inventory/', include('inventory.urls')),
     path('customers/', include('customers.urls')),
-    path('dashboard', include('dashboard.urls')),
+    path('dashboard/', include('dashboard.urls')),
+    path('auth-n/', include('authentication.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
