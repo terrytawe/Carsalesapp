@@ -80,32 +80,8 @@
   display: block !important;
 }
 
-.search-form {
-  width: 100vh;
-  height: 30vh;
-  background: linear-gradient(to top, rgba(225, 225, 225, 0.366) 50%, rgba(225, 225, 225, 0.366) 50%);
-  position: relative;
-  left: 20vh;
-  top: 10vh;
-  border-radius: 5px;
-}
-
 .search-container {
-  width: 100vh;
-  height: 10vh;
-  position: relative;
-  left: 20vh;
-  top: 10vh;
-}
-
-main {
-  flex-direction: column;
-}
-
-.top-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 10px;
+  background: linear-gradient(to top, rgba(234, 235, 241, 0.366) 50%, rgba(234, 235, 241, 0.366) 50%);
+  border-radius: 5px;
+  padding: 1em;
 }

@@ -7,66 +7,70 @@
     <!--<section class="py-4 text-begin container">-->
     <div class="row py-lg-4 mt-4">
       <!--<div class="col-lg-8 col-md-6 mx-auto">-->
-      <h2 class="fw-light">Get your dream car today</h2>
+      <h2 class="fw-light">Find your dream car today</h2>
       <p>
-        Your next ride is closer than you think—affordable, reliable, and ready to roll. From first cars to dream cars, we make buying simple, fast,
+        Your next ride is closer than you think, affordable, reliable, and ready to roll. From first cars to dream cars, we make buying simple, fast,
         and stress-free. Find it. Own it. Drive happy
       </p>
       <!--</div>-->
     </div>
     <!-- </section>-->
 
-    <!-- First row-->
-    <div class="row g-3 mt-3">
-      <div class="mb-1 col-9">
-        <input type="text" class="form-control" id="inputModelId" placeholder="Make or model" />
+    <div class="search-container">
+      <!-- First row-->
+      <div class="row g-3 mt-3">
+        <div class="mb-1 col-lg-9 col-md-9 col-sm-12">
+          <input type="text" class="form-control" id="inputModelId" placeholder="Make or model" />
+        </div>
+        <div class="mb-1 col-lg-3 col-md-3 col-sm-12">
+          <input type="text" class="form-control" id="inputLocationId" placeholder="Location" />
+        </div>
       </div>
-      <div class="mb-1 col-3">
-        <input type="text" class="form-control" id="inputLocationId" placeholder="Location" />
+      <!-- Second row-->
+      <div class="row g-3 mt-2">
+        <div class="mb-1 col-lg-3 col-md-3 col-sm-12">
+          <select name="selectYearMinId" class="form-select" aria-label="Default select example">
+            <option selected>Min Year</option>
+            {% for year in years %}
+            <option value="{{ year.key }}">{{ year.value }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="mb-1 col-lg-3 col-md-3 col-sm-12">
+          <select name="selectYearMaxId" class="form-select" aria-label="Default select example">
+            <option selected>Max Year</option>
+            {% for year in years %}
+            <option value="{{ year.key }}">{{ year.value }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="mb-1 col-lg-3 col-md-3 col-sm-12">
+          <select name="selectMinPriceId" class="form-select" aria-label="Minimum Price">
+            <option selected>Min Price</option>
+            {% for price in prices %}
+            <option value="{{ price.key }}">{{ price.value }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="mb-1 col-lg-3 col-md-3 col-sm-12">
+          <select name="selectMaxPriceId" class="form-select" aria-label="Minimum Price">
+            <option selected>Max Price</option>
+            {% for price in prices %}
+            <option value="{{ price.key }}">{{ price.value }}</option>
+            {% endfor %}
+          </select>
+        </div>
       </div>
-    </div>
-    <!-- Second row-->
-    <div class="row g-3 mt-2">
-      <div class="mb-1 col-3">
-        <select name="selectYearMinId" class="form-select" aria-label="Default select example">
-          <option selected>Year</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-      </div>
-      <div class="mb-1 col-3">
-        <select name="selectYearMaxId" class="form-select" aria-label="Default select example">
-          <option selected>Year</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-      </div>
-      <div class="mb-1 col-3">
-        <select name="selectMinPriceId" class="form-select" aria-label="Minimum Price">
-          <option selected>Min Price</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-      </div>
-      <div class="mb-1 col-3">
-        <select name="selectMaxPriceId" class="form-select" aria-label="Minimum Price">
-          <option selected>Min Price</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-      </div>
-    </div>
-    <!-- Third row-->
-    <div class="row g-3 mt-2">
-      <div class="mb-1 col-3">
-        <button class="btn btn-primary mr-3">Search vehicles</button>
-      </div>
-      <div class="mb-1">
-        <a class="ml-3" href="#">Advanced search</a>
+      <!-- Third row-->
+      <div class="row g-3 mt-2">
+        <div class="mb-1 col-sm-12 col-md-4 col-lg-3">
+          <a class="p-md-2" href="#">Advanced search</a>
+        </div>
+        <div class="mb-1 col-sm-12 col-md-2 col-lg-3"></div>
+        <div class="mb-1 col-sm-12 col-md-2 col-lg-3"></div>
+        <div class="mb-1 col-sm-12 col-md-6 col-lg-3">
+          <button class="btn btn-primary mr-3">Search vehicles</button>
+        </div>
       </div>
     </div>
   </div>
