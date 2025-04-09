@@ -1,8 +1,8 @@
-{% include "base.html" %}{% block title %}{% endblock title %} {% block content %}
+{% extends "base.html" %} {% load static %}{% block title %} Login{% endblock title %} {% block content %}
 <div class="row mt-0">
   <div class="column col-4"></div>
   <div class="column col-4">
-    <div class="card mt-4">
+    <div class="card mt-5">
       <div class="card-body">
         <div class="card-title">
           <h4 class="m-lg-1">Please sign in</h4>
@@ -25,6 +25,9 @@
               <label class="form-check-label" for="flexCheckDefault"> Remember me </label>
             </div>
             <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+            <div class="text-start my-3">
+              <a class="link-primary mt-2" href="{% url "register" %}">Register Account</a>
+            </div>
           </form>
         </main>
       </div>

@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages, auth
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
+from .forms import SignUpForm
 
 #--------------------------------------------------------------------------------------------------
 # Login View
@@ -35,4 +39,29 @@ def logout_user(request):
 
     messages.success(request, 'You have been logged out')
     return redirect('home')
+
+
+#--------------------------------------------------------------------------------------------------
+# Logout View
+#--------------------------------------------------------------------------------------------------
+def register_user(request):
+    form = SignUpForm()
+
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid:
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = auth.authenticate(username=username, password=password)
+            login(request, user)
+
+            if user:
+                messages.success(request, 'Account registered successfully')
+                return redirect('home')
+        else:
+            messages.error(request, 'There was a problem registering, please try again')
+            return render(request, 'authentication/register.html')
+    else:
+        return render(request, 'authentication/register.html')
    
