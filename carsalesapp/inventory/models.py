@@ -31,8 +31,8 @@ class Brand(models.Model):
 #--------------------------------------------------------------------------------------------------
 class Model(models.Model):
     name = models.CharField(max_length=50)
-    brand = models.ForeignKey(to=Brand, on_delete=models.CASCADE)
-    category = models.ForeignKey(to=Category, on_delete=models.CASCADE)
+    brand = models.ForeignKey(to=Brand, on_delete=models.CASCADE, verbose_name='brand name')
+    category = models.ForeignKey(to=Category, on_delete=models.CASCADE, verbose_name='category')
     price = models.DecimalField(default=0, decimal_places=2, max_digits=12)
     image = models.ImageField(upload_to='uploads/Models/')
     createdon = models.DateField(default=now)

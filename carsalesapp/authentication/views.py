@@ -49,8 +49,13 @@ def register_user(request):
 
     if request.method == 'POST':
         form = SignUpForm(request.POST)
+        
         if form.is_valid:
-            form.save()
+            try:
+                form.save()
+            except:
+                return render(request, 'authentication/register.html', {'form': form})
+            
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             user = auth.authenticate(username=username, password=password)
@@ -59,9 +64,12 @@ def register_user(request):
             if user:
                 messages.success(request, 'Account registered successfully')
                 return redirect('home')
+            else:
+                messages.error(request, 'There was a problem registering, please try again')
+                return render(request, 'authentication/register.html')
         else:
             messages.error(request, 'There was a problem registering, please try again')
             return render(request, 'authentication/register.html')
     else:
-        return render(request, 'authentication/register.html')
+        return render(request, 'authentication/register.html', {'form': form})
    
