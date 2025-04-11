@@ -10,7 +10,9 @@
         {% if user.is_authenticated %}
         <li><a href="#" class="nav-link px-2">FAQs</a></li>
         <li><a href="#" class="nav-link px-2">About</a></li>
-        {% else %}
+        {% comment %}
+        <li><a href="#" class="nav-link px-2">{{user.is_staff}}</a></li>
+        {% endcomment %} {% else %}
         <li><a href="{% url 'login' %}" class="nav-link px-2">Service requests</a></li>
         <li><a href="#" class="nav-link px-2">FAQs</a></li>
         <li><a href="#" class="nav-link px-2">About</a></li>
