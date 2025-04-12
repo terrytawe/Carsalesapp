@@ -1,3 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+:root {
+  --db-base-clr: #212529;
+  --db-line-clr: #42434a;
+  --db-hover-clr: #222533;
+  --db-text-clr: #e6e6ef;
+  --db-accent-clr: #4547cc;
+  --db-active-clr: #222535;
+  --db-secondary-text-clr: #b4b6bc;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;
@@ -81,7 +97,93 @@
 }
 
 .search-container {
-  background: linear-gradient(to top, rgba(234, 235, 241, 0.366) 50%, rgba(234, 235, 241, 0.366) 50%);
-  border-radius: 5px;
-  padding: 1em;
+  width: 100%;
+  height: 70vh;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 700px;
+  height: 60px;
+  background: rgba(207, 206, 206, 0.34);
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+
+.search-bar input {
+  background: transparent;
+  flex: 1;
+  border: 0;
+  outline: none;
+  padding: 24px 20px;
+  font-size: medium;
+  font-weight: 100px;
+  color: var(--db-base-clr);
+}
+
+.search-bar button {
+  color: var(--db-secondary-text-clr);
+}
+
+.search-bar input::placeholder {
+  color: var(--db-secondary-text-clr);
+  font-size: medium;
+  font-weight: 100px;
+}
+
+.search-bar button svg {
+  fill: var(--db-secondary-text-clr);
+}
+
+.search-group-tabs {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+  padding: 0;
+}
+
+.search-group-item a {
+  padding: 10px 24px;
+  color: var(--db-base-clr);
+  cursor: pointer;
+  font-weight: 300;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-bottom: 3px solid var(--db-text-clr);
+  text-decoration: none;
+}
+
+.search-group-item.active {
+  border-bottom-color: var(--db-accent-clr);
+}
+
+.search-group-item :hover {
+  border-bottom: 3px solid var(--db-base-clr);
+}
+
+#filters {
+  padding: 10px 0;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+#filters label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--db-base-clr);
+}
+
+.search-row {
+  display: flex;
+  flex: 1;
 }

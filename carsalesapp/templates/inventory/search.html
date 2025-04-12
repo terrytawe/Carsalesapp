@@ -1,0 +1,50 @@
+{% extends "base.html" %}{% load static %}{% block title %} Home{% endblock title %}{% block content %}
+<div class="search-container">
+  {{data.years}}
+  <ul class="search-group-tabs">
+    <li class="search-group-item active"><a href="#">Buy</a></li>
+    <li class="search-group-item"><a href="#">Rent</a></li>
+    <li class="search-group-item"><a href="#">Service</a></li>
+  </ul>
+  <form method="POST" action="{% url 'results' %}" class="search-bar">
+    {% csrf_token %}
+    <button type="button" class="btn dropdown-toggle">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path
+          d="M440-160q-17 0-28.5-11.5T400-200v-240L168-736q-15-20-4.5-42t36.5-22h560q26 0 36.5 22t-4.5 42L560-440v240q0 17-11.5 28.5T520-160h-80Zm40-308 198-252H282l198 252Zm0 0Z" />
+      </svg>
+    </button>
+    <input type="text" placeholder="search vehicles" name="search" />
+    <button type="submit" onclick="functionButtonSearch()" action="post" class="btn">
+      <span>Search</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#1f1f1f">
+        <path
+          d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+      </svg>
+    </button>
+
+    <!-- Hidden filters container 
+    <div class="search-row">
+      <div id="filters" style="display: none; margin-top: 16px">
+        <label> <input type="checkbox" name="on_promotion" /> On Promotion </label>
+        <label>
+          Category:
+          <select name="category">
+            <option value="">-- Select --</option>
+            {% for cat in categories %}
+            <option value="{{ cat.id }}">{{ cat.name }}</option>
+            {% endfor %}
+          </select>
+        </label>
+      </div>
+    </div>-->
+  </form>
+</div>
+
+<script>
+  function toggleFilters() {
+    const filters = document.getElementById("filters");
+    filters.style.display = filters.style.display === "none" ? "block" : "none";
+  }
+</script>
+{% endblock content %}

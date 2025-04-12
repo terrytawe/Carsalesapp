@@ -21,9 +21,8 @@ from django.urls import path, include
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.index, name="home"),
+    path('', include('inventory.urls')),
     path('admin/', admin.site.urls),
-    path('inventory/', include('inventory.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('user/', include('authentication.urls')),
     path('bookings/', include('servicebookings.urls')),

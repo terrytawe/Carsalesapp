@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 :root {
-  --base-clr: #00;
-  --line-clr: #42434a;
-  --hover-clr: #222533;
-  --text-clr: #e6e6ef;
-  --accent-clr: #afb0e2;
-  --secondary-text-clr: #b0b3c1;
+  --db-base-clr: #212529;
+  --db-line-clr: #42434a;
+  --db-hover-clr: #222533;
+  --db-text-clr: #e6e6ef;
+  --db-accent-clr: #afb0e2;
+  --db-secondary-text-clr: #b0b3c1;
 }
 
 * {
@@ -26,7 +26,7 @@ nav {
   top: 0;
   position: sticky;
   grid-area: navbar;
-  background-color: var(--base-clr);
+  background-color: var(--db-base-clr);
 }
 
 aside {
@@ -35,10 +35,10 @@ aside {
   position: sticky;
   align-self: start;
   grid-area: sidebar;
-  background-color: var(--base-clr);
+  background-color: var(--db-base-clr);
   padding: 5px 1em;
-  border-right: 1px solid var(--line-clr);
-  border-top: 1px solid var(--line-clr);
+  border-right: 1px solid var(--db-line-clr);
+  /* border-top: 1px solid var(--line-clr); */
 }
 
 aside ul {
@@ -59,7 +59,7 @@ aside ul {
 
 aside svg {
   flex-shrink: 0;
-  fill: var(--text-clr);
+  fill: var(--db-text-clr);
 }
 
 aside a span,
@@ -69,13 +69,13 @@ aside a span,
 
 aside a:hover,
 .dropdown-btn:hover {
-  background-color: var(--hover-clr);
+  background-color: var(--db-hover-clr);
 }
 
 aside ul li.active a {
-  color: var(--accent-clr);
+  color: var(--db-accent-clr);
   svg {
-    fill: var(--accent-clr);
+    fill: var(--db-accent-clr);
   }
 }
 
@@ -85,7 +85,7 @@ aside a,
   border-radius: 0.5em;
   padding: 0.85em;
   text-decoration: none;
-  color: var(--text-clr);
+  color: var(--db-text-clr);
   display: flex;
   align-items: center;
   gap: 1.5em;
@@ -108,16 +108,17 @@ aside .sub-menu a {
   padding-left: 2em;
 }
 
-.dropdown-btn {
+button {
   width: 100%;
   text-align: left;
   background: none;
-  border: none;
+  border: 0;
   font: inherit;
   cursor: pointer;
+  outline: 0;
 }
 
-.dropdown-btn svg {
+button svg {
   transition: 200ms;
 }
 
