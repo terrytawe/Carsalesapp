@@ -199,6 +199,7 @@
 }
 body {
   margin: 0;
+  padding: 0;
   font-family: var(--bs-body-font-family);
   font-size: var(--bs-body-font-size);
   font-weight: var(--bs-body-font-weight);
@@ -355,7 +356,7 @@ a {
   color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));
   text-decoration: underline;
   font-family: "Roboto", sans-serif;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 300;
 }
 a:hover {

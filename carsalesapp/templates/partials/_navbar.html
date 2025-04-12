@@ -1,21 +1,29 @@
 {% load static %}
 <header data-bs-theme="dark">
-  <div class="navbar navbar-dark bg-dark shadow-sm">
+  <div class="navbar sticky-top navbar-dark bg-dark shadow-sm">
     <div class="container">
       <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center">
         <strong>Car Sales.</strong>
       </a>
 
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="{% url 'home' %}" class="nav-link active px-2">Shop</a></li>
         {% if user.is_authenticated %}
         <li><a href="#" class="nav-link px-2">FAQs</a></li>
         <li><a href="#" class="nav-link px-2">About</a></li>
         {% comment %}
         <li><a href="#" class="nav-link px-2">{{user.is_staff}}</a></li>
         {% endcomment %} {% else %}
-        <li><a href="{% url 'login' %}" class="nav-link px-2">Service requests</a></li>
-        <li><a href="#" class="nav-link px-2">FAQs</a></li>
-        <li><a href="#" class="nav-link px-2">About</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Services </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Book service</a></li>
+            <li><a class="dropdown-item" href="#">Car valuations</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="#">Other Services</a></li>
+          </ul>
+        </li>
+        <li><a href="#" class="nav-link px-2">Contact Us</a></li>
         {% endif %}
       </ul>
 

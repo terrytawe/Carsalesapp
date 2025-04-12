@@ -25,6 +25,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('inventory/', include('inventory.urls')),
     path('dashboard/', include('dashboard.urls')),
-    path('auth-n/', include('authentication.urls')),
+    path('user/', include('authentication.urls')),
     path('bookings/', include('servicebookings.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

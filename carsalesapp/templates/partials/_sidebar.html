@@ -1,95 +1,72 @@
 {% load static %}
-<div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
-  <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
-    <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
-      <ul class="nav flex-column">
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="#">
-            <svg class="bi" aria-hidden="true"><use xlink:href="#house-fill" /></svg>
-            Dashboard
-          </a>
+<ul>
+  <li class="active">
+    <a href="#"
+      ><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#888a90">
+        <path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" />
+      </svg>
+      <span>Home</span></a
+    >
+  </li>
+  <li>
+    <a href="#">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#888a90">
+        <path
+          d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z" />
+      </svg>
+      <span>Dashbaord</span>
+    </a>
+  </li>
+  <li>
+    <a href="#">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#888a90">
+        <path
+          d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z" />
+      </svg>
+      <span>Calendar</span></a
+    >
+  </li>
+  <li>
+    <button onclick="toggleMenu(this)" href="#" class="dropdown-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#888a90">
+        <path
+          d="M620-163 450-333l56-56 114 114 226-226 56 56-282 282Zm220-397h-80v-200h-80v120H280v-120h-80v560h240v80H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h167q11-35 43-57.5t70-22.5q40 0 71.5 22.5T594-840h166q33 0 56.5 23.5T840-760v200ZM480-760q17 0 28.5-11.5T520-800q0-17-11.5-28.5T480-840q-17 0-28.5 11.5T440-800q0 17 11.5 28.5T480-760Z" />
+      </svg>
+      <span>Inventory</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#888a90">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
+    <ul class="sub-menu">
+      <div>
+        <li>
+          <a href=""><span>Create Item</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center gap-2" href="#">
-            <svg class="bi" aria-hidden="true"><use xlink:href="#file-earmark" /></svg>
-            Orders
-          </a>
+        <li>
+          <a href=""><span>Update Item</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center gap-2" href="#">
-            <svg class="bi" aria-hidden="true"><use xlink:href="#cart" /></svg>
-            Products
-          </a>
+        <li>
+          <a href=""><span>Delete Item</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center gap-2" href="#">
-            <svg class="bi" aria-hidden="true"><use xlink:href="#people" /></svg>
-            Customers
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center gap-2" href="#">
-            <svg class="bi" aria-hidden="true"><use xlink:href="#graph-up" /></svg>
-            Reports
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center gap-2" href="#">
-            <svg class="bi" aria-hidden="true"><use xlink:href="#puzzle" /></svg>
-            Integrations
-          </a>
-        </li>
-      </ul>
-
-      <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
-        <span>Saved reports</span>
-        <a class="link-secondary" href="#" aria-label="Add a new report">
-          <svg class="bi" aria-hidden="true"><use xlink:href="#plus-circle" /></svg>
-        </a>
-      </h6>
-      <ul class="nav flex-column mb-auto">
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center gap-2" href="#">
-            <svg class="bi" aria-hidden="true"><use xlink:href="#file-earmark-text" /></svg>
-            Current month
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center gap-2" href="#">
-            <svg class="bi" aria-hidden="true"><use xlink:href="#file-earmark-text" /></svg>
-            Last quarter
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center gap-2" href="#">
-            <svg class="bi" aria-hidden="true"><use xlink:href="#file-earmark-text" /></svg>
-            Social engagement
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center gap-2" href="#">
-            <svg class="bi" aria-hidden="true"><use xlink:href="#file-earmark-text" /></svg>
-            Year-end sale
-          </a>
-        </li>
-      </ul>
-
-      <hr class="my-3" />
-
-      <ul class="nav flex-column mb-auto">
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center gap-2" href="#">
-            <svg class="bi" aria-hidden="true"><use xlink:href="#gear-wide-connected" /></svg>
-            Settings
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center gap-2" href="#">
-            <svg class="bi" aria-hidden="true"><use xlink:href="#door-closed" /></svg>
-            Sign out
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
+      </div>
+    </ul>
+  </li>
+  <li>
+    <a href="#">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#888a90">
+        <path
+          d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q53 0 100-15.5t86-44.5q-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160Zm0-360q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm0-60Zm0 360Z" />
+      </svg>
+      <span>Profile</span></a
+    >
+  </li>
+  <li>
+    <a href="#">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#888a90">
+        <path
+          d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z" />
+      </svg>
+      <span>Settings</span></a
+    >
+  </li>
+</ul>
