@@ -1,5 +1,25 @@
 {% extends "base.html" %}{% load static %}{% block title %} Home{% endblock title %}{% block content %}
-<main></main>
+
+<div class="container">
+  <div class="search-content">
+    <div class="search-group-tabs">
+      <ul class="search-groups">
+        <li class="search-group-item active">Buy</li>
+        <li class="search-group-item">Sell</li>
+        <li class="search-group-item">Valuations</li>
+      </ul>
+    </div>
+    {% csrf_token %}
+    <form action="" class="search-bar">
+      <input
+        class="form-control form-control-lg"
+        type="text"
+        placeholder="Search for your vehicle"
+        aria-describedby="inputGroup-sizing-lg"
+        name="search-term" />
+    </form>
+  </div>
+</div>
 
 <script>
   function toggleFilters() {

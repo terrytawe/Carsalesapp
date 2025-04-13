@@ -9,7 +9,7 @@
         </div>
         <main class="form-signin w-100 m-auto">
           <form action="{% url 'login' %}" method="post">
-            {% csrf_token %} {% include 'partials/_messages.html' %}
+            {% csrf_token %} {% include 'partials/messages.html' %}
             <div class="form-floating">
               <input type="text" name="username" class="form-control" id="usernameId" placeholder="Username" />
               <label for="floatingInput">Username</label>
