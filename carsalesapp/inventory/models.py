@@ -20,7 +20,7 @@ class Category(models.Model):
 #--------------------------------------------------------------------------------------------------
 # Vehicle Brand
 #--------------------------------------------------------------------------------------------------    
-class Brand(models.Model):
+class VehicleBrand(models.Model):
     name = models.CharField(max_length=255)
 
     def __str__(self):
@@ -29,9 +29,9 @@ class Brand(models.Model):
 #--------------------------------------------------------------------------------------------------
 # Vehicle Model
 #--------------------------------------------------------------------------------------------------
-class Model(models.Model):
+class VehicleModel(models.Model):
     name = models.CharField(max_length=50)
-    brand = models.ForeignKey(to=Brand, on_delete=models.CASCADE, verbose_name='brand name')
+    brand = models.ForeignKey(to=VehicleBrand, on_delete=models.CASCADE, verbose_name='brand name')
     category = models.ForeignKey(to=Category, on_delete=models.CASCADE, verbose_name='category')
     price = models.DecimalField(default=0, decimal_places=2, max_digits=12)
     image = models.ImageField(upload_to='uploads/Models/')
@@ -47,7 +47,7 @@ class Model(models.Model):
 # Test-drive booking
 #--------------------------------------------------------------------------------------------------
 class Booking(models.Model):
-    model = models.ForeignKey(to=Model, on_delete=models.CASCADE)
+    model = models.ForeignKey(to=VehicleModel, on_delete=models.CASCADE)
     customer = models.ForeignKey(to=User, on_delete=models.CASCADE)
     date = models.DateField(default=now)
     status = models.BooleanField(default=False)

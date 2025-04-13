@@ -2872,9 +2872,11 @@ textarea.form-control.is-invalid {
   }
 }
 .btn:hover {
-  color: var(--bs-btn-hover-color);
-  background-color: var(--bs-btn-hover-bg);
+  /* color: var(--bs-btn-hover-color); */
+  /* background-color: var(--bs-btn-hover-bg); */
   /* border-color: var(--bs-btn-hover-border-color); */
+  color: #6c757d;
+  background-color: rgba(222, 226, 230, 0.086);
 }
 .btn-check + .btn:hover {
   color: var(--bs-btn-color);
@@ -3779,6 +3781,11 @@ fieldset:disabled .btn {
 }
 .tab-content > .active {
   display: block;
+}
+
+header {
+  position: sticky;
+  top: 0;
 }
 .navbar {
   --bs-navbar-padding-x: 0;

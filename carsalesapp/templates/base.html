@@ -1,27 +1,27 @@
 {% load static %}
-<html lang="en" data-bs-theme="auto">
+<html lang="en" data-bs-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="" />
-    <title>Car sales · {% block title %} {% endblock title %}</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/" />
+    <title>Car sales · {% block title %}{% endblock title %}</title>
+    <!--<script defer src="{% static 'js/color-modes.js' %}"></script>-->
 
-    <script src="{% static "js/color-modes.js" %}"></script>
-    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet" />
-    <link href="{% static "css/styles.css" %}" rel="stylesheet"/>
+    <script defer src="{% static 'js/sidebar.js' %}"></script>
+    <script defer src="{% static 'js/dashboard.js' %}"></script>
+    <script defer src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&amp;display=swap" rel="stylesheet">
-    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/dashboard-main.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+
+    <link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180" />
+
     <meta name="theme-color" content="#712cf9" />
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   </head>
   <body>
-    {% include 'partials/_navbar.html' %}
-    <main>
-      {% block content %}{% endblock content %}
-    </main >
-    <script defer src=" {% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <nav>{% include 'partials/navbar.html' %}</nav>
+    {% block content %}{% endblock content %}
   </body>
 </html>
