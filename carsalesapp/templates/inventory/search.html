@@ -1,6 +1,6 @@
 {% extends "base.html" %}{% load static %}{% block title %} Home{% endblock title %}{% block content %}
 
-<div class="container">
+<div class="container page-transition">
   <div class="search-content">
     <div class="search-group-tabs">
       <ul class="search-groups">
@@ -9,8 +9,8 @@
         <li class="search-group-item">Valuations</li>
       </ul>
     </div>
-    <form method="POST" class="search-bar">
-      {% csrf_token %} {% include 'partials/messages.html' %}
+    <form method="GET" action="{% url 'results' %}" class="search-bar">
+      {% include 'partials/messages.html' %}
       <div class="mb-3 search-input-section">
         <button type="button" onclick="toggleFilters(this)">
           <!--class="dropdown-toggle"-->

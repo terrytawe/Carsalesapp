@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {% block title %}Dashboard{% endblock title %} {% block content %}
+<div class="dashboard-wrapper py-4 px-3 page-transition">
+  <div class="dashboard-container d-flex justify-content-center gap-4" style="max-width: 1400px; margin: 0 auto">
+    <!-- Sidebar -->
+    <aside
+      id="sidebar"
+      class="dashboard-sidebar d-md-block d-none p-3"
+      style="
+        width: 250px;
+        background-color: var(--db-base-clr);
+        color: var(--db-secondary-text-clr);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      ">
+      {% include 'partials/sidebar.html' %}
+    </aside>
+
+    <!-- Main Content -->
+    <main
+      class="dashboard-main flex-grow-1 p-4"
+      style="background-color: #f8f9fa; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); min-height: 80vh">
+      {% include 'partials/messages.html' %}
+      <div class="container-fluid">
+        <div class="container">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active" aria-current="page">Home</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Mobile Sidebar Toggle Button -->
+<button class="btn btn-outline-secondary d-md-none position-fixed top-0 start-0 m-3" onclick="toggleSidebar()" style="z-index: 1050">
+  ☰
+</button>
+
+<script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle("d-none");
+  }
+
+  // Ensure sidebar is hidden on load for mobile
+  window.addEventListener("DOMContentLoaded", () => {
+    if (window.innerWidth < 768) {
+      document.getElementById("sidebar").classList.add("d-none");
+    }
+  });
+</script>
+{% endblock content %}
