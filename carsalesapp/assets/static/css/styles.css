@@ -109,10 +109,10 @@ nav {
   align-items: center;
   justify-content: center;
   padding: 10px;
-  border: 1px solid blue;
-  display: flex;
+  display: none;
   gap: 10px;
   flex-wrap: wrap;
+  transition: 300ms ease-in-out;
 }
 
 .search-filters input,
@@ -122,6 +122,10 @@ select {
   background: transparent;
   padding: 20px;
   flex: 1;
+}
+
+.search-filters.show {
+  display: flex;
 }
 
 @media (min-width: 768px) {
@@ -143,18 +147,18 @@ select {
 }
 
 .results-container {
-  display: block;
+  display: flex;
   align-items: center;
   margin-top: 50px;
   flex-direction: column;
 }
 
 .results-search-bar {
-  display: flex;
+  flex: 1;
   align-items: center;
 }
 
 .results.content {
-  display: flex;
+  flex: 1;
   align-items: center;
 }

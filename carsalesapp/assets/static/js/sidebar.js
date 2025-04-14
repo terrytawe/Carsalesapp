@@ -1,4 +1,6 @@
 const tabItems = document.querySelectorAll(".search-group-item");
+const tabFilters = document.getElementById("idFilterSection");
+var display = 0;
 
 tabItems.forEach((tab) => {
   tab.addEventListener("click", function (e) {
@@ -19,4 +21,14 @@ tabItems.forEach((tab) => {
 function toggleMenu(button) {
   button.nextElementSibling.classList.toggle("show");
   button.classList.toggle("rotate");
+}
+
+function toggleFilters() {
+  if (display == 1) {
+    tabFilters.style.display = "none";
+    display = 0;
+  } else {
+    tabFilters.style.display = "flex";
+    display = 1;
+  }
 }
