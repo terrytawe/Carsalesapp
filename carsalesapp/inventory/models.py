@@ -30,7 +30,7 @@ class VehicleBrand(models.Model):
 # Vehicle Model
 #--------------------------------------------------------------------------------------------------
 class VehicleModel(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, blank=False, null=False)
     brand = models.ForeignKey(to=VehicleBrand, on_delete=models.CASCADE, verbose_name='brand name')
     category = models.ForeignKey(to=Category, on_delete=models.CASCADE, verbose_name='category')
     price = models.DecimalField(default=0, decimal_places=2, max_digits=12)
