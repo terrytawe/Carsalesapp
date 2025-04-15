@@ -1,79 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 :root {
-  --sidebar-width: 250px;
-  --card-bg: #f8f9fa;
-  --card-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  --db-base-clr: #212529;
+  --db-line-clr: rgb(102, 107, 115, 0.35);
+  --db-hover-clr: rgb(102, 107, 115, 0.35);
+  --db-text-clr: #48484a;
+  --db-accent-clr: rgb(102, 107, 115, 0.1);
+  --db-active-clr: #222535;
+  --db-secondary-text-clr: #b4b6bc;
 }
 
-/* Wrapper container */
-.dashboard-wrapper {
-  padding: 2rem 1rem;
+body {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: "navbar navbar" "sidebar main";
+  color: var(--db-text-clr);
 }
 
-/* Layout container */
-.dashboard-container {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  max-width: 1400px;
-  margin: 0 auto;
+nav {
+  grid-area: navbar;
 }
 
-/* Sidebar styles */
-.dashboard-sidebar {
-  width: var(--sidebar-width);
-  height: 80vh;
-  overflow-y: auto;
-  background-color: var(--db-base-clr);
-  color: var(--db-secondary-text-clr);
-  border-radius: 10px;
-  box-shadow: var(--card-shadow);
-}
-
-/* Main section wrapper */
-.dashboard-main {
-  flex-grow: 1;
-  height: 80vh;
-  background-color: var(--card-bg);
-  border-radius: 10px;
-  box-shadow: var(--card-shadow);
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-}
-
-/* Sticky breadcrumb */
-.breadcrumb-nav {
+aside {
+  top: 56px;
+  grid-area: sidebar;
   position: sticky;
-  top: 0;
-  z-index: 10;
-  background-color: var(--card-bg);
-  border-bottom: 1px solid #dee2e6;
-  padding: 1rem 1.5rem;
+  align-self: start;
+  height: calc(100vh - 56px);
+  border-right: 1px solid var(--db-line-clr);
+  box-sizing: border-box;
 }
 
-/* Scrollable body */
-.content-body {
-  overflow-y: auto;
-  flex-grow: 1;
-  padding: 1.5rem;
-}
-
-/* Optional: Smooth scroll inside panels */
-.dashboard-sidebar,
-.content-body {
-  scroll-behavior: smooth;
-}
-
-/* Responsive sidebar toggle (optional) */
-@media (max-width: 768px) {
-  .dashboard-container {
-    flex-direction: column;
+@media (max-width: 900px) {
+  body {
+    grid-template-columns: 1fr;
+  }
+  aside {
+    position: fixed;
+    width: 300px;
+    display: none;
   }
 
-  .dashboard-sidebar {
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid var(--db-line-clr);
-    height: auto;
+  .show {
+    display: block;
   }
+}
+
+main p {
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.filter-title {
+  margin-top: 10px;
+  height: 4rem;
+  font-size: x-large;
+  font-weight: 100;
+  border-bottom: 1px solid var(--db-accent-clr);
+  padding: 20px;
+}
+
+#sidebar ul {
+  padding: 10px;
+}
+
+#sidebar ul li {
+  display: flex;
+  flex: 1;
+  border-bottom: 1px solid var(--db-accent-clr);
+  padding: 0.85rem;
+}
+
+#sidebar ul li:hover {
+  background-color: var(--db-hover-clr);
+}
+
+#sidebar ul li.active a {
+  color: var(--db-accent-clr);
+  svg {
+    fill: var(--db-accent-clr);
+  }
+}
+
+#sidebar a,
+#sidebar .dropdown-btn,
+#sidebar .logo {
+  border-radius: 0.5em;
+  text-decoration: none;
+  color: var(--db-text-clr);
+  display: flex;
+  align-items: center;
+  gap: 1em;
 }

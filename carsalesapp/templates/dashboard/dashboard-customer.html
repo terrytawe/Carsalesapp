@@ -1,0 +1,19 @@
+{% extends 'base-services.html' %}{% load static %} {% block title %}Dashboard{% endblock title %} {% block sidebar %}
+
+<ul class="nav nav-pills flex-column">
+  <li class="nav-item mb-2">
+    <a href="{% url 'dashboard-customer' %}" class="nav-link text-back d-flex align-items-center"> Overview </a>
+  </li>
+  <li class="nav-item mb-2">
+    <a href="#" class="nav-link text-black d-flex align-items-center"> Test Drives </a>
+  </li>
+  <li class="nav-item mb-2">
+    <a href="#" class="nav-link text-black d-flex align-items-center"> Service Requests </a>
+  </li>
+  <li class="nav-item mb-2">
+    <a href="#" class="nav-link text-black d-flex align-items-center"> My Profile </a>
+  </li>
+</ul>
+{% endblock sidebar %} {% block content %}
+<h4>Test Content</h4>
+{% endblock content %}

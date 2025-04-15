@@ -5,26 +5,31 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
 from . import utils
-from .models import VehicleModel
+from .models import VehicleModel, Category
 from django.db.models import Q
 
 
 # Create your views here.
 def search(request):
-    
-    searched = request.POST.get('search-term', '').strip()
+    catergories = Category.objects.all()
+    context = {
+        "categories": catergories
+    }
+    if request.method == "POST":
+        searched = request.POST.get('search-type', '').strip()
     # import pdb; pdb.set_trace()
-    if not searched:
-        # messages.error(request, "Please enter a search term.")
-        return render(request, 'inventory/search.html', {})
+        if not searched:
+            # messages.error(request, "Please enter a search term.")
+            return render(request, 'inventory/search.html', context)
 
-    return redirect(f"{reverse('results')}?q={searched}")
+        return redirect(f"{reverse('results')}?q={searched}")
+    return render(request, 'inventory/search.html', context)
 
 
 #Search results
 def results(request):
 
-    query = request.GET['search-term']
+    query = request.GET['search-type']
     # import pdb; pdb.set_trace()
     if query:
         results = VehicleModel.objects.filter(Q(name__icontains=query))

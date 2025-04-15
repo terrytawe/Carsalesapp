@@ -1,4 +1,4 @@
-{% extends 'dashboard/dashboard.html' %}{% load static %} {% block title %}Create Booking{% endblock title %} {% block sidebar %}
+{% extends 'base_services.html' %}{% load static %} {% block title %}Create Booking{% endblock title %} {% block sidebar %}
 <ul class="nav nav-pills flex-column">
   <li class="nav-item mb-2">
     <a href="{% url 'customer-dashboard' %}" class="nav-link text-white d-flex align-items-center"> Overview </a>
@@ -15,34 +15,6 @@
 </ul>
 {% endblock sidebar %} {% block content %}
 <div class="container">
-  <div class="row">
-    <div class="col-md-10">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Test Drives</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Update</li>
-        </ol>
-      </nav>
-    </div>
-    <div class="col-md-2"></div>
-  </div>
-  <form action="" method="post">
-    <div class="form-control">
-      <label for="">Service Type</label>
-      <select name="service-type" id="" class="form-control"></select>
-    </div>
-    <div class="form-control">
-      <label for="">Service Type</label>
-      <input name="service-type2" id="" class="form-control" />
-    </div>
-    <div class="form-control">
-      <label for="">Service Type</label>
-      <input name="service-type3" id="" class="form-control" />
-    </div>
-    <div class="form-control">
-      <label for="">Service Type</label>
-      <input name="service-type4" id="" class="form-control" />
-    </div>
-  </form>
+  <span><h4>Create booking</h4></span>
 </div>
 {% endblock content %}

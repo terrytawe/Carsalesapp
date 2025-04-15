@@ -13,7 +13,7 @@
     <script defer src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
-    <!--<link rel="stylesheet" href="{% static 'css/dashboard-main.css' %}" />-->
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
 
     <link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180" />
@@ -21,7 +21,8 @@
     <meta name="theme-color" content="#712cf9" />
   </head>
   <body>
-    <nav>{% include 'partials/navbar-main.html' %}</nav>
-    {% block content %}{% endblock content %}
+    <nav>{% include 'partials/navbar-dashboard.html' %}</nav>
+    <aside id="sidebar">{% block sidebar %}{% endblock sidebar %}</aside>
+    <main>{% block content %}{% endblock content %}</main>
   </body>
 </html>

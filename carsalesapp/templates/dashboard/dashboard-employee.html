@@ -1,8 +1,8 @@
-{% extends 'dashboard/dashboard.html' %}{% load static %} {% block title %}Dashboard{% endblock title %} {% block sidebar %}
+{% extends 'base-services.html' %}{% load static %} {% block title %}Dashboard{% endblock title %} {% block sidebar %}
 
 <ul class="nav nav-pills flex-column">
   <li class="nav-item mb-2">
-    <a href="{% url 'customer-dashboard' %}" class="nav-link text-white d-flex align-items-center"> Overview </a>
+    <a href="{% url 'dashboard-employee' %}" class="nav-link text-white d-flex align-items-center"> Overview </a>
   </li>
   <li class="nav-item mb-2">
     <a href="#" class="nav-link text-white d-flex align-items-center"> Test Drives </a>

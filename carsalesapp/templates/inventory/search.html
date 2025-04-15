@@ -1,49 +1,48 @@
 {% extends "base.html" %}{% load static %}{% block title %} Home{% endblock title %}{% block content %}
 
-<div class="container page-transition">
+<div class="container">
   <div class="search-content">
-    <div class="search-group-tabs">
-      <ul class="search-groups">
-        <li class="search-group-item active">Buy</li>
-        <li class="search-group-item">
-          <a href="{% url 'customer-dashboard' %}">Service</a>
-        </li>
-      </ul>
-    </div>
-    <form method="GET" action="{% url 'results' %}" class="search-bar">
-      {% include 'partials/messages.html' %}
-      <div class="mb-3 search-input-section">
-        <button type="button" onclick="toggleFilters(this)">
-          <!--class="dropdown-toggle"-->
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
-            <path
-              d="M440-160q-17 0-28.5-11.5T400-200v-240L168-736q-15-20-4.5-42t36.5-22h560q26 0 36.5 22t-4.5 42L560-440v240q0 17-11.5 28.5T520-160h-80Zm40-308 198-252H282l198 252Zm0 0Z" />
-          </svg>
-        </button>
-        <input type="text" name="search-term" autofocus autocomplete="off" />
-        <button type="submit">
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
-            <path
-              d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
-          </svg>
-        </button>
-      </div>
-      <div id="idFilterSection" class="search-filters">
-        <input type="text" name="search-begda" autofocus autocomplete="off" class="" />
-        <select name="search-category" id="">
-          <option value="">test</option>
+    <div class="search-banner">{% include 'partials/messages.html' %}</div>
+    <form method="GET" action="{% url 'results' %}" class="search-form shadow" style="border-radius: 20px">
+      <div class="search-field">
+        <select name="search-type" class="form-select" placeholder="Select Type">
+          <option value="">Select Type</option>
         </select>
-        <input type="text" name="search-endda" autofocus autocomplete="off" class="" />
-        <input type="text" name="search-color" autofocus autocomplete="off" class="" />
+      </div>
+      <div class="search-field">
+        <select name="search-model" class="form-select" placeholder="Select Model">
+          <option value="">Select Model</option>
+        </select>
+      </div>
+      <div class="search-field">
+        <select name="search-price" class="form-select" placeholder="Select Price">
+          <option value="">Select Price</option>
+        </select>
+      </div>
+      <div class="search-field">
+        <button type="submit" class="btn btn-primary w-100">Search vehicles</button>
       </div>
     </form>
   </div>
 </div>
-
-<script>
-  function toggleFilters() {
-    const filters = document.getElementById("filters");
-    filters.style.display = filters.style.display === "none" ? "block" : "none";
-  }
-</script>
+<div class="container">
+  <div class="category-display">
+    {% for category in categories %}
+    <div class="card mb-3" style="max-width: 540px">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <!--<img src="{{vehicle.image.url}}" class="img-fluid rounded-start" alt="{{vehicle.description}}" />-->
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{category.name}}</h5>
+            <p class="card-text">smaple text</p>
+            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock content %}
