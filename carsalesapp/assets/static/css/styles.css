@@ -37,10 +37,11 @@ nav {
 
 .category-display {
   display: flex;
-  align-content: center;
-  justify-content: space-evenly;
+  align-items: center;
+  justify-content: center;
   padding: 5rem;
   top: 5px;
+  gap: 10px;
   flex: 1;
 }
 

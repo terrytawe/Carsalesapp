@@ -4,22 +4,40 @@
 </div>
 <ul class="nav nav-pills flex-column">
   <li class="nav-item mb-2">
-    <a href="#"> Make &amp; Model</a>
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
-      <path d="M480-360 280-560h400L480-360Z" />
-    </svg>
+    <button class="dropdown-btn">
+      <span> Make &amp; Model</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
+    <form id="form-category" class="filter-form">
+      <span>Make:</span>
+      <select name="category" class="form-select">
+        <option value="cars">Cars</option>
+        <option value="bikes">Bikes</option>
+      </select>
+      <span>Model:</span>
+      <select name="category" class="form-select">
+        <option value="cars">Cars</option>
+        <option value="bikes">Bikes</option>
+      </select>
+    </form>
   </li>
   <li class="nav-item mb-2">
-    <a href="#"> Pricing </a>
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
-      <path d="M480-360 280-560h400L480-360Z" />
-    </svg>
+    <button class="dropdown-btn">
+      <span> Pricing</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
   </li>
   <li class="nav-item mb-2">
-    <a href="#"> Features </a>
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
-      <path d="M480-360 280-560h400L480-360Z" />
-    </svg>
+    <button class="dropdown-btn">
+      <span> Features</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
   </li>
 </ul>
 {% endblock sidebar %} {% block content %}

@@ -28,18 +28,12 @@
 <div class="container">
   <div class="category-display">
     {% for category in categories %}
-    <div class="card mb-3" style="max-width: 540px">
-      <div class="row g-0">
-        <div class="col-md-4">
-          <!--<img src="{{vehicle.image.url}}" class="img-fluid rounded-start" alt="{{vehicle.description}}" />-->
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">{{category.name}}</h5>
-            <p class="card-text">smaple text</p>
-            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
+    <div class="card" style="width: 18rem">
+      <img src="..." class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">{{category.name}}</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="btn btn-primary">View</a>
       </div>
     </div>
     {% endfor %}
