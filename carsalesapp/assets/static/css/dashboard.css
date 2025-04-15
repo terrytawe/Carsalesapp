@@ -3,7 +3,7 @@
 :root {
   --db-base-clr: #212529;
   --db-line-clr: rgb(102, 107, 115, 0.35);
-  --db-hover-clr: rgb(102, 107, 115, 0.35);
+  --db-hover-clr: rgba(230, 235, 240, 0.25);
   --db-text-clr: #48484a;
   --db-accent-clr: rgb(102, 107, 115, 0.1);
   --db-active-clr: #222535;
@@ -62,14 +62,25 @@ main p {
   padding: 20px;
 }
 
-.filter-form {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  padding: 0.5rem;
+#sidebar .sub-menu {
+  display: grid;
+  grid-template-rows: 0fr;
+  padding: 0.5em;
+  transition: 300ms ease-in-out;
+  > div {
+    overflow: hidden;
+  }
 }
 
-#sidebar .filter-form label {
+#sidebar .sub-menu.show {
+  grid-template-rows: 1fr;
+}
+
+.rotate svg:last-child {
+  rotate: 180deg;
+}
+
+#sidebar .sub-menu label {
   font-size: small;
   color: var(--db-text-clr);
 }
@@ -116,6 +127,10 @@ main p {
   border: none;
   font: inherit;
   cursor: pointer;
+}
+
+.dropdown-btn svg {
+  transition: 200ms ease;
 }
 
 #sidebar span,

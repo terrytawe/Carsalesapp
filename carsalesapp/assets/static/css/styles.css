@@ -81,3 +81,8 @@ nav {
 .search-row-item {
   flex: 1;
 }
+
+.container-results {
+  padding: 1rem;
+  margin-top: 1rem;
+}

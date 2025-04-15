@@ -4,32 +4,54 @@
 </div>
 <ul class="nav nav-pills flex-column">
   <li class="nav-item mb-2">
-    <button class="dropdown-btn">
+    <button class="dropdown-btn" onclick="toggleSubMenu(this)">
       <span> Make &amp; Model</span>
       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
         <path d="M480-360 280-560h400L480-360Z" />
       </svg>
     </button>
-    <form id="form-category" class="filter-form">
-      <label>Make:</label>
-      <select name="category" class="form-select">
-        <option value="cars">Cars</option>
-        <option value="bikes">Bikes</option>
-      </select>
-      <label>Model:</label>
-      <select name="category" class="form-select">
-        <option value="cars">Cars</option>
-        <option value="bikes">Bikes</option>
-      </select>
-    </form>
+    <!--Make & Model Submenu-->
+    <div class="sub-menu">
+      <div>
+        <form id="form-category">
+          <label>Make:</label>
+          <select name="select-make" class="form-select">
+            <option value="cars">Cars</option>
+            <option value="bikes">Bikes</option>
+          </select>
+          <label>Model:</label>
+          <select name="select-model" class="form-select">
+            <option value="cars">Cars</option>
+            <option value="bikes">Bikes</option>
+          </select>
+        </form>
+      </div>
+    </div>
   </li>
   <li class="nav-item mb-2">
-    <button class="dropdown-btn">
+    <button class="dropdown-btn" onclick="toggleSubMenu(this)">
       <span> Pricing</span>
       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
         <path d="M480-360 280-560h400L480-360Z" />
       </svg>
     </button>
+    <!--Pricing Submenu-->
+    <div class="sub-menu">
+      <div>
+        <form id="form-pricing">
+          <label>Minimum:</label>
+          <select name="select-make" class="form-select">
+            <option value="1000">1000</option>
+            <option value="10000">10000</option>
+          </select>
+          <label>Maximum:</label>
+          <select name="select-model" class="form-select">
+            <option value="1000">1000</option>
+            <option value="10000">10000</option>
+          </select>
+        </form>
+      </div>
+    </div>
   </li>
   <li class="nav-item mb-2">
     <button class="dropdown-btn">
@@ -42,7 +64,7 @@
 </ul>
 {% endblock sidebar %} {% block content %}
 <div class="container">
-  <div class="results-container">
+  <div class="container-results">
     <form method="GET" action="{% url 'results' %}" class="search-bar">
       {% include 'partials/messages.html' %}
       <div class="container">
