@@ -69,6 +69,11 @@ main p {
   padding: 0.5rem;
 }
 
+#sidebar .filter-form label {
+  font-size: small;
+  color: var(--db-text-clr);
+}
+
 #sidebar ul {
   padding: 10px;
   flex-shrink: 0;

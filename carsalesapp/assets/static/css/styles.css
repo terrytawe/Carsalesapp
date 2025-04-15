@@ -9,7 +9,6 @@ nav {
   display: flex;
   align-items: center;
   margin-top: 200px;
-  flex-direction: column;
 }
 
 .search-form {
@@ -39,10 +38,20 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5rem;
-  top: 5px;
+  padding: 1rem;
+  margin-top: 20px;
   gap: 10px;
   flex: 1;
+  flex-shrink: inherit;
+  /* flex-wrap: wrap; */
+}
+
+.category-display p {
+  font-size: x-small;
+}
+
+.category-display image {
+  flex-shrink: inherit;
 }
 
 @media (max-width: 900px) {
@@ -61,4 +70,14 @@ nav {
     padding: 5rem;
     flex: 1;
   }
+}
+
+.search-row {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+}
+
+.search-row-item {
+  flex: 1;
 }
