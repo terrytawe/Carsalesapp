@@ -5,8 +5,9 @@
     <div class="search-group-tabs">
       <ul class="search-groups">
         <li class="search-group-item active">Buy</li>
-        <li class="search-group-item">Sell</li>
-        <li class="search-group-item">Valuations</li>
+        <li class="search-group-item">
+          <a href="{% url 'customer-dashboard' %}">Service</a>
+        </li>
       </ul>
     </div>
     <form method="GET" action="{% url 'results' %}" class="search-bar">

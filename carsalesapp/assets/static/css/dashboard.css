@@ -1,0 +1,79 @@
+:root {
+  --sidebar-width: 250px;
+  --card-bg: #f8f9fa;
+  --card-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Wrapper container */
+.dashboard-wrapper {
+  padding: 2rem 1rem;
+}
+
+/* Layout container */
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Sidebar styles */
+.dashboard-sidebar {
+  width: var(--sidebar-width);
+  height: 80vh;
+  overflow-y: auto;
+  background-color: var(--db-base-clr);
+  color: var(--db-secondary-text-clr);
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
+}
+
+/* Main section wrapper */
+.dashboard-main {
+  flex-grow: 1;
+  height: 80vh;
+  background-color: var(--card-bg);
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+/* Sticky breadcrumb */
+.breadcrumb-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: var(--card-bg);
+  border-bottom: 1px solid #dee2e6;
+  padding: 1rem 1.5rem;
+}
+
+/* Scrollable body */
+.content-body {
+  overflow-y: auto;
+  flex-grow: 1;
+  padding: 1.5rem;
+}
+
+/* Optional: Smooth scroll inside panels */
+.dashboard-sidebar,
+.content-body {
+  scroll-behavior: smooth;
+}
+
+/* Responsive sidebar toggle (optional) */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .dashboard-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--db-line-clr);
+    height: auto;
+  }
+}

@@ -22,8 +22,7 @@
   </head>
   <body>
     <nav>{% include 'partials/navbar.html' %}</nav>
-
-    {% block content %}{% endblock content %}
+    {% block content_wrapper %} {% block content %}{% endblock content %}{% endblock content_wrapper %}
     <script>
       const dialog = document.getElementById("dialog-login");
       function signInButtonClick() {
