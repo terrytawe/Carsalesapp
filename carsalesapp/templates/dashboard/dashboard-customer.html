@@ -1,17 +1,43 @@
 {% extends 'base-services.html' %}{% load static %} {% block title %}Dashboard{% endblock title %} {% block sidebar %}
-
+<div class="filter-title">
+  <strong>Overview</strong>
+</div>
 <ul class="nav nav-pills flex-column">
-  <li class="nav-item mb-2">
-    <a href="{% url 'dashboard-customer' %}" class="nav-link text-back d-flex align-items-center"> Overview </a>
+  <li class="nav-item">
+    <button class="dropdown-btn" onclick="toggleSubMenu(this)">
+      <span> Service Requests</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
+    <!--Make & Model Submenu-->
+    <ul class="sub-menu">
+      <div>
+        <li><a href="#">Create Service Request</a></li>
+        <li><a href="#">Manage Service Request</a></li>
+        <li><a href="#">Service History</a></li>
+      </div>
+    </ul>
   </li>
-  <li class="nav-item mb-2">
-    <a href="#" class="nav-link text-black d-flex align-items-center"> Test Drives </a>
+  <li class="nav-item">
+    <button class="dropdown-btn" onclick="toggleSubMenu(this)">
+      <span> Test Drive</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
+    <!--Pricing Submenu-->
+    <ul class="sub-menu">
+      <div>
+        <li><a href="#">Manage Bookings</a></li>
+        <li><a href="#">History</a></li>
+      </div>
+    </ul>
   </li>
-  <li class="nav-item mb-2">
-    <a href="#" class="nav-link text-black d-flex align-items-center"> Service Requests </a>
-  </li>
-  <li class="nav-item mb-2">
-    <a href="#" class="nav-link text-black d-flex align-items-center"> My Profile </a>
+  <li class="nav-item">
+    <a class="dropdown-btn">
+      <span> Settings</span>
+    </a>
   </li>
 </ul>
 {% endblock sidebar %} {% block content %}

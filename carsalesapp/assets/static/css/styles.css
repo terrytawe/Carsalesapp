@@ -36,14 +36,11 @@ nav {
 
 .category-display {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
-  padding: 1rem;
+  padding: 0.5rem;
   margin-top: 20px;
-  gap: 10px;
-  flex: 1;
-  flex-shrink: inherit;
-  /* flex-wrap: wrap; */
+  gap: 1rem;
 }
 
 .category-display p {
