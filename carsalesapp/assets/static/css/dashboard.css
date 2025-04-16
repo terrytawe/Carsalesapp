@@ -32,6 +32,12 @@ aside {
   border-right: 1px solid var(--db-line-clr);
   box-sizing: border-box;
   overflow: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+aside ::-webkit-scrollbar {
+  display: none;
 }
 
 @media (max-width: 900px) {

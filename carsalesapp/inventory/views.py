@@ -29,15 +29,16 @@ def search(request):
 #Search results
 def results(request):
 
-    query = request.GET['search-type']
+    query = request.GET.get('search-type')
     # import pdb; pdb.set_trace()
     if query:
         results = VehicleModel.objects.filter(Q(name__icontains=query))
         if not results.exists():
             messages.warning(request, f"No results found for '{query}'")
     else:
-        results = VehicleModel.objects.none()
-        messages.warning(request, "Please enter a search term.")
+        results = VehicleModel.objects.all()
+        print(results)
+        # messages.warning(request, "Please enter a search term.")
 
     return render(request, 'inventory/search-results.html', {
         'results': results,

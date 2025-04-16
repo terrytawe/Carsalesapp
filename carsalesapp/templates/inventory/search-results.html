@@ -54,12 +54,9 @@
     </div>
   </li>
   <li class="nav-item">
-    <button class="dropdown-btn">
+    <a href="#" class="dropdown-btn">
       <span> Features</span>
-      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
-        <path d="M480-360 280-560h400L480-360Z" />
-      </svg>
-    </button>
+    </a>
   </li>
 </ul>
 <div class="search-button">
@@ -72,53 +69,53 @@
   </button>
 </div>
 {% endblock sidebar %} {% block content %}
-<div class="container">
-  <div class="container-results">
-    <form method="GET" action="{% url 'results' %}" class="search-bar">
-      {% include 'partials/messages.html' %}
-      <div class="container">
-        <div class="search-row">
-          <div class="col col-9">
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-              </ul>
-            </nav>
-          </div>
-          <div class="col col-3">
-            <div class="row">
-              <label for="select-sort">Sort:</label>
-              <select name="select-sort" id="" class="form-select">
-                <option value="">Default</option>
-              </select>
-            </div>
-          </div>
+
+<div class="container-results" style="margin-top: 2em">
+  {% include 'partials/messages.html' %}
+  <div class="container">
+    <div class="search-row">
+      <div class="col col-9">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="col col-3">
+        <div class="row">
+          <form method="GET" action="{% url 'results' %}" class="search-bar">
+            <select name="select-sort" id="" class="form-select">
+              <option value="">Default</option>
+            </select>
+          </form>
         </div>
       </div>
-    </form>
-    <hr />
-    <div class="results-content">
-      {% for vehicle in results %}
-      <div class="card mb-3" style="max-width: 540px">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img src="{{vehicle.image.url}}" class="img-fluid rounded-start" alt="{{vehicle.description}}" />
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">{{vehicle.name}}</h5>
-              <p class="card-text">{{vehicle.description}}</p>
-              <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
     </div>
+  </div>
+
+  <hr />
+  <div class="results-content">
+    {% for vehicle in results %}
+    <div class="card" style="width: 18rem">
+      <img src="{{vehicle.image.url}}" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">{{vehicle.brand}}</h5>
+        <p class="card-text">{{vehicle.name}}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">An item</li>
+        <li class="list-group-item">A second item</li>
+        <li class="list-group-item"><strong>$70 000</strong></li>
+      </ul>
+      <div class="card-body" style="display: flex; align-content: center; justify-content: center">
+        <a href="#" class="btn btn-primary" style="flex: 1; width: 70%"><span>View</span></a>
+      </div>
+    </div>
+    {% endfor %}
   </div>
 </div>
 {% endblock content %}

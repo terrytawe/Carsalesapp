@@ -1,8 +1,8 @@
 {% extends "base.html" %}{% load static %}{% block title %} Home{% endblock title %}{% block content %}
 
 <div class="container">
+  <div class="search-banner">{% include 'partials/messages.html' %}</div>
   <div class="search-content">
-    <div class="search-banner">{% include 'partials/messages.html' %}</div>
     <form method="GET" action="{% url 'results' %}" class="search-form shadow" style="border-radius: 20px">
       <div class="search-field">
         <label for="search-type"></label>
@@ -30,7 +30,7 @@
 </div>
 <div class="category-display">
   {% for category in categories %}
-  <div class="card" style="width: 15rem">
+  <div class="card" style="width: 17rem">
     <img src="{{category.image.url}}" class="card-img" alt="..." />
     <div class="card-body">
       <h5 class="card-title">{{category.name}}</h5>
