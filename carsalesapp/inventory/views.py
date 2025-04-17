@@ -8,8 +8,9 @@ from . import utils
 from .models import VehicleModel, Category
 from django.db.models import Q
 
-
+# ────────────────────────────────────────────────────────────────────────────────────────────────
 # Create your views here.
+# ────────────────────────────────────────────────────────────────────────────────────────────────
 def search(request):
     catergories = Category.objects.all()
     context = {
@@ -25,8 +26,9 @@ def search(request):
         return redirect(f"{reverse('results')}?q={searched}")
     return render(request, 'inventory/search.html', context)
 
-
+# ────────────────────────────────────────────────────────────────────────────────────────────────
 #Search results
+# ────────────────────────────────────────────────────────────────────────────────────────────────
 def results(request):
 
     query = request.GET.get('search-type')
