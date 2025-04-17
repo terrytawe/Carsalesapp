@@ -33,8 +33,8 @@
     <!--Pricing Submenu-->
     <ul class="sub-menu">
       <div>
-        <li><a href="#">Book Test Drive</a></li>
-        <li><a href="#">Manage Bookings</a></li>
+        <li><a href="{% url 'create-booking' %}">Book Test Drive</a></li>
+        <li><a href="{% url 'manage-booking' %}">Manage Bookings</a></li>
       </div>
     </ul>
   </li>
@@ -45,5 +45,7 @@
   </li>
 </ul>
 {% endblock sidebar %} {% block content %}
-<h4>Test Content</h4>
+<div class="container mt-5 fade-slide">
+  <h4>Test Content</h4>
+</div>
 {% endblock content %}

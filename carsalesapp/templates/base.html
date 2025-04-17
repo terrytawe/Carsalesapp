@@ -22,5 +22,12 @@
   <body>
     <nav>{% include 'partials/navbar-main.html' %}</nav>
     {% block content %}{% endblock content %}
+    <script defer>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".fade-slide").forEach((el, index) => {
+          setTimeout(() => el.classList.add("visible"), index * 100); // stagger
+        });
+      });
+    </script>
   </body>
 </html>

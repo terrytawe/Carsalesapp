@@ -23,5 +23,13 @@
     <nav>{% include 'partials/navbar-dashboard.html' %}</nav>
     <aside id="sidebar">{% block sidebar %}{% endblock sidebar %}</aside>
     <main>{% block content %}{% endblock content %}</main>
+
+    <script defer>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".fade-slide").forEach((el, index) => {
+          setTimeout(() => el.classList.add("visible"), index * 100); // stagger
+        });
+      });
+    </script>
   </body>
 </html>

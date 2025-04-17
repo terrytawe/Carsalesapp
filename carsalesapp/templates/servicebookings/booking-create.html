@@ -1,20 +1,95 @@
-{% extends 'base_services.html' %}{% load static %} {% block title %}Create Booking{% endblock title %} {% block sidebar %}
+{% extends 'base-services.html' %}{% load static %} {% block title %}Book Test Drive{% endblock title %} {% block sidebar %}
+<div class="filter-title">
+  <strong>Overview</strong>
+</div>
 <ul class="nav nav-pills flex-column">
-  <li class="nav-item mb-2">
-    <a href="{% url 'customer-dashboard' %}" class="nav-link text-white d-flex align-items-center"> Overview </a>
+  <li class="nav-item">
+    <a class="dropdown-btn">
+      <span> Inbox</span>
+    </a>
   </li>
-  <li class="nav-item mb-2">
-    <a href="#" class="nav-link text-white d-flex align-items-center"> Test Drives </a>
+  <li class="nav-item">
+    <button class="dropdown-btn" onclick="toggleSubMenu(this)">
+      <span> Service Requests</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
+    <!--Make & Model Submenu-->
+    <ul class="sub-menu">
+      <div>
+        <li><a href="{% url 'create-service' %}">Create Request</a></li>
+        <li><a href="{% url 'manage-service' %}">Service History</a></li>
+      </div>
+    </ul>
   </li>
-  <li class="nav-item mb-2">
-    <a href="#" class="nav-link text-white d-flex align-items-center"> Service Requests </a>
+  <li class="nav-item">
+    <button class="dropdown-btn rotate" onclick="toggleSubMenu(this)">
+      <span> Test Drive</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
+    <!--Pricing Submenu-->
+    <ul class="sub-menu show">
+      <div>
+        <li><a href="#">Book Test Drive</a></li>
+        <li><a href="{% url 'manage-booking' %}">Manage Bookings</a></li>
+      </div>
+    </ul>
   </li>
-  <li class="nav-item mb-2">
-    <a href="#" class="nav-link text-white d-flex align-items-center"> My Profile </a>
+  <li class="nav-item">
+    <a class="dropdown-btn">
+      <span> Settings</span>
+    </a>
   </li>
 </ul>
 {% endblock sidebar %} {% block content %}
-<div class="container">
-  <span><h4>Create booking</h4></span>
+<div class="container mt-5 fade-slide">
+  <div aria-label="breadcrumb shadow">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="#">Test Drive</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Book Test Drive</li>
+    </ol>
+  </div>
+
+  <form method="POST" action="" class="p-4 rounded shadow">
+    {% csrf_token %}
+
+    <h4 class="mb-4">Book a Test Drive</h4>
+    <div class="mb-3">
+      <label for="vehicle_type" class="form-label">Vehicle Type</label>
+      <select name="vehicle_type" id="vehicle_type" class="form-select" required>
+        <option selected disabled>Select Vehicle Type</option>
+        <option value="sedan">Sedan</option>
+        <option value="suv">SUV</option>
+        <option value="truck">Truck</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="model" class="form-label">Vehicle Model</label>
+      <input type="text" class="form-control" id="model" name="vehicle_model" placeholder="e.g., Toyota Corolla" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="preferred_date" class="form-label">Preferred Date</label>
+      <input type="date" class="form-control" id="preferred_date" name="preferred_date" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="preferred_time" class="form-label">Preferred Time</label>
+      <input type="time" class="form-control" id="preferred_time" name="preferred_time" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="notes" class="form-label">Additional Notes (Optional)</label>
+      <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Any preferences or questions..."></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Book Test Drive</button>
+  </form>
 </div>
 {% endblock content %}

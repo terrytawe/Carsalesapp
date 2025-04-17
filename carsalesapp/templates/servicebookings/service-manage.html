@@ -1,4 +1,4 @@
-{% extends 'base-services.html' %}{% load static %} {% block title %}Create Request{% endblock title %} {% block sidebar %}
+{% extends 'base-services.html' %}{% load static %} {% block title %}Manage Requests{% endblock title %} {% block sidebar %}
 <div class="filter-title">
   <strong>Overview</strong>
 </div>
@@ -33,8 +33,8 @@
     <!--Pricing Submenu-->
     <ul class="sub-menu">
       <div>
-        <li><a href="#">Book Test Drive</a></li>
-        <li><a href="#">Manage Bookings</a></li>
+        <li><a href="{% url 'create-booking' %}">Book Test Drive</a></li>
+        <li><a href="{% url 'manage-booking' %}">Manage Bookings</a></li>
       </div>
     </ul>
   </li>
@@ -45,7 +45,7 @@
   </li>
 </ul>
 {% endblock sidebar %} {% block content %}
-<div class="container mt-5">
+<div class="container mt-5 fade-slide">
   <!-- Breadcrumb -->
   <div aria-label="breadcrumb shadow">
     <ol class="breadcrumb">

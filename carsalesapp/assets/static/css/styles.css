@@ -84,3 +84,16 @@ nav {
   padding-right: 5rem;
   margin-top: 1rem;
 }
+
+/* Define base animation */
+.fade-slide {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+/* Trigger this class with JS or on page load */
+.fade-slide.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
