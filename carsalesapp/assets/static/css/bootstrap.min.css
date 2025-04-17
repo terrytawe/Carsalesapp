@@ -436,6 +436,7 @@ caption {
 th {
   text-align: inherit;
   text-align: -webkit-match-parent;
+  font-weight: 400;
 }
 tbody,
 td,

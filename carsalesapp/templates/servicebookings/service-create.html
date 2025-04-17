@@ -1,0 +1,102 @@
+{% extends 'base-services.html' %}{% load static %} {% block title %}Create Request{% endblock title %} {% block sidebar %}
+<div class="filter-title">
+  <strong>Overview</strong>
+</div>
+<ul class="nav nav-pills flex-column">
+  <li class="nav-item">
+    <a class="dropdown-btn">
+      <span> Inbox</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <button class="dropdown-btn rotate" onclick="toggleSubMenu(this)">
+      <span> Service Requests</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
+    <!--Make & Model Submenu-->
+    <ul class="sub-menu show">
+      <div>
+        <li class="active"><a href="#">Create Request</a></li>
+        <li><a href="{% url 'manage-service' %}">Service History</a></li>
+      </div>
+    </ul>
+  </li>
+  <li class="nav-item">
+    <button class="dropdown-btn" onclick="toggleSubMenu(this)">
+      <span> Test Drive</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
+    <!--Pricing Submenu-->
+    <ul class="sub-menu">
+      <div>
+        <li><a href="#">Book Test Drive</a></li>
+        <li><a href="#">Manage Bookings</a></li>
+      </div>
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="dropdown-btn">
+      <span> Settings</span>
+    </a>
+  </li>
+</ul>
+{% endblock sidebar %} {% block content %}
+<div class="container mt-5">
+  <div aria-label="breadcrumb shadow">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="#">Service Requests</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Create Request</li>
+    </ol>
+  </div>
+
+  <form method="POST" action="{% url 'create-service' %}" class="p-4 rounded shadow">
+    {% csrf_token %}
+
+    <h4 class="mb-4">Please fill in the request form</h4>
+
+    <div class="mb-3">
+      <label for="make" class="form-label">Vehicle Make</label>
+      <input type="text" class="form-control" id="make" name="make" placeholder="e.g., Toyota" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="model" class="form-label">Vehicle Model</label>
+      <input type="text" class="form-control" id="model" name="model" placeholder="e.g., Corolla" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="year" class="form-label">Year of Manufacture</label>
+      <input type="number" class="form-control" id="year" name="year" placeholder="e.g., 2018" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="plate" class="form-label">License Plate</label>
+      <input type="text" class="form-control" id="plate" name="license_plate" placeholder="e.g., ABC-1234" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="service" class="form-label">Service Type</label>
+      <select class="form-select" id="service" name="service_type" required>
+        <option selected disabled>Select Service Type</option>
+        <option value="oil_change">Oil Change</option>
+        <option value="brake_inspection">Brake Inspection</option>
+        <option value="engine_check">Engine Check</option>
+        <option value="full_service">Full Service</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="notes" class="form-label">Additional Notes (Optional)</label>
+      <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Describe any issues or symptoms..."></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Submit Request</button>
+  </form>
+</div>
+{% endblock content %}
