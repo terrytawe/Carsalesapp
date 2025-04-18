@@ -23,7 +23,11 @@ def login_user(request):
 
             if user.is_authenticated:
                login(request, user)
-               return redirect('home')
+
+               if user.is_staff:
+                return redirect('dashboard-employee')
+               else:
+                return redirect('home')
             return render(request, 'authentication/login.html')
         return render(request, 'authentication/login.html')
 

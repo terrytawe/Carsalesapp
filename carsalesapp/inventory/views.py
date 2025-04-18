@@ -24,6 +24,7 @@ def search(request):
             return render(request, 'inventory/search.html', context)
 
         return redirect(f"{reverse('results')}?q={searched}")
+
     return render(request, 'inventory/search.html', context)
 
 # ────────────────────────────────────────────────────────────────────────────────────────────────

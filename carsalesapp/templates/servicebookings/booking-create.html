@@ -46,14 +46,14 @@
 </ul>
 {% endblock sidebar %} {% block content %}
 <div class="container mt-5 fade-slide">
-  <div aria-label="breadcrumb shadow">
+  <nav class="bg-light" aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
         <a href="#">Test Drive</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">Book Test Drive</li>
     </ol>
-  </div>
+  </nav>
 
   <form method="POST" action="" class="p-4 rounded shadow">
     {% csrf_token %}
