@@ -62,7 +62,7 @@
       <a href="{% url 'create-service' %}" class="btn btn-primary">Add New</a>
     </div>
 
-    <table class="table table-striped align-middle">
+    <table class="table table-striped align-middle" style="font-size: small">
       <thead>
         <tr>
           <th scope="col "><input type="checkbox" /></th>
@@ -78,16 +78,16 @@
         {% for service in services %}
         <tr>
           <td><input type="checkbox" name="selected_services" value="{{ service.id }}" /></td>
-          <td>{{ service.created_at|date:"Y-m-d H:i" }}</td>
+          <td>{{ service.created_on|date:"Y-m-d H:i" }}</td>
           <td>{{ service.service_type }}</td>
-          <td>{{ service.vehicle_make }} {{ service.vehicle_model }}</td>
-          <td>{{ service.license_plate }}</td>
+          <td>{{ service.vehicle.make }} {{ service.vehicle.model }}</td>
+          <td>{{ service.vehicle.license_plate }}</td>
           <td>
             <span class="badge bg-{{ service.status|lower|yesno:'success,secondary,warning,danger' }}">{{ service.status }}</span>
           </td>
           <td class="text-end">
-            <a href="{% url 'service_edit' service.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
-            <a href="{% url 'service_delete' service.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+            <a href="" class="btn btn-sm btn-outline-secondary">Edit</a>
+            <a href="" class="btn btn-sm btn-outline-danger">Delete</a>
           </td>
         </tr>
         {% empty %}

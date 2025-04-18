@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
 from . import utils
-from .models import VehicleModel, Category
+from .models import VehicleModel, Category, Feature
 from django.db.models import Q
 
 # ────────────────────────────────────────────────────────────────────────────────────────────────
@@ -31,6 +31,7 @@ def search(request):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 def results(request):
 
+    features = Feature.objects.all()
     query = request.GET.get('search-type')
     # import pdb; pdb.set_trace()
     if query:
@@ -44,5 +45,6 @@ def results(request):
 
     return render(request, 'inventory/search-results.html', {
         'results': results,
-        'query': query
+        'query': query,
+        'features': features
     })

@@ -60,16 +60,16 @@ class ServiceRecord(models.Model):
 # Test Drive Service 
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 class TestDriveRecord(models.Model):
-    vehicle          = models.ForeignKey(VehicleModel, on_delete=models.CASCADE, related_name='test_drives')
+    vehicle          = models.ForeignKey(VehicleModel, on_delete=models.CASCADE, related_name='tests_driven')
     description      = models.TextField(blank=True, null=True)
     status           = models.CharField(
                         max_length=20,
                         choices=Status.choices,
                         default=Status.PENDING,
     )
-    requested_by     = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='request_created')
+    requested_by     = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='requests_created')
     requested_on     = models.DateTimeField(default=now)
-    last_modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='request_managed')
+    last_modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='requests_managed')
     last_modified_on = models.DateTimeField(auto_now=True)
     completed_on     = models.DateTimeField(blank=True, null=True)
 
@@ -80,14 +80,14 @@ class TestDriveRecord(models.Model):
 # Review Record
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 class Review(models.Model):
-    created_by      = models.ForeignKey(User, on_delete=models.CASCADE, related_name='review_created')
+    created_by      = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews_created')
     created_on      = models.DateTimeField(auto_now_add=True)
     stars           = models.PositiveSmallIntegerField(
                         validators=[MinValueValidator(1), MaxValueValidator(5)]
     )
     description     = models.TextField(blank=True, null=True)
     is_visible      = models.BooleanField(default=False)
-    moderated_by    = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="review_moderated")
+    moderated_by    = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="reviews_moderated")
 
     # Generic relation to either ServiceRecord or TestDriveRecord
     content_type    = models.ForeignKey(ContentType, on_delete=models.CASCADE)
