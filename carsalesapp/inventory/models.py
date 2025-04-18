@@ -18,7 +18,18 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+  
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+# Features
+# ────────────────────────────────────────────────────────────────────────────────────────────────
 
+class Feature(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+    
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Vehicle Brand
 # ────────────────────────────────────────────────────────────────────────────────────────────────  
@@ -28,7 +39,8 @@ class VehicleBrand(models.Model):
 
     def __str__(self):
         return self.name
-
+ 
+    
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Vehicle Model
 # ────────────────────────────────────────────────────────────────────────────────────────────────
@@ -42,19 +54,8 @@ class VehicleModel(models.Model):
     description = models.CharField(max_length=250, default='', blank=True, null=True)
     is_sale     = models.BooleanField(default=False)
     sale_price  = models.DecimalField(default=0, decimal_places=2, max_digits=12)
+    features    = models.ManyToManyField(Feature, related_name="vehicle_features", blank=True)
 
     def __str__(self):
         return self.name
-    
-# ────────────────────────────────────────────────────────────────────────────────────────────────
-# Test-drive booking
-# ────────────────────────────────────────────────────────────────────────────────────────────────
-class Booking(models.Model):
-    model       = models.ForeignKey(to=VehicleModel, on_delete=models.CASCADE)
-    customer    = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    date        = models.DateField(default=now)
-    status      = models.BooleanField(default=False)
-    createdon   = models.DateField(default=now)
-
-    def __str__(self):
-        return self.model
+ 
