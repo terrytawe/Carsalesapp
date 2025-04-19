@@ -13,8 +13,11 @@ from django.db.models import Q
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 def search(request):
     catergories = Category.objects.all()
+    vehichle_models = VehicleModel.objects.all()
     context = {
-        "categories": catergories
+        "categories": catergories,
+        'models': vehichle_models
+
     }
     if request.method == "POST":
         searched = request.POST.get('search-type', '').strip()
@@ -33,12 +36,20 @@ def search(request):
 def results(request):
 
     features = Feature.objects.all()
-    query = request.GET.get('search-type')
-    # import pdb; pdb.set_trace()
+    query = ''
+    if request.GET.get('search-type'):
+        query = Q(category=request.GET.get('search-type'))
+    
+    if request.GET.get('search-model'):
+        query = Q(category=request.GET.get('search-type'))
+    
+    if request.GET.get('search-price'):
+        query = Q(category=request.GET.get('search-type'))
+
     if query:
-        results = VehicleModel.objects.filter(Q(name__icontains=query))
+        results = VehicleModel.objects.filter(query)
         if not results.exists():
-            messages.warning(request, f"No results found for '{query}'")
+            messages.warning(request, f"No results found for search parameters")
     else:
         results = VehicleModel.objects.all()
         print(results)

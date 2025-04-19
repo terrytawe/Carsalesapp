@@ -59,37 +59,37 @@
     {% csrf_token %}
 
     <h4 class="mb-4">Book a Test Drive</h4>
-    <div class="mb-3">
-      <label for="vehicle_type" class="form-label">Vehicle Type</label>
+    <div class="form-floating mb-3">
       <select name="vehicle_type" id="vehicle_type" class="form-select" required>
-        <option selected disabled>Select Vehicle Type</option>
+        <option selected disabled>Select</option>
         <option value="sedan">Sedan</option>
         <option value="suv">SUV</option>
         <option value="truck">Truck</option>
       </select>
+      <label for="vehicle_type">Vehicle Type</label>
     </div>
 
-    <div class="mb-3">
-      <label for="model" class="form-label">Vehicle Model</label>
+    <div class="form-floating mb-3">
       <input type="text" class="form-control" id="model" name="vehicle_model" placeholder="e.g., Toyota Corolla" required />
+      <label for="model">Vehicle Model</label>
     </div>
 
-    <div class="mb-3">
-      <label for="preferred_date" class="form-label">Preferred Date</label>
-      <input type="date" class="form-control" id="preferred_date" name="preferred_date" required />
+    <div class="form-floating mb-3">
+      <input type="date" class="form-control" id="preferred_date" name="preferred_date" />
+      <label for="preferred_date">Preferred Date</label>
     </div>
 
-    <div class="mb-3">
-      <label for="preferred_time" class="form-label">Preferred Time</label>
+    <div class="form-floating mb-3">
       <input type="time" class="form-control" id="preferred_time" name="preferred_time" required />
+      <label for="preferred_time">Preferred Time</label>
     </div>
 
-    <div class="mb-3">
-      <label for="notes" class="form-label">Additional Notes (Optional)</label>
-      <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Any preferences or questions..."></textarea>
+    <div class="form-floating mb-3">
+      <textarea class="form-control" id="notes" name="notes" rows="6" placeholder="Any preferences or questions..."></textarea>
+      <label for="notes">Additional Notes (Optional)</label>
     </div>
 
-    <button type="submit" class="btn btn-primary w-100">Book Test Drive</button>
+    <button type="submit" class="btn btn-primary w-100 py-2">Book Test Drive</button>
   </form>
 </div>
 {% endblock content %}

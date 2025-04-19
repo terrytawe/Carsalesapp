@@ -97,3 +97,12 @@ nav {
   opacity: 1;
   transform: translateY(0);
 }
+
+.results-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  justify-content: start;
+  overflow-y: hidden;
+}

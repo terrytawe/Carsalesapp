@@ -46,8 +46,8 @@ class VehicleBrand(models.Model):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 class VehicleModel(models.Model):
     name        = models.CharField(max_length=50, blank=False, null=False)
-    brand       = models.ForeignKey(to=VehicleBrand, on_delete=models.CASCADE, verbose_name='brand name')
-    category    = models.ForeignKey(to=Category, on_delete=models.CASCADE, verbose_name='category')
+    brand       = models.ForeignKey(to=VehicleBrand, on_delete=models.CASCADE, related_name='vehicle_brand')
+    category    = models.ForeignKey(to=Category, on_delete=models.CASCADE, related_name='vehicle_category')
     price       = models.DecimalField(default=0, decimal_places=2, max_digits=12)
     image       = models.ImageField(upload_to='uploads/Models/')
     createdon   = models.DateField(default=now)

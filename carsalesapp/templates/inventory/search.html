@@ -7,19 +7,25 @@
       <div class="search-field">
         <label for="search-type"></label>
         <select name="search-type" class="form-select" placeholder="Select Type">
-          <option value="">Select Type</option>
+          <option value="">All Categories</option>
+          {% for category in categories %}
+          <option value="{{category.id}}">{{category.name}}</option>
+          {% endfor %}
         </select>
       </div>
       <div class="search-field">
         <label for="search-model"></label>
         <select name="search-model" class="form-select" placeholder="Select Model">
-          <option value="">Select Model</option>
+          <option value="">All Models</option>
+          {% for model in models %}
+          <option value="{{model.name}}">{{model.name}}</option>
+          {% endfor %}
         </select>
       </div>
       <div class="search-field">
         <label for="search-price"></label>
         <select name="search-price" class="form-select" placeholder="Select Price">
-          <option value="">Select Price</option>
+          <option value="">All Prices</option>
         </select>
       </div>
       <div class="search-field">
