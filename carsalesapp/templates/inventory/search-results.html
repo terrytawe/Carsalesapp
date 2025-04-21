@@ -1,4 +1,4 @@
-{% extends 'base-services.html' %}{% load static %} {% block title %}Create Booking{% endblock title %} {% block sidebar %}
+{% extends 'base-services.html' %}{% load static %} {% block title %}Search Vehicles{% endblock title %} {% block sidebar %}
 <div class="filter-title">
   <strong>Filters</strong>
 </div>
@@ -14,15 +14,26 @@
     <div class="sub-menu">
       <div>
         <form id="form-category">
+          <label>Category:</label>
+          <select name="select-type" class="form-select">
+            <option value="">Select</option>
+            {% for category in categories %}
+            <option value="{{category.id}}">{{category.name}}</option>
+            {% endfor %}
+          </select>
           <label>Make:</label>
-          <select name="select-make" class="form-select">
-            <option value="cars">Cars</option>
-            <option value="bikes">Bikes</option>
+          <select name="select-brand" class="form-select">
+            <option value="">Select</option>
+            {% for brand in brands %}
+            <option value="{{brand.id}}">{{brand.name}}</option>
+            {% endfor %}
           </select>
           <label>Model:</label>
           <select name="select-model" class="form-select">
-            <option value="cars">Cars</option>
-            <option value="bikes">Bikes</option>
+            <option value="">Select</option>
+            {% for model in models %}
+            <option value="{{model.id}}">{{model.name}}</option>
+            {% endfor %}
           </select>
         </form>
       </div>
@@ -40,12 +51,12 @@
       <div>
         <form id="form-pricing">
           <label>Minimum:</label>
-          <select name="select-make" class="form-select">
+          <select name="select-minprice" class="form-select">
             <option value="1000">1000</option>
             <option value="10000">10000</option>
           </select>
           <label>Maximum:</label>
-          <select name="select-model" class="form-select">
+          <select name="select-maxprice" class="form-select">
             <option value="1000">1000</option>
             <option value="10000">10000</option>
           </select>
@@ -62,7 +73,7 @@
     </button>
     <div class="sub-menu">
       <div>
-        <form id="form-check" style="display: flex; flex-wrap: wrap; align-content: flex-start; gap: 5px">
+        <form id="form-features" style="display: flex; flex-wrap: wrap; align-content: flex-start; gap: 5px">
           {% for feature in features %}
           <div class="list-item">
             <input class="form-check-input" type="checkbox" name="features" id="feature-{{ feature.id }}" value="{{ feature.id }}" />
@@ -83,8 +94,9 @@
     </svg>
   </button>
 </div>
-{% endblock sidebar %} {% block content %}
-
+{% endblock sidebar %}
+<!-- Content Block-->
+{% block content %}
 <div class="container-results" style="margin-top: 2em">
   {% include 'partials/messages.html' %}
   <div class="container fade-slide">
@@ -102,7 +114,7 @@
       </div>
       <div class="col col-3">
         <div class="row">
-          <form method="GET" action="{% url 'results' %}" class="search-bar">
+          <form action="{% url 'results' %}" class="search-bar">
             <select name="select-sort" id="" class="form-select">
               <option value="">Default</option>
             </select>
@@ -113,7 +125,7 @@
   </div>
 
   <hr />
-  <div class="results-content">
+  <div class="results-content" id="results-container">
     {% for vehicle in results %}
     <div class="card" style="width: 18rem">
       <img src="{{vehicle.image.url}}" class="card-img-top" alt="..." />

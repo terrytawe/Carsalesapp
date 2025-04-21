@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
 from . import utils
-from .models import VehicleModel, Category, Feature
+from .models import VehicleModel, Category, Feature, VehicleBrand
 from django.db.models import Q
 
 # ────────────────────────────────────────────────────────────────────────────────────────────────
@@ -13,19 +13,18 @@ from django.db.models import Q
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 def search(request):
     catergories = Category.objects.all()
-    vehichle_models = VehicleModel.objects.all()
+    vehicle_models = VehicleModel.objects.all()
     context = {
         "categories": catergories,
-        'models': vehichle_models
+        'models': vehicle_models
 
     }
+
     if request.method == "POST":
         searched = request.POST.get('search-type', '').strip()
-    # import pdb; pdb.set_trace()
+        print(searched)
         if not searched:
-            # messages.error(request, "Please enter a search term.")
             return render(request, 'inventory/search.html', context)
-
         return redirect(f"{reverse('results')}?q={searched}")
 
     return render(request, 'inventory/search.html', context)
@@ -35,28 +34,32 @@ def search(request):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 def results(request):
 
-    features = Feature.objects.all()
-    query = ''
+    make       = VehicleBrand.objects.all()
+    models     = VehicleModel.objects.all()
+    categories = Category.objects.all()
+    features   = Feature.objects.all()
+    query      = Q()
+
     if request.GET.get('search-type'):
-        query = Q(category=request.GET.get('search-type'))
+        query &= Q(category_id=request.GET.get('search-type'))
     
     if request.GET.get('search-model'):
-        query = Q(category=request.GET.get('search-type'))
+        query &= Q(name__icontains=request.GET.get('search-model'))
     
-    if request.GET.get('search-price'):
-        query = Q(category=request.GET.get('search-type'))
+    # if request.GET.get('search-price'):
+    #     query &= Q(category=request.GET.get('search-price'))
 
-    if query:
-        results = VehicleModel.objects.filter(query)
-        if not results.exists():
-            messages.warning(request, f"No results found for search parameters")
-    else:
-        results = VehicleModel.objects.all()
-        print(results)
-        # messages.warning(request, "Please enter a search term.")
+    if request.GET.getlist('features'):
+        query &= Q(feature_in=request.GET.getlist('features'))
+
+
+    results = VehicleModel.objects.filter(query).select_related('category')
 
     return render(request, 'inventory/search-results.html', {
-        'results': results,
-        'query': query,
-        'features': features
+        'results'   : results,
+        'query'     : query,
+        'features'  : features,
+        'categories': categories,
+        'brands'    : make,
+        'models'    : models
     })
