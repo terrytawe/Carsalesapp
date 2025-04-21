@@ -9,6 +9,7 @@ from inventory.models import Category, VehicleBrand
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Test Drive Booking Views
 # ────────────────────────────────────────────────────────────────────────────────────────────────
+@login_required
 def bookings_create(request):
     categories = Category.objects.all()
     context = {
@@ -16,7 +17,10 @@ def bookings_create(request):
     }
     return render(request, 'servicebookings/booking-create.html', context)
 
-
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+# Test Drive Management Views
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+@login_required
 def bookings_manage(request):
     return render(request, 'servicebookings/booking-manage.html')
 
