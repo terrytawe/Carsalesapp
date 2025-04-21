@@ -3,13 +3,18 @@ from django.shortcuts import render, redirect
 from django.utils.timezone import now
 from django.contrib import messages
 from .models import CustomerVehicle, ServiceRecord
+from inventory.models import Category, VehicleBrand
 
 
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Test Drive Booking Views
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 def bookings_create(request):
-    return render(request, 'servicebookings/booking-create.html')
+    categories = Category.objects.all()
+    context = {
+        'categories': categories
+    }
+    return render(request, 'servicebookings/booking-create.html', context)
 
 
 def bookings_manage(request):

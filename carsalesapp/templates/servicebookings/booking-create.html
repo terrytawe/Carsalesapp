@@ -61,10 +61,10 @@
     <h4 class="mb-4">Book a Test Drive</h4>
     <div class="form-floating mb-3">
       <select name="vehicle_type" id="vehicle_type" class="form-select" required>
-        <option selected disabled>Select</option>
-        <option value="sedan">Sedan</option>
-        <option value="suv">SUV</option>
-        <option value="truck">Truck</option>
+        <option selected disabled>Select type</option>
+        {% for category in categories %}
+        <option value="{{category.id}}">{{category.name}}</option>
+        {% endfor %}
       </select>
       <label for="vehicle_type">Vehicle Type</label>
     </div>

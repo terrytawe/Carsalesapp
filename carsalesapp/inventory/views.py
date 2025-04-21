@@ -40,20 +40,21 @@ def results(request):
     features   = Feature.objects.all()
     query      = Q()
 
+    # import pdb; pdb.set_trace()
     if request.GET.get('search-type'):
         query &= Q(category_id=request.GET.get('search-type'))
     
     if request.GET.get('search-model'):
         query &= Q(name__icontains=request.GET.get('search-model'))
     
-    # if request.GET.get('search-price'):
-    #     query &= Q(category=request.GET.get('search-price'))
+    if request.GET.get('search-make'):
+        query &= Q(brand_id=request.GET.get('search-make'))
 
     if request.GET.getlist('features'):
-        query &= Q(feature_in=request.GET.getlist('features'))
+        query &= Q(features__in=request.GET.getlist('features'))
 
 
-    results = VehicleModel.objects.filter(query).select_related('category')
+    results = VehicleModel.objects.filter(query) #.select_related('category')
 
     return render(request, 'inventory/search-results.html', {
         'results'   : results,
