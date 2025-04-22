@@ -84,8 +84,8 @@
           <td>{{ test_drive.vehicle_model }}</td>
           <td><span class="badge bg-secondary">{{ test_drive.status }}</span></td>
           <td class="text-end">
-            <a href="{% url 'display-booking' 'test_drive' %}" class="btn btn-sm btn-outline-secondary">Edit</a>
-            <a href="" class="btn btn-sm btn-outline-danger">Cancel</a>
+            <a href="{% url 'display-booking' test_drive.id %}" class="btn btn-sm btn-outline-secondary">Display</a>
+            <!--<a href="" class="btn btn-sm btn-outline-danger">Cancel</a>-->
           </td>
         </tr>
         {% empty %}

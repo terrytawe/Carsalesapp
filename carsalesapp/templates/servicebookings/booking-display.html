@@ -1,4 +1,4 @@
-{% extends 'base-services.html' %}{% load static %} {% block title %}Manage booking{% endblock title %} {% block sidebar %}
+{% extends 'base-services.html' %}{% load static %} {% block title %}Display booking{% endblock title %} {% block sidebar %}
 <div class="filter-title">
   <strong>Overview</strong>
 </div>
@@ -53,14 +53,14 @@
       <li class="breadcrumb-item">
         <a href="#">Test Drive</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page">Book Test Drive</li>
+      <li class="breadcrumb-item active" aria-current="page">Display booking</li>
     </ol>
   </nav>
 
   <form method="POST" action="" class="p-4 rounded shadow">
     {% csrf_token %}
 
-    <h4 class="mb-4">Book a Test Drive</h4>
+    <!--<h4 class="mb-4">Book a Test Drive</h4>-->
     <div class="form-floating mb-3">
       <select name="vehicle_type" id="vehicle_type" class="form-select" required>
         <option selected disabled>Select type</option>
@@ -72,7 +72,7 @@
     </div>
 
     <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="model" name="vehicle_model" placeholder="e.g., Toyota Corolla" required />
+      <input type="text" class="form-control" id="model" name="vehicle_model" value="{{booking.model}}" required />
       <label for="model">Vehicle Model</label>
     </div>
 

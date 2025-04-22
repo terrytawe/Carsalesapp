@@ -16,6 +16,16 @@ class Status(models.TextChoices):
     COMPLETED       = 'COMPLETED', 'Completed'
     CANCELLED       = 'CANCELLED', 'Cancelled'
 
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+# Service types
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+class ServiceType(models.Model):
+    name            = models.CharField(max_length=100, null=False, blank=False)
+    description     = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.name}"
+    
 
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Vehicle for Test Drive or Service
@@ -38,7 +48,7 @@ class CustomerVehicle(models.Model):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 class ServiceRecord(models.Model):
     vehicle          = models.ForeignKey(CustomerVehicle, on_delete=models.CASCADE, related_name='services_received')
-    service_type     = models.CharField(max_length=50)
+    service_type     = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='service_type')
     description      = models.TextField(blank=True, null=True)
     status           = models.CharField(
                         max_length=20,
@@ -53,7 +63,7 @@ class ServiceRecord(models.Model):
     completed_on     = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.vehicle.license_plate} - {self.service_type} ({self.status})"
+        return f"{self.vehicle.license_plate} - {self.service_type.name} ({self.status})"
     
 
 

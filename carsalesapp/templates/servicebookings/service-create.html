@@ -85,10 +85,9 @@
     <div class="form-floating mb-3">
       <select class="form-select" id="service" name="service_type" required>
         <option selected disabled>Select Service Type</option>
-        <option value="oil_change">Oil Change</option>
-        <option value="brake_inspection">Brake Inspection</option>
-        <option value="engine_check">Engine Check</option>
-        <option value="full_service">Full Service</option>
+        {% for service in services %}
+        <option value="{{service.id}}">{{service.name}}</option>
+        {% endfor %}
       </select>
       <label for="service" class="form-label">Service Type</label>
     </div>

@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.timezone import now
 from django.contrib import messages
-from .models import CustomerVehicle, ServiceRecord, TestDriveRecord 
+from .models import CustomerVehicle, ServiceRecord, TestDriveRecord, ServiceType
 from inventory.models import Category, VehicleBrand
 
 
@@ -13,7 +13,7 @@ from inventory.models import Category, VehicleBrand
 def booking_create(request):
     categories = Category.objects.all()
     context = {
-        'categories': categories
+        'categories': categories,
     }
     return render(request, 'servicebookings/booking-create.html', context)
 
@@ -24,7 +24,8 @@ def booking_create(request):
 def booking_display(request, id):
     booking = TestDriveRecord.objects.get(pk=id)
     context = {
-        'booking': booking
+        'booking': booking,
+        'values': booking
     }
     return render(request, 'servicebookings/booking-display.html', context)
 
@@ -42,6 +43,12 @@ def booking_manage(request):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 @login_required
 def service_create(request):
+
+    service_type = ServiceType.objects.all()
+    context={
+        'services': service_type
+    }
+
     if request.method == 'POST':
         try:
             make            = request.POST.get('make', '').strip()
@@ -92,7 +99,7 @@ def service_create(request):
             messages.error(request, f"An unexpected error occurred: {str(e)}")
             return render(request, 'servicebookings/service-create.html')
 
-    return render(request, 'servicebookings/service-create.html')
+    return render(request, 'servicebookings/service-create.html', context)
 
 
 # ────────────────────────────────────────────────────────────────────────────────────────────────
@@ -101,8 +108,11 @@ def service_create(request):
 @login_required
 def service_display(request, id):
     service_record = ServiceRecord.objects.get(pk=id)
+    service_types = ServiceType.objects.all()
     context = {
-        'service': service_record
+        'service': service_record,
+        'values': service_record,
+        'services': service_types
     }
     return render(request, 'servicebookings/service-display.html', context)
 
