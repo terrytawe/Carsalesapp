@@ -60,6 +60,7 @@ class ServiceRecord(models.Model):
     created_on       = models.DateTimeField(default=now)
     last_modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='services_managed')
     last_modified_on = models.DateTimeField(auto_now=True)
+    service_notes    = models.TextField(blank=True, null=True)
     completed_on     = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):

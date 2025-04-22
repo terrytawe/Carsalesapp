@@ -1,4 +1,4 @@
-{% extends 'base-services.html' %}{% load static %} {% block title %}Manage Bookings{% endblock title %} {% block sidebar %}
+{% extends 'base-services.html' %}{% load static %} {% block title %}Manage booking{% endblock title %} {% block sidebar %}
 <div class="filter-title">
   <strong>Overview</strong>
 </div>
@@ -15,7 +15,7 @@
         <path d="M480-360 280-560h400L480-360Z" />
       </svg>
     </button>
-    <!--Make & Model Submenu-->
+    <!--Service Submenu-->
     <ul class="sub-menu">
       <div>
         <li><a href="{% url 'create-service' %}">Create Request</a></li>
@@ -30,11 +30,11 @@
         <path d="M480-360 280-560h400L480-360Z" />
       </svg>
     </button>
-    <!--Pricing Submenu-->
+    <!--Test drive Submenu-->
     <ul class="sub-menu show">
       <div>
-        <li><a href="{% url 'create-booking' %}">Book Test Drive</a></li>
-        <li><a href="#">Manage Bookings</a></li>
+        <li><a href="#">Book Test Drive</a></li>
+        <li><a href="{% url 'manage-booking' %}">Manage Bookings</a></li>
       </div>
     </ul>
   </li>
@@ -44,57 +44,67 @@
     </a>
   </li>
 </ul>
-{% endblock sidebar %} {% block content %}
+{% endblock sidebar %}
+<!-- Content Body -->
+{% block content %}
 <div class="container mt-5 fade-slide">
-  <!-- Breadcrumb -->
   <nav class="bg-light" aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
         <a href="#">Test Drive</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page">My Test Drives</li>
+      <li class="breadcrumb-item active" aria-current="page">Display booking</li>
     </ol>
   </nav>
 
-  <div class="table-responsive shadow p-3 rounded">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h4 class="mb-0">Scheduled Test Drives</h4>
-      <a href="{% url 'create-booking' %}" class="btn btn-primary">Book New</a>
+  <form method="POST" action="" class="p-4 rounded shadow">
+    {% csrf_token %}
+
+    <!--<h4 class="mb-4">Book a Test Drive</h4>-->
+    <div class="form-floating mb-3">
+      <select name="vehicle_type" id="vehicle_type" class="form-select" required>
+        <option selected disabled>Select type</option>
+        {% for category in categories %}
+        <option value="{{category.id}}">{{category.name}}</option>
+        {% endfor %}
+      </select>
+      <label for="vehicle_type">Vehicle Type</label>
     </div>
 
-    <table class="table table-striped align-middle" style="font-size: small">
-      <thead>
-        <tr>
-          <th scope="col"><input type="checkbox" /></th>
-          <th scope="col">Date</th>
-          <th scope="col">Time</th>
-          <th scope="col">Vehicle Type</th>
-          <th scope="col">Model</th>
-          <th scope="col">Status</th>
-          <th scope="col" class="text-end">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for test_drive in test_drives %}
-        <tr>
-          <td><input type="checkbox" value="{{ test_drive.id }}" /></td>
-          <td>{{ test_drive.preferred_date }}</td>
-          <td>{{ test_drive.preferred_time }}</td>
-          <td>{{ test_drive.vehicle_type }}</td>
-          <td>{{ test_drive.vehicle_model }}</td>
-          <td><span class="badge bg-secondary">{{ test_drive.status }}</span></td>
-          <td class="text-end">
-            <a href="{% url 'display-booking' test_drive.id %}" class="btn btn-sm btn-outline-secondary">Display</a>
-            <!--<a href="" class="btn btn-sm btn-outline-danger">Cancel</a>-->
-          </td>
-        </tr>
-        {% empty %}
-        <tr>
-          <td colspan="7" class="text-center text-muted">No test drives scheduled.</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="model" name="vehicle_model" value="{{booking.model}}" required />
+      <label for="model">Vehicle Model</label>
+    </div>
+
+    <div class="form-floating mb-3">
+      <input type="date" class="form-control" id="preferred_date" name="preferred_date" />
+      <label for="preferred_date">Preferred Date</label>
+    </div>
+
+    <div class="form-floating mb-3">
+      <input type="time" class="form-control" id="preferred_time" name="preferred_time" required />
+      <label for="preferred_time">Preferred Time</label>
+    </div>
+
+    <div class="form-floating mb-3">
+      <textarea class="form-control" id="notes" name="notes" rows="6" placeholder="Any preferences or questions..."></textarea>
+      <label for="notes">Additional Notes (Optional)</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100 py-2">Book Test Drive</button>
+  </form>
+
+  <!--Message Toast-->
+  <!--<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img src="..." class="rounded me-2" alt="..." />
+        <strong class="me-auto">Bootstrap</strong>
+        <small>11 mins ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">Hello, world! This is a toast message.</div>
+    </div>
+  </div>-->
 </div>
 {% endblock content %}

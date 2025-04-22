@@ -1,4 +1,4 @@
-{% extends 'base-services.html' %}{% load static %} {% block title %}Manage Requests{% endblock title %} {% block sidebar %}
+{% extends 'base-services.html' %}{% load static %} {% block title %}Manage Request{% endblock title %} {% block sidebar %}
 <div class="filter-title">
   <strong>Overview</strong>
 </div>
@@ -18,8 +18,8 @@
     <!--Make & Model Submenu-->
     <ul class="sub-menu show">
       <div>
-        <li><a href="{% url 'create-service' %}">Create Request</a></li>
-        <li class="active"><a href="#">Service History</a></li>
+        <li class="active"><a href="#">Create Request</a></li>
+        <li><a href="{% url 'list-service' %}">Service History</a></li>
       </div>
     </ul>
   </li>
@@ -34,7 +34,7 @@
     <ul class="sub-menu">
       <div>
         <li><a href="{% url 'create-booking' %}">Book Test Drive</a></li>
-        <li><a href="{% url 'manage-booking' %}">Manage Bookings</a></li>
+        <li><a href="{% url 'list-booking' %}">Test Drive History</a></li>
       </div>
     </ul>
   </li>
@@ -46,59 +46,88 @@
 </ul>
 {% endblock sidebar %} {% block content %}
 <div class="container mt-5 fade-slide">
-  <!-- Breadcrumb -->
   <nav class="bg-light" aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="#">Service Requests</a>
+        <span>Service Requests</span>
       </li>
-      <li class="breadcrumb-item active" aria-current="page">Service History</li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <span>Display Request</span>
+      </li>
     </ol>
   </nav>
 
-  <div class="table-responsive shadow p-3 rounded">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h4 class="mb-0">My Requests</h4>
-      <a href="{% url 'create-service' %}" class="btn btn-primary">Add New</a>
+  <form method="POST" action="{% url 'create-service' %}" class="p-4 rounded shadow">
+    {% csrf_token %}
+
+    <!--<h4 class="mb-4">Please fill in the request form</h4>-->
+
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="make" name="make" value="{{values.vehicle.make}}" required />
+      <label for="make" class="form-label">Vehicle Make</label>
     </div>
 
-    <table class="table table-striped align-middle" style="font-size: small">
-      <thead>
-        <tr>
-          <th scope="col "><input type="checkbox" /></th>
-          <th scope="col ">Created</th>
-          <th scope="col ">Service Type</th>
-          <th scope="col ">Vehicle</th>
-          <th scope="col ">License Plate</th>
-          <th scope="col ">Service date</th>
-          <th scope="col ">Status</th>
-          <th scope="col " class="text-end">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="model" name="model" value="{{values.vehicle.model}}" required />
+      <label for="model" class="form-label">Vehicle Model</label>
+    </div>
+
+    <div class="form-floating mb-3">
+      <input type="number" class="form-control" id="year" name="year" value="{{values.vehicle.year}}" required />
+      <label for="year" class="form-label">Year of Manufacture</label>
+    </div>
+
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="plate" name="license_plate" value="{{values.vehicle.license_plate}}" required />
+      <label for="plate" class="form-label">License Plate</label>
+    </div>
+
+    <div class="form-floating mb-3">
+      <select class="form-select" id="service" name="service_type" required>
+        <option selected disabled>{{values.service_type}}</option>
         {% for service in services %}
-        <tr>
-          <td><input type="checkbox" name="selected_services" value="{{ service.id }}" /></td>
-          <td>{{ service.created_on|date:"Y-m-d H:i" }}</td>
-          <td>{{ service.service_type }}</td>
-          <td>{{ service.vehicle.make }} {{ service.vehicle.model }}</td>
-          <td>{{ service.vehicle.license_plate }}</td>
-          <td>{{ service.vehicle.license_plate }}</td>
-          <td>
-            <span class="badge bg-{{ service.status|lower|yesno:'success,secondary,warning,danger' }}">{{ service.status }}</span>
-          </td>
-          <td class="text-end">
-            <a href="{% url 'display-service' service.id %}" class="btn btn-sm btn-outline-secondary ml-4">View</a>
-            <!--<a href="" class="btn btn-sm btn-outline-danger">Delete</a>-->
-          </td>
-        </tr>
-        {% empty %}
-        <tr>
-          <td colspan="7" class="text-center text-muted">No service records found.</td>
-        </tr>
+        <option value="{{service.id}}">{{service.name}}</option>
         {% endfor %}
-      </tbody>
-    </table>
+      </select>
+      <label for="service" class="form-label">Service Type</label>
+    </div>
+
+    <div class="form-floating mb-3">
+      <textarea
+        class="form-control"
+        id="notes"
+        name="description"
+        rows="3"
+        value="{{values.description}}"
+        placeholder="Describe any issues or symptoms..."></textarea>
+      <label for="notes" class="form-label">Additional Notes (Optional)</label>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <button type="submit" class="btn btn-primary w-100">Update Request</button>
+      </div>
+      <div class="col-md-6">
+        <button type="submit" class="btn btn-danger w-100">Delete Request</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    {% if messages %} {% for message in messages %}
+    <div
+      class="toast align-items-center text-bg-success border-0 bottom-0 start-50 translate-middle-x show"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+      id="liveToast">
+      <div class="d-flex">
+        <div class="toast-body">{{ message }}</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+    {% endfor %} {% endif %}
   </div>
 </div>
+
 {% endblock content %}

@@ -1,0 +1,104 @@
+{% extends 'base-services.html' %}{% load static %} {% block title %}Service Requests{% endblock title %} {% block sidebar %}
+<div class="filter-title">
+  <strong>Overview</strong>
+</div>
+<ul class="nav nav-pills flex-column">
+  <li class="nav-item">
+    <a class="dropdown-btn">
+      <span> Inbox</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <button class="dropdown-btn rotate" onclick="toggleSubMenu(this)">
+      <span> Service Requests</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
+    <!--Make & Model Submenu-->
+    <ul class="sub-menu show">
+      <div>
+        <li><a href="{% url 'create-service' %}">Create Request</a></li>
+        <li class="active"><a href="#">Service History</a></li>
+      </div>
+    </ul>
+  </li>
+  <li class="nav-item">
+    <button class="dropdown-btn" onclick="toggleSubMenu(this)">
+      <span> Test Drive</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
+    <!--Pricing Submenu-->
+    <ul class="sub-menu">
+      <div>
+        <li><a href="{% url 'create-booking' %}">Book Test Drive</a></li>
+        <li><a href="{% url 'list-booking' %}">Test Drive History</a></li>
+      </div>
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="dropdown-btn">
+      <span> Settings</span>
+    </a>
+  </li>
+</ul>
+{% endblock sidebar %} {% block content %}
+<div class="container mt-5 fade-slide">
+  <!-- Breadcrumb -->
+  <nav class="bg-light" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="#">Service Requests</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Service History</li>
+    </ol>
+  </nav>
+
+  <div class="table-responsive shadow p-3 rounded">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="mb-0">My Requests</h4>
+      <a href="{% url 'create-service' %}" class="btn btn-primary">Add New</a>
+    </div>
+
+    <table class="table table-striped align-middle" style="font-size: small">
+      <thead>
+        <tr>
+          <th scope="col "><input type="checkbox" /></th>
+          <th scope="col ">Created</th>
+          <th scope="col ">Service Type</th>
+          <th scope="col ">Vehicle</th>
+          <th scope="col ">License Plate</th>
+          <th scope="col ">Service date</th>
+          <th scope="col ">Status</th>
+          <th scope="col " class="text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for service in services %}
+        <tr>
+          <td><input type="checkbox" name="selected_services" value="{{ service.id }}" /></td>
+          <td>{{ service.created_on|date:"Y-m-d H:i" }}</td>
+          <td>{{ service.service_type }}</td>
+          <td>{{ service.vehicle.make }} {{ service.vehicle.model }}</td>
+          <td>{{ service.vehicle.license_plate }}</td>
+          <td>{{ service.vehicle.service_date }}</td>
+          <td>
+            <span class="badge bg-{{ service.status|lower|yesno:'success,secondary,warning,danger' }}">{{ service.status }}</span>
+          </td>
+          <td class="text-end">
+            <a href="{% url 'display-service' service.id %}" class="btn btn-sm btn-outline-secondary ml-4">View</a>
+            <!--<a href="" class="btn btn-sm btn-outline-danger">Delete</a>-->
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="7" class="text-center text-muted">No service records found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}

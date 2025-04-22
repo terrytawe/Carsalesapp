@@ -31,10 +31,26 @@ def booking_display(request, id):
 
 
 # ────────────────────────────────────────────────────────────────────────────────────────────────
-# Test Drive Management Views
+# Display list
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 @login_required
-def booking_manage(request):
+def booking_list(request):
+    try:
+        bookings = TestDriveRecord.objects.filter(
+            requested_by=request.user
+        ).select_related('vehicle').order_by('-created_on')
+        return render(request, 'servicebookings/booking-list.html', {'bookings': bookings})
+
+    except Exception as e:
+        messages.error(request, f"Failed to load booking records: {str(e)}")
+        return render(request, 'servicebookings/booking-list.html', {'bookings': []})
+
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+# Manage test drive
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+@login_required
+def booking_manage(request, id):
+
     return render(request, 'servicebookings/booking-manage.html')
 
 
@@ -44,9 +60,9 @@ def booking_manage(request):
 @login_required
 def service_create(request):
 
-    service_type = ServiceType.objects.all()
+    service_types = ServiceType.objects.all()
     context={
-        'services': service_type
+        'services': service_types
     }
 
     if request.method == 'POST':
@@ -55,7 +71,7 @@ def service_create(request):
             model           = request.POST.get('model', '').strip()
             year_raw        = request.POST.get('year')
             license_plate   = request.POST.get('license_plate', '').strip().upper()
-            service_type    = request.POST.get('service_type', '').strip()
+            service_type    = ServiceType.objects.get(pk=request.POST.get('service_type'))
             description     = request.POST.get('description', '').strip()
 
             # Check required fields
@@ -121,13 +137,29 @@ def service_display(request, id):
 # Service Management View (safe and stable)
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 @login_required
-def service_manage(request):
+def service_manage(request, id):
+    service_record = ServiceRecord.objects.get(pk=id)
+    service_types = ServiceType.objects.all()
+    context = {
+        'service': service_record,
+        'values': service_record,
+        'services': service_types
+    }
+    return render(request, 'servicebookings/service-manage.html', context)
+    
+
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+# Service Management View (safe and stable)
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+@login_required
+def service_list(request):
     try:
         services = ServiceRecord.objects.filter(
             created_by=request.user
         ).select_related('vehicle').order_by('-created_on')
-        return render(request, 'servicebookings/service-manage.html', {'services': services})
+        return render(request, 'servicebookings/service-list.html', {'services': services})
 
     except Exception as e:
         messages.error(request, f"Failed to load service records: {str(e)}")
-        return render(request, 'servicebookings/service-manage.html', {'services': []})
+        return render(request, 'servicebookings/service-list.html', {'services': []})
+    
