@@ -25,6 +25,16 @@
     <aside id="sidebar">{% block sidebar %}{% endblock sidebar %}</aside>
     <main>{% block content %}{% endblock content %}</main>
 
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const toastEl = document.querySelector(".toast");
+        if (toastEl) {
+          const toast = new bootstrap.Toast(toastEl);
+          toast.show();
+        }
+      });
+    </script>
+
     <script defer>
       document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".fade-slide").forEach((el, index) => {

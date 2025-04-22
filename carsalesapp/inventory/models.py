@@ -46,6 +46,7 @@ class VehicleBrand(models.Model):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 class VehicleModel(models.Model):
     name        = models.CharField(max_length=50, blank=False, null=False)
+    vin_number  = models.CharField(max_length=17, unique=True, blank=True, null=True)
     brand       = models.ForeignKey(to=VehicleBrand, on_delete=models.CASCADE, related_name='vehicle_brand')
     category    = models.ForeignKey(to=Category, on_delete=models.CASCADE, related_name='vehicle_category')
     price       = models.DecimalField(default=0, decimal_places=2, max_digits=12)

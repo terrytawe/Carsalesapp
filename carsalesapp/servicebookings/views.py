@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.timezone import now
 from django.contrib import messages
-from .models import CustomerVehicle, ServiceRecord
+from .models import CustomerVehicle, ServiceRecord, TestDriveRecord 
 from inventory.models import Category, VehicleBrand
 
 
@@ -10,7 +10,7 @@ from inventory.models import Category, VehicleBrand
 # Test Drive Booking Views
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 @login_required
-def bookings_create(request):
+def booking_create(request):
     categories = Category.objects.all()
     context = {
         'categories': categories
@@ -18,10 +18,22 @@ def bookings_create(request):
     return render(request, 'servicebookings/booking-create.html', context)
 
 # ────────────────────────────────────────────────────────────────────────────────────────────────
+# Display Test Drive Views
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+@login_required
+def booking_display(request, id):
+    booking = TestDriveRecord.objects.get(pk=id)
+    context = {
+        'booking': booking
+    }
+    return render(request, 'servicebookings/booking-display.html', context)
+
+
+# ────────────────────────────────────────────────────────────────────────────────────────────────
 # Test Drive Management Views
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 @login_required
-def bookings_manage(request):
+def booking_manage(request):
     return render(request, 'servicebookings/booking-manage.html')
 
 
@@ -52,8 +64,8 @@ def service_create(request):
 
             # Step 1: Retrieve or create the vehicle
             vehicle, created    = CustomerVehicle.objects.get_or_create(
-                license_plate   =license_plate,
-                defaults={'make': make, 'model': model, 'year': year}
+                license_plate   = license_plate,
+                defaults        = { 'make': make, 'model': model, 'year': year }
             )
 
             # Step 2: Update vehicle info if it differs
@@ -74,13 +86,25 @@ def service_create(request):
             )
 
             messages.success(request, "Service request created successfully.")
-            return redirect('service-manage')
+            return redirect('manage-service')
 
         except Exception as e:
             messages.error(request, f"An unexpected error occurred: {str(e)}")
             return render(request, 'servicebookings/service-create.html')
 
     return render(request, 'servicebookings/service-create.html')
+
+
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+# Display Service View
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+@login_required
+def service_display(request, id):
+    service_record = ServiceRecord.objects.get(pk=id)
+    context = {
+        'service': service_record
+    }
+    return render(request, 'servicebookings/service-display.html', context)
 
 
 # ────────────────────────────────────────────────────────────────────────────────────────────────

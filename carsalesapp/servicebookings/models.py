@@ -45,6 +45,7 @@ class ServiceRecord(models.Model):
                         choices=Status.choices,
                         default=Status.PENDING,
     )
+    service_date     = models.DateField(blank=True, null=True)
     created_by       = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='services_created')
     created_on       = models.DateTimeField(default=now)
     last_modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='services_managed')
@@ -74,13 +75,13 @@ class TestDriveRecord(models.Model):
     completed_on     = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.vehicle.license_plate} - {self.service_type} ({self.status})"
+        return f"{self.vehicle.vin_number} - ({self.status})"
     
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Review Record
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 class Review(models.Model):
-    created_by      = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews_created')
+    created_by      = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='reviews_created')
     created_on      = models.DateTimeField(auto_now_add=True)
     stars           = models.PositiveSmallIntegerField(
                         validators=[MinValueValidator(1), MaxValueValidator(5)]

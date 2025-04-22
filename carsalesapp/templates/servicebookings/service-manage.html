@@ -70,6 +70,7 @@
           <th scope="col ">Service Type</th>
           <th scope="col ">Vehicle</th>
           <th scope="col ">License Plate</th>
+          <th scope="col ">Service date</th>
           <th scope="col ">Status</th>
           <th scope="col " class="text-end">Actions</th>
         </tr>
@@ -82,11 +83,12 @@
           <td>{{ service.service_type }}</td>
           <td>{{ service.vehicle.make }} {{ service.vehicle.model }}</td>
           <td>{{ service.vehicle.license_plate }}</td>
+          <td>{{ service.vehicle.license_plate }}</td>
           <td>
             <span class="badge bg-{{ service.status|lower|yesno:'success,secondary,warning,danger' }}">{{ service.status }}</span>
           </td>
           <td class="text-end">
-            <a href="" class="btn btn-sm btn-outline-secondary">Edit</a>
+            <a href="{% url 'display-service' 'service' %}" class="btn btn-sm btn-outline-secondary">Edit</a>
             <a href="" class="btn btn-sm btn-outline-danger">Delete</a>
           </td>
         </tr>
