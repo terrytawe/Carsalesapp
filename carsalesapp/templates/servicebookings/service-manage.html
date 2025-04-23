@@ -1,4 +1,8 @@
-{% extends 'base-services.html' %}{% load static %} {% block title %}Manage Request{% endblock title %} {% block sidebar %}
+{% extends 'base-services.html' %}
+<!---->
+{% load static %} {% load group_tags %}
+<!---->
+{% block title %}Manage Request{% endblock title %} {% block sidebar %}
 <div class="filter-title">
   <strong>Overview</strong>
 </div>
@@ -18,7 +22,7 @@
     <!--Make & Model Submenu-->
     <ul class="sub-menu show">
       <div>
-        <li class="active"><a href="#">Create Request</a></li>
+        <li><a href="{% url 'create-service' %}">Create Request</a></li>
         <li><a href="{% url 'list-service' %}">Service History</a></li>
       </div>
     </ul>

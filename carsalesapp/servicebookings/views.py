@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.timezone import now
 from django.contrib import messages
+from authentication.utils import group_required
 from .models import CustomerVehicle, ServiceRecord, TestDriveRecord, ServiceType
 from inventory.models import Category, VehicleBrand
 
@@ -9,7 +10,7 @@ from inventory.models import Category, VehicleBrand
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Test Drive Booking Views
 # ────────────────────────────────────────────────────────────────────────────────────────────────
-@login_required
+#@group_required(['Admin', 'Service'], redirect_url='dashboard-customer')
 def booking_create(request):
     categories = Category.objects.all()
     context = {
@@ -38,7 +39,7 @@ def booking_list(request):
     try:
         bookings = TestDriveRecord.objects.filter(
             requested_by=request.user
-        ).select_related('vehicle').order_by('-created_on')
+        ).select_related('vehicle').order_by('-requested_on')
         return render(request, 'servicebookings/booking-list.html', {'bookings': bookings})
 
     except Exception as e:

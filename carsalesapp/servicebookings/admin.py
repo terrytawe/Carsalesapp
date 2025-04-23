@@ -4,7 +4,7 @@ from .models import CustomerVehicle, ServiceRecord, TestDriveRecord, Review, Ser
 # Register your models here.
 
 admin.site.register(CustomerVehicle)
-admin.site.register(ServiceRecord)
 admin.site.register(TestDriveRecord)
-admin.site.register(Review)
+admin.site.register(ServiceRecord)
 admin.site.register(ServiceType)
+admin.site.register(Review)

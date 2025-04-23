@@ -1,4 +1,6 @@
-{% extends 'base-services.html' %}{% load static %} {% block title %}Display Service{% endblock title %} {% block sidebar %}
+{% extends 'base-services.html' %}{% load group_tags %}{% load static %}
+<!---->
+{% block title %}Display Service{% endblock title %} {% block sidebar %}
 <div class="filter-title">
   <strong>Overview</strong>
 </div>
@@ -18,7 +20,7 @@
     <!--Make & Model Submenu-->
     <ul class="sub-menu show">
       <div>
-        <li class="active"><a href="#">Create Request</a></li>
+        <li class="active"><a href="{% url 'create-service' %}">Create Request</a></li>
         <li><a href="{% url 'list-service' %}">Service History</a></li>
       </div>
     </ul>
@@ -103,7 +105,14 @@
       <label for="notes" class="form-label">Additional Notes (Optional)</label>
     </div>
 
-    <div class="row">
+    {% if request.user|has_group:'Admin' %}
+    <div class="form-floating mb-3">
+      <label for="idCompleted" class="form-label">Mark as completed</label>
+      <input type="checkbox" class="form-checkbox" name="" id="idCompleted" />
+    </div>
+    {% endif %}
+
+    <div class="row mt-4">
       <div class="col-md-6">
         <button type="submit" class="btn btn-primary w-100">Update Request</button>
       </div>
