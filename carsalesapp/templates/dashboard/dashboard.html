@@ -1,5 +1,97 @@
-{% extends 'base-services.html' %}{% load static %} {% block title %}Dashboard{% endblock title %}
-<!-- Content Block-->
+{% extends 'base-services.html' %} {% load static %} {% load group_tags %} {% block title %}Dashboard{% endblock title %}
+<!---->
 {% block content %}
-<h4>Test Content</h4>
+<div class="container mt-5">
+  <div class="row">
+    <!-- Cards for Customers -->
+    {% if request.user|has_group:"Customers" %}
+
+    <div class="col-md-4 col-xl-3">
+      <div class="card bg-c-blue order-card">
+        <div class="card-block">
+          <h6 class="m-b-20">Test Drive Requests</h6>
+          <h2 class="text-right"><i class="fa fa-car f-left"></i><span>{{ test_drive_count }}</span></h2>
+          <p class="m-b-0">Approved<span class="f-right">{{ test_drive_approved }}</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-xl-3">
+      <div class="card bg-c-green order-card">
+        <div class="card-block">
+          <h6 class="m-b-20">Booked Services</h6>
+          <h2 class="text-right"><i class="fa fa-wrench f-left"></i><span>{{ booked_services }}</span></h2>
+          <p class="m-b-0">Completed<span class="f-right">{{ completed_services }}</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-xl-3">
+      <div class="card bg-c-yellow order-card">
+        <div class="card-block">
+          <h6 class="m-b-20">Active Orders</h6>
+          <h2 class="text-right"><i class="fa fa-shopping-cart f-left"></i><span>{{ active_orders }}</span></h2>
+          <p class="m-b-0">Delivered<span class="f-right">{{ delivered_orders }}</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-xl-3">
+      <div class="card bg-c-pink order-card">
+        <div class="card-block">
+          <h6 class="m-b-20">Wishlist</h6>
+          <h2 class="text-right"><i class="fa fa-heart f-left"></i><span>{{ wishlist_count }}</span></h2>
+          <p class="m-b-0">Saved Cars<span class="f-right">{{ wishlist_count }}</span></p>
+        </div>
+      </div>
+    </div>
+
+    {% endif %}
+
+    <!-- Cards for Staff/Admin -->
+    {% if request.user|has_group:"Admin" or request.user|has_group:"Staff" %}
+
+    <div class="col-md-4 col-xl-3">
+      <div class="card bg-c-blue order-card">
+        <div class="card-block">
+          <h6 class="m-b-20">Total Orders</h6>
+          <h2 class="text-right"><i class="fa fa-shopping-bag f-left"></i><span>{{ total_orders }}</span></h2>
+          <p class="m-b-0">Completed<span class="f-right">{{ completed_orders }}</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-xl-3">
+      <div class="card bg-c-green order-card">
+        <div class="card-block">
+          <h6 class="m-b-20">Test Drive Requests</h6>
+          <h2 class="text-right"><i class="fa fa-road f-left"></i><span>{{ test_drive_requests }}</span></h2>
+          <p class="m-b-0">Pending<span class="f-right">{{ pending_test_drives }}</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-xl-3">
+      <div class="card bg-c-yellow order-card">
+        <div class="card-block">
+          <h6 class="m-b-20">Service Appointments</h6>
+          <h2 class="text-right"><i class="fa fa-tools f-left"></i><span>{{ service_appointments }}</span></h2>
+          <p class="m-b-0">Today<span class="f-right">{{ today_services }}</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-xl-3">
+      <div class="card bg-c-pink order-card">
+        <div class="card-block">
+          <h6 class="m-b-20">Inventory Status</h6>
+          <h2 class="text-right"><i class="fa fa-car-side f-left"></i><span>{{ total_inventory }}</span></h2>
+          <p class="m-b-0">Out of Stock<span class="f-right">{{ out_of_stock }}</span></p>
+        </div>
+      </div>
+    </div>
+
+    {% endif %}
+  </div>
+</div>
 {% endblock content %}

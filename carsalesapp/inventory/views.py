@@ -62,5 +62,6 @@ def results(request):
         'features'  : features,
         'categories': categories,
         'brands'    : make,
-        'models'    : models
+        'models'    : models,
+        'search'    : True
     })

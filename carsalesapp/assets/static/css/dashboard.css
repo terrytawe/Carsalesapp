@@ -85,6 +85,11 @@ main p {
   grid-template-rows: 1fr;
 }
 
+#sidebar .sub-menu a.active {
+  font-weight: 200;
+  color: var(--db-accent-clr);
+}
+
 .rotate svg:last-child {
   rotate: 180deg;
 }

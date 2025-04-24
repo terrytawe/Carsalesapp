@@ -1,0 +1,93 @@
+<div class="filter-title">
+  <strong>Overview {{request.user}}</strong>
+</div>
+<ul class="nav nav-pills flex-column">
+  <li class="nav-item">
+    <button class="dropdown-btn" onclick="toggleSubMenu(this)" data-id="menu-service-requests">
+      <span> Service Requests</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
+    <!--Make & Model Submenu-->
+    <ul class="sub-menu" data-parent="menu-service-requests">
+      <div>
+        <li><a href="#">Overview</a></li>
+        <li><a href="{% url 'list-service' %}">Manage Requests</a></li>
+      </div>
+    </ul>
+  </li>
+  <li class="nav-item">
+    <button class="dropdown-btn" onclick="toggleSubMenu(this)" data-id="menu-test-drives">
+      <span> Test Drives</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
+    <!--Pricing Submenu-->
+    <ul class="sub-menu" data-parent="menu-test-drives">
+      <div>
+        <li><a href="#">Overview</a></li>
+        <li><a href="{% url 'list-booking' %}">Manage bookings</a></li>
+      </div>
+    </ul>
+  </li>
+
+  <li class="nav-item">
+    <button class="dropdown-btn" onclick="toggleSubMenu(this)" data-id="menu-customers">
+      <span> Customers</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
+    <!--Pricing Submenu-->
+    <ul class="sub-menu" data-parent="menu-customers">
+      <div>
+        <li><a href="#">Overview</a></li>
+        <li><a href="#">Manage Customers</a></li>
+        <li><a href="#">Reviews &amp; Ratings</a></li>
+      </div>
+    </ul>
+  </li>
+
+  <li class="nav-item">
+    <button class="dropdown-btn" onclick="toggleSubMenu(this)" data-id="menu-user-management">
+      <span> User Management</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
+    <!--Pricing Submenu-->
+    <ul class="sub-menu" data-parent="menu-user-management">
+      <div>
+        <li><a href="#">Create User</a></li>
+        <li><a href="#">Manage User</a></li>
+        <li><a href="#">User Report</a></li>
+      </div>
+    </ul>
+  </li>
+
+  <li class="nav-item">
+    <button class="dropdown-btn" onclick="toggleSubMenu(this)" data-id="menu-inventory">
+      <span> Inventory</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
+    <!--Pricing Submenu-->
+    <ul class="sub-menu" data-parent="menu-inventory">
+      <div>
+        <li><a href="#">Manage Categories</a></li>
+        <li><a href="#">Manage Models</a></li>
+        <li><a href="#">Manage Types</a></li>
+        <li><a href="#">Manage Feature</a></li>
+        <li><a href="#">Manage Prices</a></li>
+      </div>
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="dropdown-btn">
+      <span> Settings</span>
+    </a>
+  </li>
+</ul>

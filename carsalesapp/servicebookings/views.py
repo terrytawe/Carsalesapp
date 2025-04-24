@@ -155,9 +155,13 @@ def service_manage(request, id):
 @login_required
 def service_list(request):
     try:
-        services = ServiceRecord.objects.filter(
-            created_by=request.user
-        ).select_related('vehicle').order_by('-created_on')
+
+        if request.user.is_staff:
+            services = ServiceRecord.objects.all()
+        else:
+            services = ServiceRecord.objects.filter(
+                created_by=request.user
+            ).select_related('vehicle').order_by('-created_on')
         return render(request, 'servicebookings/service-list.html', {'services': services})
 
     except Exception as e:
