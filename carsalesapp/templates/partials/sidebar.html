@@ -1,6 +1,7 @@
-{% extends 'base-services.html' %}{% load static %} {% block title %}Dashboard{% endblock title %} {% block sidebar %}
+{% load group_tags %} {% if request.user|has_group:'Admin' %}
+<!-- Staff | Admin Menu-->
 <div class="filter-title">
-  <strong>Overview</strong>
+  <strong>Overview {{request.user}}</strong>
 </div>
 <ul class="nav nav-pills flex-column">
   <li class="nav-item">
@@ -91,7 +92,62 @@
     </a>
   </li>
 </ul>
+{% else %}
+<!-- Customer Menu-->
+<div class="filter-title">
+  <strong>Overview</strong>
+</div>
+<ul class="nav nav-pills flex-column">
+  <li class="nav-item">
+    <a class="dropdown-btn">
+      <span> Inbox</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <button class="dropdown-btn" onclick="toggleSubMenu(this)">
+      <span> Service Requests</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
+    <!--Make & Model Submenu-->
+    <ul class="sub-menu">
+      <div>
+        <li class="active"><a href="{% url 'create-service' %}">Create Request</a></li>
+        <li><a href="{% url 'list-service' %}">Service History</a></li>
+      </div>
+    </ul>
+  </li>
+  <li class="nav-item">
+    <button class="dropdown-btn" onclick="toggleSubMenu(this)">
+      <span> Test Drive</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
+    <!--Pricing Submenu-->
+    <ul class="sub-menu">
+      <div>
+        <li><a href="{% url 'create-booking' %}">Book Test Drive</a></li>
+        <li><a href="{% url 'list-booking' %}">Test Drive History</a></li>
+      </div>
+    </ul>
+  </li>
 
-{% endblock sidebar %} {% block content %}
-<h4>Test Content</h4>
-{% endblock content %}
+  <li class="nav-item">
+    <button class="dropdown-btn" onclick="toggleSubMenu(this)">
+      <span> Settings</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+        <path d="M480-360 280-560h400L480-360Z" />
+      </svg>
+    </button>
+    <!--Settings submenu-->
+    <ul class="sub-menu">
+      <div>
+        <li><a href="#">Account</a></li>
+        <li><a href="#">Vehicles</a></li>
+      </div>
+    </ul>
+  </li>
+</ul>
+{% endif %}
