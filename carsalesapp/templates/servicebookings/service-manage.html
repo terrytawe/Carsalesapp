@@ -10,12 +10,12 @@
         <span>Service Requests</span>
       </li>
       <li class="breadcrumb-item active" aria-current="page">
-        <span>Display Request</span>
+        <span>Manage Request</span>
       </li>
     </ol>
   </nav>
 
-  <form method="POST" action="{% url 'create-service' %}" class="p-4 rounded shadow">
+  <form method="POST" action="{% url 'display-service' service.id %}" class="p-4 rounded shadow">
     {% csrf_token %}
 
     <!--<h4 class="mb-4">Please fill in the request form</h4>-->
@@ -63,10 +63,10 @@
 
     <div class="row">
       <div class="col-md-6">
-        <button type="submit" class="btn btn-primary w-100">Update Request</button>
+        <input type="submit" value="Update request" class="btn btn-primary w-100" />
       </div>
       <div class="col-md-6">
-        <button type="submit" class="btn btn-danger w-100">Delete Request</button>
+        <input type="submit" value="Delete Request" class="btn btn-danger w-100" />
       </div>
     </div>
   </form>

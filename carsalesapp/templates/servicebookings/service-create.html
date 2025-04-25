@@ -5,7 +5,9 @@
   <nav class="bg-light" aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <span>Service Requests</span>
+        <a href="{% url 'list-service' %}">
+          <span>Service Requests</span>
+        </a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">
         <span>Create Request</span>
@@ -60,22 +62,6 @@
 
     <button type="submit" class="btn btn-primary w-100">Submit Request</button>
   </form>
-
-  <div class="toast-container position-fixed bottom-0 end-0 p-3">
-    {% if messages %} {% for message in messages %}
-    <div
-      class="toast align-items-center text-bg-success border-0 bottom-0 start-50 translate-middle-x show"
-      role="alert"
-      aria-live="assertive"
-      aria-atomic="true"
-      id="liveToast">
-      <div class="d-flex">
-        <div class="toast-body">{{ message }}</div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-    </div>
-    {% endfor %} {% endif %}
-  </div>
 </div>
 
 {% endblock content %}

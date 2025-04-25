@@ -5,9 +5,6 @@
   <!-- Breadcrumb -->
   <nav class="bg-light" aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-        <a href="#">Service Requests</a>
-      </li>
       <li class="breadcrumb-item active" aria-current="page">Service History</li>
     </ol>
   </nav>
@@ -19,7 +16,7 @@
       {% else %}
       <h4 class="mb-0">My Requests</h4>
       {% endif %}
-      <a href="{% url 'create-service' %}" class="btn btn-primary">Add New</a>
+      <a href="{% url 'create-service' %}" class="btn btn-primary">Create New</a>
     </div>
 
     <table class="table table-striped align-middle" style="font-size: small">

@@ -364,11 +364,12 @@ sup {
   top: -0.5em;
 }
 a {
-  color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));
-  text-decoration: underline;
+  /* color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1)); */
+  color: rgba(84, 130, 198, 1);
+  text-decoration: none;
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: 350;
 }
 a:hover {
   --bs-link-color-rgb: var(--bs-link-hover-color-rgb);

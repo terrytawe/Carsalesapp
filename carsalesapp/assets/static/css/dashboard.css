@@ -6,7 +6,7 @@
   --db-hover-clr: rgba(230, 235, 240, 0.25);
   --db-text-clr: #48484a;
   --db-accent-clr: rgb(102, 107, 115, 0.1);
-  --db-active-clr: #222535;
+  --db-active-clr: rgb(102, 107, 115, 0.45);
   --db-secondary-text-clr: #b4b6bc;
 }
 
@@ -87,7 +87,7 @@ main p {
 
 #sidebar .sub-menu a.active {
   font-weight: 200;
-  color: var(--db-accent-clr);
+  color: var(--db-active-clr);
 }
 
 .rotate svg:last-child {

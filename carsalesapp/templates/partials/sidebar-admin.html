@@ -1,36 +1,16 @@
 <div class="filter-title">
-  <strong>Overview {{request.user}}</strong>
+  <a href="{% url 'dashboard' %}"><strong>Overview</strong></a>
 </div>
 <ul class="nav nav-pills flex-column">
   <li class="nav-item">
-    <button class="dropdown-btn" onclick="toggleSubMenu(this)" data-id="menu-service-requests">
+    <a class="dropdown-btn" href="{% url 'list-service' %}">
       <span> Service Requests</span>
-      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
-        <path d="M480-360 280-560h400L480-360Z" />
-      </svg>
-    </button>
-    <!--Make & Model Submenu-->
-    <ul class="sub-menu" data-parent="menu-service-requests">
-      <div>
-        <li><a href="#">Overview</a></li>
-        <li><a href="{% url 'list-service' %}">Manage Requests</a></li>
-      </div>
-    </ul>
+    </a>
   </li>
   <li class="nav-item">
-    <button class="dropdown-btn" onclick="toggleSubMenu(this)" data-id="menu-test-drives">
-      <span> Test Drives</span>
-      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
-        <path d="M480-360 280-560h400L480-360Z" />
-      </svg>
-    </button>
-    <!--Pricing Submenu-->
-    <ul class="sub-menu" data-parent="menu-test-drives">
-      <div>
-        <li><a href="#">Overview</a></li>
-        <li><a href="{% url 'list-booking' %}">Manage bookings</a></li>
-      </div>
-    </ul>
+    <a class="dropdown-btn" href="{% url 'list-booking' %}">
+      <span> Test-drive Bookings</span>
+    </a>
   </li>
 
   <li class="nav-item">
@@ -43,7 +23,6 @@
     <!--Pricing Submenu-->
     <ul class="sub-menu" data-parent="menu-customers">
       <div>
-        <li><a href="#">Overview</a></li>
         <li><a href="#">Manage Customers</a></li>
         <li><a href="#">Reviews &amp; Ratings</a></li>
       </div>

@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.utils.timezone import now
 from django.contrib import messages
 from authentication.utils import group_required
-from .models import CustomerVehicle, ServiceRecord, TestDriveRecord, ServiceType
+from .models import CustomerVehicle, ServiceRecord, TestDriveRecord, ServiceType, Status
 from inventory.models import Category, VehicleBrand
 
 
@@ -129,9 +129,63 @@ def service_display(request, id):
     context = {
         'service': service_record,
         'values': service_record,
-        'services': service_types
+        'services': service_types, 
+        'status_choices': Status.choices
     }
-    return render(request, 'servicebookings/service-display.html', context)
+
+    if request.method == 'GET':
+        return render(request, 'servicebookings/service-display.html', context)
+    
+    if request.method == 'POST':
+        try:
+            make            = request.POST.get('make', '').strip()
+            model           = request.POST.get('model', '').strip()
+            year_raw        = request.POST.get('year')
+            license_plate   = request.POST.get('license_plate', '').strip().upper()
+            service_type    = ServiceType.objects.get(pk=request.POST.get('service_type'))
+            description     = request.POST.get('description', '').strip()
+
+            # Check required fields
+            if not all([make, model, year_raw, license_plate, service_type]):
+                messages.error(request, "All fields except notes are required.")
+                return render(request, 'servicebookings/service-display.html', context)
+
+            try:
+                year = int(year_raw)
+            except ValueError:
+                messages.error(request, "Year must be a valid number.")
+                return render(request, 'servicebookings/service-display.html', context)
+
+            # Step 1: Retrieve or create the vehicle
+            vehicle, created    = CustomerVehicle.objects.get_or_create(
+                license_plate   = license_plate,
+                defaults        = { 'make': make, 'model': model, 'year': year }
+            )
+
+            # Step 2: Update vehicle info if it differs
+            if not created and (vehicle.make != make or vehicle.model != model or vehicle.year != year):
+                vehicle.make    = make
+                vehicle.model   = model
+                vehicle.year    = year
+                vehicle.save()
+
+            # Step 3: Create the service request
+            
+            service_record.vehicle         = vehicle
+            service_record.service_type    = service_type
+            service_record.description     = description
+            service_record.status          = 'PENDING'
+            service_record.created_by      = request.user
+            service_record.save()
+       
+
+            messages.success(request, "Service request created successfully.")
+            return redirect('manage-service')
+
+        except Exception as e:
+            messages.error(request, f"An unexpected error occurred: {str(e)}")
+            return render(request, 'servicebookings/service-display.html', context)
+
 
 
 # ────────────────────────────────────────────────────────────────────────────────────────────────

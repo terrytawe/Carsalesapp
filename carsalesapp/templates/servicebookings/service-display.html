@@ -7,7 +7,9 @@
   <nav class="bg-light" aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <span>Service Requests</span>
+        <a href="{% url 'list-service' %}">
+          <span>Service Requests</span>
+        </a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">
         <span>Display Request</span>
@@ -15,65 +17,78 @@
     </ol>
   </nav>
 
-  <form method="POST" action="{% url 'create-service' %}" class="p-4 rounded shadow">
+  <form method="POST" action="{% url 'display-service' service.id %}" class="p-4 rounded shadow">
     {% csrf_token %}
 
     <!--<h4 class="mb-4">Please fill in the request form</h4>-->
 
-    <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="make" name="make" value="{{values.vehicle.make}}" required />
-      <label for="make" class="form-label">Vehicle Make</label>
-    </div>
+    {% if request.user|has_group:'Admin' %}
+    <fieldset disabled="disabled">
+      {% endif %}
 
-    <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="model" name="model" value="{{values.vehicle.model}}" required />
-      <label for="model" class="form-label">Vehicle Model</label>
-    </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="make" name="make" value="{{values.vehicle.make}}" required />
+        <label for="make" class="form-label">Vehicle Make</label>
+      </div>
 
-    <div class="form-floating mb-3">
-      <input type="number" class="form-control" id="year" name="year" value="{{values.vehicle.year}}" required />
-      <label for="year" class="form-label">Year of Manufacture</label>
-    </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="model" name="model" value="{{values.vehicle.model}}" required />
+        <label for="model" class="form-label">Vehicle Model</label>
+      </div>
 
-    <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="plate" name="license_plate" value="{{values.vehicle.license_plate}}" required />
-      <label for="plate" class="form-label">License Plate</label>
-    </div>
+      <div class="form-floating mb-3">
+        <input type="number" class="form-control" id="year" name="year" value="{{values.vehicle.year}}" required />
+        <label for="year" class="form-label">Year of Manufacture</label>
+      </div>
 
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="plate" name="license_plate" value="{{values.vehicle.license_plate}}" required />
+        <label for="plate" class="form-label">License Plate</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <select class="form-select" id="service" name="service_type" required>
+          <option value="{{values.service_type}}" selected disabled>{{values.service_type}}</option>
+          {% for service in services %}
+          <option value="{{service.id}}">{{service.name}}</option>
+          {% endfor %}
+        </select>
+        <label for="service" class="form-label">Service Type</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <textarea
+          class="form-control"
+          id="notes"
+          name="description"
+          rows="3"
+          value="{{values.description}}"
+          placeholder="Describe any issues or symptoms..."></textarea>
+        <label for="notes" class="form-label">Additional Notes</label>
+      </div>
+
+      {% if request.user|has_group:'Admin' %}
+    </fieldset>
+    {%endif %}
+    <!---->
+    {% if request.user|has_group:'Admin' %}
     <div class="form-floating mb-3">
-      <select class="form-select" id="service" name="service_type" required>
-        <option selected disabled>{{values.service_type}}</option>
-        {% for service in services %}
-        <option value="{{service.id}}">{{service.name}}</option>
+      <select class="form-control" name="" id="idState">
+        <option value="" selected disabled>{{values.status}}</option>
+        {% for value, label in status_choices %}
+        <option value="{{ value }}">{{ label }}</option>
         {% endfor %}
       </select>
-      <label for="service" class="form-label">Service Type</label>
-    </div>
-
-    <div class="form-floating mb-3">
-      <textarea
-        class="form-control"
-        id="notes"
-        name="description"
-        rows="3"
-        value="{{values.description}}"
-        placeholder="Describe any issues or symptoms..."></textarea>
-      <label for="notes" class="form-label">Additional Notes (Optional)</label>
-    </div>
-
-    {% if request.user|has_group:'Admin' %}
-    <div class="mb-3">
-      <label for="idCompleted" class="form-label">Mark as completed</label>
-      <input type="checkbox" class="form-checkbox" name="" id="idCompleted" />
+      <label for="service" class="form-label">Request status</label>
     </div>
     {% endif %}
 
     <div class="row mt-4">
       <div class="col-md-6">
-        <button type="submit" class="btn btn-primary w-100">Update Request</button>
+        <input type="submit" value="Update" class="btn btn-primary w-100" />
       </div>
       <div class="col-md-6">
-        <button type="submit" class="btn btn-danger w-100">Delete Request</button>
+        <input type="submit" value="Delete" class="btn btn-danger w-100" />
       </div>
     </div>
   </form>
