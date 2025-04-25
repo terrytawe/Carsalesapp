@@ -138,6 +138,8 @@ def service_display(request, id):
     
     if request.method == 'POST':
         try:
+
+            import pdb; pdb.set_trace()
             make            = request.POST.get('make', '').strip()
             model           = request.POST.get('model', '').strip()
             year_raw        = request.POST.get('year')
@@ -178,7 +180,6 @@ def service_display(request, id):
             service_record.created_by      = request.user
             service_record.save()
        
-
             messages.success(request, "Service request created successfully.")
             return redirect('manage-service')
 
