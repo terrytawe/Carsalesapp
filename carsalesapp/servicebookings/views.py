@@ -5,6 +5,11 @@ from django.contrib import messages
 from authentication.utils import group_required
 from .models import CustomerVehicle, ServiceRecord, TestDriveRecord, ServiceType, Status
 from inventory.models import Category, VehicleBrand
+from django.views.generic import UpdateView
+from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # ────────────────────────────────────────────────────────────────────────────────────────────────
@@ -122,73 +127,81 @@ def service_create(request):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Display Service View
 # ────────────────────────────────────────────────────────────────────────────────────────────────
-@login_required
-def service_display(request, id):
-    service_record = ServiceRecord.objects.get(pk=id)
-    service_types = ServiceType.objects.all()
-    context = {
-        'service': service_record,
-        'values': service_record,
-        'services': service_types, 
-        'status_choices': Status.choices
-    }
+class ServiceRecordUpdateView(LoginRequiredMixin, UpdateView):
+    model = ServiceRecord
+    template_name = 'servicebookings/service-display.html'
+    fields = [] 
 
-    if request.method == 'GET':
-        return render(request, 'servicebookings/service-display.html', context)
-    
-    if request.method == 'POST':
+    def get_success_url(self):
+        return reverse_lazy('manage-service') 
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['services'] = ServiceType.objects.all()
+        context['status_choices'] = Status.choices
+        context['service'] = self.object
+        context['values'] = self.object
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()  
+        action = request.POST.get('action')
+
+        if action == 'Delete':
+            self.object.delete()
+            messages.success(self.request, "Service request deleted successfully.")
+            return redirect('manage-service')  
+
+        # Handle Update
         try:
+            make = request.POST.get('make', '').strip()
+            model = request.POST.get('model', '').strip()
+            year_raw = request.POST.get('year')
+            license_plate = request.POST.get('license_plate', '').strip().upper()
+            service_type_id = request.POST.get('service_type')
+            description = request.POST.get('description', '').strip()
+            status = request.POST.get('status')
 
-            import pdb; pdb.set_trace()
-            make            = request.POST.get('make', '').strip()
-            model           = request.POST.get('model', '').strip()
-            year_raw        = request.POST.get('year')
-            license_plate   = request.POST.get('license_plate', '').strip().upper()
-            service_type    = ServiceType.objects.get(pk=request.POST.get('service_type'))
-            description     = request.POST.get('description', '').strip()
-
-            # Check required fields
-            if not all([make, model, year_raw, license_plate, service_type]):
-                messages.error(request, "All fields except notes are required.")
-                return render(request, 'servicebookings/service-display.html', context)
+            # Basic validations
+            if not all([make, model, year_raw, license_plate, service_type_id]):
+                messages.error(self.request, "All fields except notes are required.")
+                return self.form_invalid(self.get_form())
 
             try:
                 year = int(year_raw)
             except ValueError:
-                messages.error(request, "Year must be a valid number.")
-                return render(request, 'servicebookings/service-display.html', context)
+                messages.error(self.request, "Year must be a valid number.")
+                return self.form_invalid(self.get_form())
 
-            # Step 1: Retrieve or create the vehicle
-            vehicle, created    = CustomerVehicle.objects.get_or_create(
-                license_plate   = license_plate,
-                defaults        = { 'make': make, 'model': model, 'year': year }
+            service_type = ServiceType.objects.get(pk=service_type_id)
+
+            # Vehicle handling
+            vehicle, created = CustomerVehicle.objects.get_or_create(
+                license_plate=license_plate,
+                defaults={'make': make, 'model': model, 'year': year}
             )
 
-            # Step 2: Update vehicle info if it differs
             if not created and (vehicle.make != make or vehicle.model != model or vehicle.year != year):
-                vehicle.make    = make
-                vehicle.model   = model
-                vehicle.year    = year
+                vehicle.make = make
+                vehicle.model = model
+                vehicle.year = year
                 vehicle.save()
 
-            # Step 3: Create the service request
-            
-            service_record.vehicle         = vehicle
-            service_record.service_type    = service_type
-            service_record.description     = description
-            service_record.status          = 'PENDING'
-            service_record.created_by      = request.user
-            service_record.save()
-       
-            messages.success(request, "Service request created successfully.")
-            return redirect('manage-service')
+            # Update Service Record
+            self.object.vehicle = vehicle
+            self.object.service_type = service_type
+            self.object.description = description
+            self.object.status = status if status else 'PENDING'
+            self.object.created_by = self.request.user
+            self.object.save()
+
+            messages.success(self.request, "Service request updated successfully.")
+            return super().form_valid(self.get_form())
 
         except Exception as e:
-            messages.error(request, f"An unexpected error occurred: {str(e)}")
-            return render(request, 'servicebookings/service-display.html', context)
-
-
-
+            messages.error(self.request, f"An unexpected error occurred: {str(e)}")
+            return self.form_invalid(self.get_form())
+        
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Service Management View (safe and stable)
 # ────────────────────────────────────────────────────────────────────────────────────────────────

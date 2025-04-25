@@ -1,4 +1,5 @@
 from . import views
+from .views import ServiceRecordUpdateView
 from django.urls import path
 
 urlpatterns = [
@@ -8,6 +9,6 @@ urlpatterns = [
     path('manage-booking/<int:id>', views.booking_manage, name="manage-booking"),
     path('create-service', views.service_create, name="create-service"),
     path('list-service', views.service_list, name="list-service"),
-    path('display-service/<int:id>', views.service_display, name="display-service"),
+    path('display-service/<int:pk>', ServiceRecordUpdateView.as_view(), name="display-service"),
     path('manage-service/<int:id>', views.service_manage, name="manage-service")
 ]
