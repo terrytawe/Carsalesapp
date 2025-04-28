@@ -72,9 +72,12 @@
 
     <div class="form-floating mb-3">
       {% if request.user|has_group:'Admin' %}
-      <select class="form-select" id="service" name="service_type" required>
-        <option value="{{values.service_type}}" selected disabled>{{values.service_type}}</option>
+      <select class="form-select" disabled>
+        <option value="{{values.service_type}}" selected>{{values.service_type}}</option>
       </select>
+
+      <!-- Hidden but POSTed -->
+      <input type="hidden" name="service_type" value="{{ values.service_type.id }}" />
       {% else %}
       <select class="form-select" id="service" name="service_type" required>
         <option value="{{values.service_type}}" selected disabled>{{values.service_type}}</option>

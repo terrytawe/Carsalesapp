@@ -58,6 +58,7 @@ class ServiceRecord(models.Model):
     service_date     = models.DateField(blank=True, null=True)
     created_by       = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='services_created')
     created_on       = models.DateTimeField(default=now)
+    assigned_to      = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='services_assigned')
     last_modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='services_managed')
     last_modified_on = models.DateTimeField(auto_now=True)
     service_notes    = models.TextField(blank=True, null=True)
@@ -79,9 +80,10 @@ class TestDriveRecord(models.Model):
                         choices=Status.choices,
                         default=Status.PENDING,
     )
-    requested_by     = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='requests_created')
+    requested_by     = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='bookings_created')
     requested_on     = models.DateTimeField(default=now)
-    last_modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='requests_managed')
+    assigned_to      = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='bookings_assigned')
+    last_modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='bookings_managed')
     last_modified_on = models.DateTimeField(auto_now=True)
     completed_on     = models.DateTimeField(blank=True, null=True)
 

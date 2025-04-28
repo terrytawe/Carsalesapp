@@ -115,7 +115,7 @@ def service_create(request):
             )
 
             messages.success(request, "Service request created successfully.")
-            return redirect('manage-service')
+            return redirect('list-service')
 
         except Exception as e:
             messages.error(request, f"An unexpected error occurred: {str(e)}")
@@ -150,18 +150,19 @@ class ServiceRecordUpdateView(LoginRequiredMixin, UpdateView):
         if action == 'Delete':
             self.object.delete()
             messages.success(self.request, "Service request deleted successfully.")
-            return redirect('manage-service')  
+            return redirect('list-service')  
 
         # Handle Update
         try:
-            make = request.POST.get('make', '').strip()
-            model = request.POST.get('model', '').strip()
-            year_raw = request.POST.get('year')
-            license_plate = request.POST.get('license_plate', '').strip().upper()
+            make            = request.POST.get('make', '').strip()
+            model           = request.POST.get('model', '').strip()
+            year_raw        = request.POST.get('year')
+            license_plate   = request.POST.get('license_plate', '').strip().upper()
             service_type_id = request.POST.get('service_type')
-            description = request.POST.get('description', '').strip()
-            status = request.POST.get('status')
+            description     = request.POST.get('description', '').strip()
+            status          = request.POST.get('status')
 
+            import pdb; pdb.set_trace()
             # Basic validations
             if not all([make, model, year_raw, license_plate, service_type_id]):
                 messages.error(self.request, "All fields except notes are required.")
@@ -188,11 +189,12 @@ class ServiceRecordUpdateView(LoginRequiredMixin, UpdateView):
                 vehicle.save()
 
             # Update Service Record
-            self.object.vehicle = vehicle
-            self.object.service_type = service_type
-            self.object.description = description
-            self.object.status = status if status else 'PENDING'
-            self.object.created_by = self.request.user
+            self.object.vehicle          = vehicle
+            self.object.service_type     = service_type
+            self.object.description      = description
+            self.object.status           = status if status else 'PENDING'
+            # self.object.created_by       = self.request.user  #Only update when user is creating
+            self.object.last_modified_by = self.request.user
             self.object.save()
 
             messages.success(self.request, "Service request updated successfully.")
