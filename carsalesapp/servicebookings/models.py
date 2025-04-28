@@ -82,6 +82,8 @@ class TestDriveRecord(models.Model):
     )
     requested_by     = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='bookings_created')
     requested_on     = models.DateTimeField(default=now)
+    test_datetime    = models.DateTimeField(null=True)
+    test_notes       = models.CharField(max_length=255, default='', blank=True, null=True)
     assigned_to      = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='bookings_assigned')
     last_modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='bookings_managed')
     last_modified_on = models.DateTimeField(auto_now=True)

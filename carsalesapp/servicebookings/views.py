@@ -4,12 +4,14 @@ from django.utils.timezone import now
 from django.contrib import messages
 from authentication.utils import group_required
 from .models import CustomerVehicle, ServiceRecord, TestDriveRecord, ServiceType, Status
-from inventory.models import Category, VehicleBrand
+from inventory.models import Category, VehicleBrand, VehicleModel
 from django.views.generic import UpdateView
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+# from .signals import
 
 
 # ────────────────────────────────────────────────────────────────────────────────────────────────
@@ -17,10 +19,44 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 #@group_required(['Admin', 'Service'], redirect_url='dashboard-customer')
 def booking_create(request):
-    categories = Category.objects.all()
-    context = {
+    categories      = Category.objects.all()
+    vehicle_models  = VehicleModel.objects.all()
+    context         = {
         'categories': categories,
+        'models'    : vehicle_models
     }
+
+    if request.method == 'POST':
+        try:
+            vin_number      = request.POST.get('vin_number', '').strip()
+            test_date       = request.POST.get('service_type', '').strip()
+            test_notes      = request.POST.get('notes', '').strip()
+
+            # Check required fields
+            if not all([vin_number, test_date, test_notes]):
+                messages.error(request, "All fields except notes are required.")
+                return render(request, 'servicebookings/booking-create.html')
+
+            # Step 1: Retrieve or create the vehicle
+            vehicle             = VehicleModel.objects.get(vin_number=vin_number)
+
+            # Step 2: Create the service request
+            TestDriveRecord.objects.create(
+                vehicle          = vehicle,
+                test_datetime    = test_date,
+                status           = 'PENDING',
+                requested_by     = request.user,
+                requested_on     = now(),
+                test_notes       = test_notes
+            )
+
+            messages.success(request, "Service request created successfully.")
+            return redirect('list-service')
+
+        except Exception as e:
+            messages.error(request, f"An unexpected error occurred: {str(e)}")
+            return render(request, 'servicebookings/booking-create.html')
+
     return render(request, 'servicebookings/booking-create.html', context)
 
 # ────────────────────────────────────────────────────────────────────────────────────────────────
@@ -67,8 +103,10 @@ def booking_manage(request, id):
 def service_create(request):
 
     service_types = ServiceType.objects.all()
+    customers = User.objects.all()
     context={
-        'services': service_types
+        'services': service_types,
+        'customers': customers,
     }
 
     if request.method == 'POST':
@@ -141,12 +179,16 @@ class ServiceRecordUpdateView(LoginRequiredMixin, UpdateView):
         context['status_choices'] = Status.choices
         context['service'] = self.object
         context['values'] = self.object
+        context['customers'] = User.objects.filter(is_staff=False)
+
+        # import pdb; pdb.set_trace()
         return context
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()  
         action = request.POST.get('action')
 
+        # Handle Delete
         if action == 'Delete':
             self.object.delete()
             messages.success(self.request, "Service request deleted successfully.")
@@ -169,6 +211,7 @@ class ServiceRecordUpdateView(LoginRequiredMixin, UpdateView):
                 return self.form_invalid(self.get_form())
 
             try:
+                # Year validation
                 year = int(year_raw)
             except ValueError:
                 messages.error(self.request, "Year must be a valid number.")
