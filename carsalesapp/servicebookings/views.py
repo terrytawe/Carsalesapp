@@ -22,23 +22,27 @@ def booking_create(request):
     categories      = Category.objects.all()
     vehicle_models  = VehicleModel.objects.all()
     context         = {
-        'categories': categories,
-        'models'    : vehicle_models
+        'categories'  : categories,
+        'models'      : vehicle_models,
+        'fieldValues' : request.POST
+ 
     }
 
     if request.method == 'POST':
         try:
-            vin_number      = request.POST.get('vin_number', '').strip()
-            test_date       = request.POST.get('service_type', '').strip()
+            vin_number      = request.POST.get('vehicle_model', '').strip()
+            test_date       = request.POST.get('preferr' \
+            'ed_date', '').strip()
             test_notes      = request.POST.get('notes', '').strip()
 
             # Check required fields
+            import pdb; pdb.set_trace()
             if not all([vin_number, test_date, test_notes]):
                 messages.error(request, "All fields except notes are required.")
-                return render(request, 'servicebookings/booking-create.html')
+                return render(request, 'servicebookings/booking-create.html', context)
 
             # Step 1: Retrieve or create the vehicle
-            vehicle             = VehicleModel.objects.get(vin_number=vin_number)
+            vehicle              = VehicleModel.objects.get(vin_number=vin_number)
 
             # Step 2: Create the service request
             TestDriveRecord.objects.create(
@@ -55,7 +59,7 @@ def booking_create(request):
 
         except Exception as e:
             messages.error(request, f"An unexpected error occurred: {str(e)}")
-            return render(request, 'servicebookings/booking-create.html')
+            return render(request, 'servicebookings/booking-create.html', context)
 
     return render(request, 'servicebookings/booking-create.html', context)
 
@@ -66,8 +70,8 @@ def booking_create(request):
 def booking_display(request, id):
     booking = TestDriveRecord.objects.get(pk=id)
     context = {
-        'booking': booking,
-        'values': booking
+        'booking'   : booking,
+        'values'    : booking
     }
     return render(request, 'servicebookings/booking-display.html', context)
 
@@ -103,7 +107,7 @@ def booking_manage(request, id):
 def service_create(request):
 
     service_types = ServiceType.objects.all()
-    customers = User.objects.all()
+    customers = User.objects.filter(groups__name='Customers', is_active=True)
     context={
         'services': service_types,
         'customers': customers,

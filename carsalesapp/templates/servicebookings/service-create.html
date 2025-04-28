@@ -67,7 +67,7 @@
       <select class="form-select" id="customers" name="service_type" required>
         <option selected disabled>Select Customer</option>
         {% for customer in customers %}
-        <option value="{{customer.username}}">{{customer.username}}</option>
+        <option value="{{customer.username}}">{{customer.first_name}} {{customer.last_name}}</option>
         {% endfor %}
       </select>
       <label for="customers" class="form-label">Select Customer</label>

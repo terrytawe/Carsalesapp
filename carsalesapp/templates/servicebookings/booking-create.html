@@ -50,6 +50,18 @@
       <label for="notes">Additional Notes (Optional)</label>
     </div>
 
+    {% if request.user|has_group:'Admin' %}
+    <div class="form-floating mb-3">
+      <select class="form-select" id="customers" name="service_type" required>
+        <option selected disabled>Select Customer</option>
+        {% for customer in customers %}
+        <option value="{{customer.username}}">{{customer.first_name}} {{customer.last_name}}</option>
+        {% endfor %}
+      </select>
+      <label for="customers" class="form-label">Select Customer</label>
+    </div>
+    {% endif %}
+
     <button type="submit" class="btn btn-primary w-100 py-2">Book Test Drive</button>
   </form>
 </div>
