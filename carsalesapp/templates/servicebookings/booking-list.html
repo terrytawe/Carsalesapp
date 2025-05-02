@@ -18,7 +18,7 @@
     <table class="table table-striped align-middle" style="font-size: small">
       <thead>
         <tr>
-          <th scope="col"><input type="checkbox" /></th>
+          <!--<th scope="col"><input type="checkbox" /></th>-->
           <th scope="col">Date</th>
           <th scope="col">Time</th>
           <th scope="col">Vehicle Type</th>
@@ -30,12 +30,12 @@
       <tbody>
         {% for test_drive in test_drives %}
         <tr>
-          <td><input type="checkbox" value="{{ test_drive.id }}" /></td>
+          <!--<td><input type="checkbox" value="{{ test_drive.id }}" /></td>-->
           <td>{{ test_drive.preferred_date }}</td>
           <td>{{ test_drive.preferred_time }}</td>
           <td>{{ test_drive.vehicle_type }}</td>
           <td>{{ test_drive.vehicle_model }}</td>
-          <td><span class="badge bg-secondary">{{ test_drive.status }}</span></td>
+          <td><span class="badge bg-secondary">{{ test_drive.get_status_display }}</span></td>
           <td class="text-end">
             <a href="{% url 'display-booking' test_drive.id %}" class="btn btn-sm btn-outline-secondary">Display</a>
             <!--<a href="" class="btn btn-sm btn-outline-danger">Cancel</a>-->

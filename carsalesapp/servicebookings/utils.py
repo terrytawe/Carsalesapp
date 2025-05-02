@@ -14,7 +14,7 @@ def get_POST(request, field, default=''):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Function to send notification on booking status update
 # ────────────────────────────────────────────────────────────────────────────────────────────────
-def send_test_drive_status_email(booking):
+def msg_booking_status(booking):
     user_email = booking.user.email
     if user_email:
         email_subject = 'Booking Status Updated'
@@ -42,7 +42,7 @@ def send_test_drive_status_email(booking):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Function to send email on service status update
 # ────────────────────────────────────────────────────────────────────────────────────────────────
-def send_service_status_email(booking):
+def msg_service_status(booking):
     user_email = booking.user.email
     if user_email:
         email_subject = 'Service Status Updated'

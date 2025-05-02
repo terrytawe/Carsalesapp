@@ -18,6 +18,8 @@ def login_user(request):
         username = request.POST['username']
         password = request.POST['password']
 
+        # import pdb; pdb.set_trace()
+
         if username and password:
             user = auth.authenticate(username=username, password=password)
 
@@ -25,7 +27,7 @@ def login_user(request):
                login(request, user)
 
                if user.is_staff:
-                return redirect('dashboard-employee')
+                return redirect('dashboard')
                else:
                 return redirect('home')
             return render(request, 'authentication/login.html')

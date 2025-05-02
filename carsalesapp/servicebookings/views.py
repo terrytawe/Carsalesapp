@@ -11,6 +11,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from .utils import msg_booking_status, msg_service_status
 # from .signals import
 
 
@@ -31,8 +32,7 @@ def booking_create(request):
     if request.method == 'POST':
         try:
             vin_number      = request.POST.get('vehicle_model', '').strip()
-            test_date       = request.POST.get('preferr' \
-            'ed_date', '').strip()
+            test_date       = request.POST.get('preferred_date', '').strip()
             test_notes      = request.POST.get('notes', '').strip()
 
             # Check required fields
@@ -67,13 +67,13 @@ def booking_create(request):
 # Display Test Drive Views
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 @login_required
-def booking_display(request, id):
+def booking_details(request, id):
     booking = TestDriveRecord.objects.get(pk=id)
     context = {
         'booking'   : booking,
         'values'    : booking
     }
-    return render(request, 'servicebookings/booking-display.html', context)
+    return render(request, 'servicebookings/booking-details.html', context)
 
 
 # ────────────────────────────────────────────────────────────────────────────────────────────────
@@ -171,7 +171,7 @@ def service_create(request):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 class ServiceRecordUpdateView(LoginRequiredMixin, UpdateView):
     model = ServiceRecord
-    template_name = 'servicebookings/service-display.html'
+    template_name = 'servicebookings/service-details.html'
     fields = [] 
 
     def get_success_url(self):
@@ -208,7 +208,7 @@ class ServiceRecordUpdateView(LoginRequiredMixin, UpdateView):
             description     = request.POST.get('description', '').strip()
             status          = request.POST.get('status')
 
-            import pdb; pdb.set_trace()
+            # import pdb; pdb.set_trace()
             # Basic validations
             if not all([make, model, year_raw, license_plate, service_type_id]):
                 messages.error(self.request, "All fields except notes are required.")
@@ -230,17 +230,18 @@ class ServiceRecordUpdateView(LoginRequiredMixin, UpdateView):
             )
 
             if not created and (vehicle.make != make or vehicle.model != model or vehicle.year != year):
-                vehicle.make = make
-                vehicle.model = model
-                vehicle.year = year
+                vehicle.make    = make
+                vehicle.model   = model
+                vehicle.year    = year
                 vehicle.save()
 
+            import pdb; pdb.set_trace()
             # Update Service Record
             self.object.vehicle          = vehicle
             self.object.service_type     = service_type
             self.object.description      = description
             self.object.status           = status if status else 'PENDING'
-            # self.object.created_by       = self.request.user  #Only update when user is creating
+            self.object.created_by       = self.request.user  #Only update when user is creating
             self.object.last_modified_by = self.request.user
             self.object.save()
 
@@ -259,9 +260,9 @@ def service_manage(request, id):
     service_record = ServiceRecord.objects.get(pk=id)
     service_types = ServiceType.objects.all()
     context = {
-        'service': service_record,
-        'values': service_record,
-        'services': service_types
+        'service'   : service_record,
+        'values'    : service_record,
+        'services'  : service_types
     }
     return render(request, 'servicebookings/service-manage.html', context)
     
@@ -279,6 +280,7 @@ def service_list(request):
             services = ServiceRecord.objects.filter(
                 created_by=request.user
             ).select_related('vehicle').order_by('-created_on')
+        # import pdb; pdb.set_trace()
         return render(request, 'servicebookings/service-list.html', {'services': services})
 
     except Exception as e:

@@ -8,6 +8,6 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     if created:
         # New User created => Create corresponding Profile
         Profile.objects.create(user=instance)
-    else:
+    # else:
         # Existing User updated => Save Profile just in case
-        instance.profile.save()
+        # instance.profile.save()

@@ -1,4 +1,6 @@
-{% extends 'base-services.html' %}{% load static %} {% block title %}Service Requests{% endblock title %}
+{% extends 'base-services.html' %}{% load static %} {% load status_filters %}
+<!---->
+{% block title %}Service Requests{% endblock title %}
 <!--Content Block-->
 {% block content %}
 <div class="container mt-5 fade-slide">
@@ -42,7 +44,7 @@
           <td>{{ service.vehicle.license_plate }}</td>
           <td>{{ service.vehicle.service_date }}</td>
           <td>
-            <span class="badge bg-{{ service.status|lower|yesno:'success,secondary,warning,danger' }}">{{ service.status }}</span>
+            <span class="badge bg-{{ service.status|status_badge_class }}">{{ service.get_status_display }}</span>
           </td>
           <td class="text-end">
             <a href="{% url 'display-service' service.id %}" class="btn btn-sm btn-outline-secondary ml-4">View</a>

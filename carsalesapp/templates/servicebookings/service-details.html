@@ -1,4 +1,4 @@
-{% extends 'base-services.html' %}{% load group_tags %}{% load static %}
+{% extends 'base-services.html' %}{% load group_tags %}{% load static %} {% load status_filters %}
 <!---->
 {% block title %}Display Service{% endblock title %}
 <!-- Content Block-->
@@ -104,22 +104,27 @@
     {% if request.user|has_group:'Admin' %}
     <div class="form-floating mb-3">
       <select class="form-control" name="status" id="id-status">
-        <option value="" selected disabled>{{values.status}}</option>
-        {% for value, label in status_choices %}
-        <option value="{{ value }}">{{ label }}</option>
-        {% endfor %}
+       {% for value, label in status_choices %}
+        <option value="{{ value }}" {% if value == values.status %} selected {% endif %}>{{ label }}</option>
+       {% endfor %}
       </select>
       <label for="id-status" class="form-label">Request status</label>
     </div>
     {% endif %}
 
     <div class="row mt-4">
+      {% if values.status|is_cancelled %}
+      <div class="col-md-12">
+        <input type="submit" name="action" value="Delete" class="btn btn-danger w-100" />
+      </div>
+      {% else %}
       <div class="col-md-6">
         <input type="submit" name="action" value="Update" class="btn btn-primary w-100" />
       </div>
       <div class="col-md-6">
         <input type="submit" name="action" value="Delete" class="btn btn-danger w-100" />
       </div>
+      {% endif %}
     </div>
   </form>
 </div>
