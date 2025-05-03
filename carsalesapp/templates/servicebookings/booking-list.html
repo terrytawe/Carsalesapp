@@ -26,6 +26,7 @@
           <th scope="col">Vehicle Type</th>
           <th scope="col">Model</th>
           <th scope="col">Status</th>
+          <th scope="col">Assigned To</th>
           <th scope="col" class="text-end">Actions</th>
         </tr>
       </thead>
@@ -38,11 +39,13 @@
           <td>{{ booking.vehicle.name }}</td>
           <td>{{ booking.vehicle.category }}</td>
           <td>
-            <!--<span class="badge bg-secondary">{{ booking.get_status_display }}</span>-->
             <span class="badge bg-{{ booking.status|status_badge_class }}">{{ booking.get_status_display }}</span>
           </td>
+          {% if request.user|has_group:'Admin' %}
+          <td scope="col">{{booking.assigned_to.username}}</td>
+          {% endif %}
           <td class="text-end">
-            <a href="{% url 'display-booking' booking.id %}" class="btn btn-sm btn-outline-secondary">Display</a>
+            <a href="{% url 'display-booking' booking.id %}" class="btn btn-sm btn-outline-secondary">View</a>
             <!--<a href="" class="btn btn-sm btn-outline-danger">Cancel</a>-->
           </td>
         </tr>
