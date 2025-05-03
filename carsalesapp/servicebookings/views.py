@@ -27,7 +27,7 @@ def booking_create(request):
     context         = {
         'categories'  : categories,
         'models'      : vehicle_models,
-        'fieldValues' : request.POST
+        'values'      : request.POST
  
     }
 
@@ -38,13 +38,11 @@ def booking_create(request):
             test_time       = parse_time(request.POST.get('test_time', '').strip())
             test_notes      = request.POST.get('notes', '').strip()
 
-            import pdb; pdb.set_trace()
             # Check required fields
             if not all([vehicle_id, test_date, test_time]):
                 messages.error(request, "All fields except notes are required.")
                 return render(request, 'servicebookings/booking-create.html', context)
             
-            import pdb; pdb.set_trace()
             # Step 1: Retrieve or create the vehicle
             vehicle              = VehicleModel.objects.get(id=vehicle_id)
 
@@ -59,7 +57,7 @@ def booking_create(request):
             )
 
             messages.success(request, "Service request created successfully.")
-            return redirect('list-service')
+            return redirect('list-booking')
 
         except Exception as e:
             messages.error(request, f"An unexpected error occurred: {str(e)}")

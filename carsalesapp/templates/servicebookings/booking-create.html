@@ -38,17 +38,19 @@
     </div>
 
     <div class="form-floating mb-3">
-      <input type="date" class="form-control" id="preferred_date" name="test_date" value="{{fieldValues.test_date}}" required />
+      <input type="date" class="form-control" id="preferred_date" name="test_date" value="{{values.test_date}}" required />
       <label for="preferred_date">Preferred Date</label>
     </div>
 
     <div class="form-floating mb-3">
-      <input type="time" class="form-control" id="preferred_time" name="test_time" value="{{fieldValues.test_time}}" required />
+      <input type="time" class="form-control" id="preferred_time" name="test_time" value="{{values.test_time}}" required />
       <label for="preferred_time">Preferred Time</label>
     </div>
 
     <div class="form-floating mb-3">
-      <textarea class="form-control" id="notes" name="notes" rows="6" placeholder="Any preferences or questions..."></textarea>
+      <textarea class="form-control" id="notes" name="notes" rows="6" placeholder="Any preferences or questions...">
+        {{values.notes}}</textarea
+      >
       <label for="notes">Additional Notes (Optional)</label>
     </div>
 

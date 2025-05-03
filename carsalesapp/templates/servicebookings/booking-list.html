@@ -26,7 +26,9 @@
           <th scope="col">Vehicle Type</th>
           <th scope="col">Model</th>
           <th scope="col">Status</th>
+          {% if request.user|has_group:'Admin' %}
           <th scope="col">Assigned To</th>
+          {% endif %}
           <th scope="col" class="text-end">Actions</th>
         </tr>
       </thead>
