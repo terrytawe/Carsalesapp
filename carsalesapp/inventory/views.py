@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse
 import os, json
+from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
+from django.http import JsonResponse
+from django.urls import reverse
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
@@ -65,3 +67,26 @@ def results(request):
         'models'    : models,
         'search'    : True
     })
+
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+#Search results
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+def ajax_search(request):
+    query = Q()
+
+    if request.GET.get('search-type'):
+        query &= Q(category_id=request.GET.get('search-type'))
+
+    if request.GET.get('search-model'):
+        query &= Q(name__icontains=request.GET.get('search-model'))
+
+    if request.GET.get('search-make'):
+        query &= Q(brand_id=request.GET.get('search-make'))
+
+    if request.GET.getlist('features'):
+        query &= Q(features__in=request.GET.getlist('features'))
+
+    results = VehicleModel.objects.filter(query).distinct()
+
+    html = render_to_string('inventory/partials/vehicle-card-list.html', {'results': results})
+    return JsonResponse({'html': html})

@@ -90,7 +90,7 @@ class TestDriveRecord(models.Model):
     completed_on     = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.vehicle.vin_number} - ({self.status})"
+        return f"{self.vehicle.name} - ({self.status})"
     
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Review Record

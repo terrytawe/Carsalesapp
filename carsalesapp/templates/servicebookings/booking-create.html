@@ -1,4 +1,6 @@
-{% extends 'base-services.html' %}{% load static %} {% block title %}Book Test Drive{% endblock title %}
+{% extends 'base-services.html' %}{% load static %} {% load group_tags %}
+<!---->
+{% block title %}Book Test Drive{% endblock title %}
 <!-- Content Body -->
 {% block content %}
 <div class="container mt-5 fade-slide">
@@ -11,12 +13,12 @@
     </ol>
   </nav>
 
-  <form method="POST" action="" class="p-4 rounded shadow">
+  <form method="POST" action="{% url 'create-booking' %}" class="p-4 rounded shadow">
     {% csrf_token %}
 
     <h4 class="mb-4">Book a Test Drive</h4>
     <div class="form-floating mb-3">
-      <select name="vehicle_type" id="vehicle_type" class="form-select" required>
+      <select name="vehicle_type" id="vehicle_type" class="form-select">
         <option selected disabled>Select type</option>
         {% for category in categories %}
         <option value="{{category.id}}">{{category.name}}</option>
@@ -29,19 +31,19 @@
       <select name="vehicle_model" id="vehicle_model" class="form-select" required>
         <option selected disabled>Select type</option>
         {% for model in models %}
-        <option value="{{model.vin_number}}">{{model.name}}</option>
+        <option value="{{model.id}}">{{model.name}}</option>
         {% endfor %}
       </select>
       <label for="vehicle_model">Vehicle Model</label>
     </div>
 
     <div class="form-floating mb-3">
-      <input type="date" class="form-control" id="preferred_date" name="preferred_date" />
+      <input type="date" class="form-control" id="preferred_date" name="test_date" value="{{fieldValues.test_date}}" required />
       <label for="preferred_date">Preferred Date</label>
     </div>
 
     <div class="form-floating mb-3">
-      <input type="time" class="form-control" id="preferred_time" name="preferred_time" required />
+      <input type="time" class="form-control" id="preferred_time" name="test_time" value="{{fieldValues.test_time}}" required />
       <label for="preferred_time">Preferred Time</label>
     </div>
 

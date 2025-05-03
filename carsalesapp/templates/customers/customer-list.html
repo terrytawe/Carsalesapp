@@ -1,6 +1,4 @@
-{% extends 'base-services.html' %}{% load static %} {% load status_filters %}{% load group_tags %}
-<!---->
-{% block title %}Bookings{% endblock title %}
+{% extends 'base-services.html' %}{% load static %} {% block title %}Bookings{% endblock title %}
 <!-- Content Block-->
 {% block content %}
 <div class="container mt-5 fade-slide">
@@ -13,8 +11,8 @@
 
   <div class="table-responsive shadow p-3 rounded">
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <h4 class="mb-0">Scheduled Bookings</h4>
-      <a href="{% url 'create-booking' %}" class="btn btn-primary">Book New</a>
+      <h4 class="mb-0">Customers</h4>
+      <a href="{% url 'create-booking' %}" class="btn btn-primary">Add New</a>
     </div>
 
     <table class="table table-striped align-middle" style="font-size: small">
@@ -22,7 +20,7 @@
         <tr>
           <!--<th scope="col"><input type="checkbox" /></th>-->
           <th scope="col">Date</th>
-          <th scope="col" class="text-begin">Time</th>
+          <th scope="col">Time</th>
           <th scope="col">Vehicle Type</th>
           <th scope="col">Model</th>
           <th scope="col">Status</th>
@@ -30,19 +28,16 @@
         </tr>
       </thead>
       <tbody>
-        {% for booking in bookings %}
+        {% for test_drive in test_drives %}
         <tr>
-          <!--<td><input type="checkbox" value="{{ booking.id }}" /></td>-->
-          <td>{{ booking.test_datetime.date }}</td>
-          <td>{{ booking.test_datetime.time }}</td>
-          <td>{{ booking.vehicle.name }}</td>
-          <td>{{ booking.vehicle.category }}</td>
-          <td>
-            <!--<span class="badge bg-secondary">{{ booking.get_status_display }}</span>-->
-            <span class="badge bg-{{ booking.status|status_badge_class }}">{{ booking.get_status_display }}</span>
-          </td>
+          <!--<td><input type="checkbox" value="{{ test_drive.id }}" /></td>-->
+          <td>{{ test_drive.preferred_date }}</td>
+          <td>{{ test_drive.preferred_time }}</td>
+          <td>{{ test_drive.vehicle_type }}</td>
+          <td>{{ test_drive.vehicle_model }}</td>
+          <td><span class="badge bg-secondary">{{ test_drive.get_status_display }}</span></td>
           <td class="text-end">
-            <a href="{% url 'display-booking' booking.id %}" class="btn btn-sm btn-outline-secondary">Display</a>
+            <a href="{% url 'display-booking' test_drive.id %}" class="btn btn-sm btn-outline-secondary">Display</a>
             <!--<a href="" class="btn btn-sm btn-outline-danger">Cancel</a>-->
           </td>
         </tr>

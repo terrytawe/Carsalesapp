@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.timezone import now
+from django.utils.dateparse import parse_date, parse_time
+from datetime import datetime
 from django.contrib import messages
 from authentication.utils import group_required
 from .models import CustomerVehicle, ServiceRecord, TestDriveRecord, ServiceType, Status
@@ -31,27 +33,29 @@ def booking_create(request):
 
     if request.method == 'POST':
         try:
-            vin_number      = request.POST.get('vehicle_model', '').strip()
-            test_date       = request.POST.get('preferred_date', '').strip()
+            vehicle_id      = request.POST.get('vehicle_model', '').strip()
+            test_date       = parse_date(request.POST.get('test_date', '').strip())
+            test_time       = parse_time(request.POST.get('test_time', '').strip())
             test_notes      = request.POST.get('notes', '').strip()
 
-            # Check required fields
             import pdb; pdb.set_trace()
-            if not all([vin_number, test_date, test_notes]):
+            # Check required fields
+            if not all([vehicle_id, test_date, test_time]):
                 messages.error(request, "All fields except notes are required.")
                 return render(request, 'servicebookings/booking-create.html', context)
-
+            
+            import pdb; pdb.set_trace()
             # Step 1: Retrieve or create the vehicle
-            vehicle              = VehicleModel.objects.get(vin_number=vin_number)
+            vehicle              = VehicleModel.objects.get(id=vehicle_id)
 
             # Step 2: Create the service request
             TestDriveRecord.objects.create(
                 vehicle          = vehicle,
-                test_datetime    = test_date,
-                status           = 'PENDING',
+                test_datetime    = datetime.combine(test_date, test_time),
                 requested_by     = request.user,
                 requested_on     = now(),
-                test_notes       = test_notes
+                test_notes       = test_notes,
+                status           = 'PENDING',
             )
 
             messages.success(request, "Service request created successfully.")
@@ -82,15 +86,19 @@ def booking_details(request, id):
 @login_required
 def booking_list(request):
     try:
-        bookings = TestDriveRecord.objects.filter(
-            requested_by=request.user
-        ).select_related('vehicle').order_by('-requested_on')
+        if request.user.is_staff:
+            bookings = TestDriveRecord.objects.all()
+        else:
+            bookings = TestDriveRecord.objects.filter(
+                requested_by=request.user
+            ).select_related('vehicle').order_by('-requested_on')
+        
+        # import pdb; pdb.set_trace()
         return render(request, 'servicebookings/booking-list.html', {'bookings': bookings})
 
     except Exception as e:
         messages.error(request, f"Failed to load booking records: {str(e)}")
-        return render(request, 'servicebookings/booking-list.html', {'bookings': []})
-
+        return render(request, 'servicebookings/booking-list.html', {'services': []})
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Manage test drive
 # ────────────────────────────────────────────────────────────────────────────────────────────────

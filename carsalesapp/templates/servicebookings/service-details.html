@@ -26,23 +26,27 @@
     <!--<fieldset disabled="disabled">-->
     {% endif %}
 
-    <div class="form-floating mb-3">
-      {% if request.user|has_group:'Admin' %}
-      <input type="text" class="form-control" id="make" name="make" value="{{values.vehicle.make}}" required readonly />
-      {% else %}
-      <input type="text" class="form-control" id="make" name="make" value="{{values.vehicle.make}}" required />
-      {% endif %}
-      <!--<input type="text" class="form-control" id="make" name="make" value="{{values.vehicle.make}}" required />-->
-      <label for="make" class="form-label">Vehicle Make</label>
-    </div>
+     <div class="row mt-4">
 
-    <div class="form-floating mb-3">
-      {% if request.user|has_group:'Admin' %}
-      <input type="text" class="form-control" id="model" name="model" value="{{values.vehicle.model}}" required readonly />
-      {% else %}
-      <input type="text" class="form-control" id="model" name="model" value="{{values.vehicle.model}}" required />
-      {% endif %}
-      <label for="model" class="form-label">Vehicle Model</label>
+      <div class="form-floating mb-3 col-md-6">
+        {% if request.user|has_group:'Admin' %}
+        <input type="text" class="form-control" id="make" name="make" value="{{values.vehicle.make}}" required readonly />
+        {% else %}
+        <input type="text" class="form-control" id="make" name="make" value="{{values.vehicle.make}}" required />
+        {% endif %}
+        <!--<input type="text" class="form-control" id="make" name="make" value="{{values.vehicle.make}}" required />-->
+        <label for="make" class="form-label ml-2">Vehicle Make</label>
+      </div>
+
+      <div class="form-floating mb-3 col-md-6">
+        {% if request.user|has_group:'Admin' %}
+        <input type="text" class="form-control" id="model" name="model" value="{{values.vehicle.model}}" required readonly />
+        {% else %}
+        <input type="text" class="form-control" id="model" name="model" value="{{values.vehicle.model}}" required />
+        {% endif %}
+        <label for="model" class="form-label ml-2">Vehicle Model</label>
+      </div>
+
     </div>
 
     <div class="form-floating mb-3">
