@@ -11,7 +11,8 @@
     </svg>
   </button>
 </div>
-<form id="form-category" method="GET" action="{% url 'results' %}">
+<form id="form-search" method="GET">
+  <!-- action="{% url 'results' %}" -->
   <ul class="nav nav-pills flex-column">
     <li class="nav-item">
       <button type="button" class="dropdown-btn" onclick="toggleSubMenu(this)" data-id="menu-make-model">
@@ -99,7 +100,7 @@
 
   <!--Submit button-->
   <div class="search-button">
-    <button type="submit" class="btn btn-primary">
+    <button type="button" id="btn-search" class="btn btn-primary">
       <!-- onclick="submitAllFormsAJAX()"> -->
       <span>Search catalog</span>
       <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#fff">

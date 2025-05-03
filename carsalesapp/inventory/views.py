@@ -1,4 +1,5 @@
 import os, json
+from . import utils
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.http import JsonResponse
@@ -6,9 +7,9 @@ from django.urls import reverse
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
-from . import utils
 from .models import VehicleModel, Category, Feature, VehicleBrand
 from django.db.models import Q
+
 
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Create your views here.
@@ -71,9 +72,14 @@ def results(request):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 #Search results
 # ────────────────────────────────────────────────────────────────────────────────────────────────
+
 def ajax_search(request):
+    if not request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return JsonResponse({'error': 'Invalid request'}, status=400)
+
     query = Q()
 
+    # Dynamic filters from combined forms
     if request.GET.get('search-type'):
         query &= Q(category_id=request.GET.get('search-type'))
 
@@ -88,5 +94,5 @@ def ajax_search(request):
 
     results = VehicleModel.objects.filter(query).distinct()
 
-    html = render_to_string('inventory/partials/vehicle-card-list.html', {'results': results})
+    html = render_to_string('partials/vehicle-card-list.html', {'results': results})
     return JsonResponse({'html': html})
