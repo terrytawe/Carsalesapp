@@ -67,18 +67,6 @@ def booking_create(request):
 
     return render(request, 'servicebookings/booking-create.html', context)
 
-# ────────────────────────────────────────────────────────────────────────────────────────────────
-# Display Test Drive Views
-# ────────────────────────────────────────────────────────────────────────────────────────────────
-@login_required
-def booking_details(request, id):
-    booking = TestDriveRecord.objects.get(pk=id)
-    context = {
-        'booking'   : booking,
-        'values'    : booking
-    }
-    return render(request, 'servicebookings/booking-details.html', context)
-
 
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Display list
@@ -175,25 +163,49 @@ def service_create(request):
 
 
 # ────────────────────────────────────────────────────────────────────────────────────────────────
+# Display Test Drive Views
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+class TestDriveBookingUpdateView(LoginRequiredMixin, UpdateView):
+    model = TestDriveRecord
+    template_name= 'servicebookings/booking-details.html'
+    fields = []
+
+    def get_success_url(self):
+        return reverse_lazy('display-booking')
+
+    def get_context_data(self, **kwargs):
+        context                     = super().get_context_data(**kwargs)
+        context['categories']       = VehicleBrand.objects.all()
+        context['models']           = VehicleModel.objects.all()
+        context['status_choices']   = Status.choices
+        context['booking']          = self.object
+        context['values']           = self.object
+        context['customers']        = User.objects.filter(is_staff=False)
+
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+    
+# ────────────────────────────────────────────────────────────────────────────────────────────────
 # Display Service View
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 class ServiceRecordUpdateView(LoginRequiredMixin, UpdateView):
     model = ServiceRecord
-    template_name = 'servicebookings/service-details.html'
+    template_name = 'servicebookings/service-details.html' 
     fields = [] 
 
     def get_success_url(self):
-        return reverse_lazy('manage-service') 
+        return reverse_lazy('display-service') 
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['services'] = ServiceType.objects.all()
-        context['status_choices'] = Status.choices
-        context['service'] = self.object
-        context['values'] = self.object
-        context['customers'] = User.objects.filter(is_staff=False)
+        context                     = super().get_context_data(**kwargs)
+        context['services']         = ServiceType.objects.all()
+        context['status_choices']   = Status.choices
+        context['service']          = self.object
+        context['values']           = self.object
+        context['customers']        = User.objects.filter(is_staff=False)
 
-        # import pdb; pdb.set_trace()
         return context
 
     def post(self, request, *args, **kwargs):

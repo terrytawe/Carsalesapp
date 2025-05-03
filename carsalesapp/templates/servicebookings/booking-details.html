@@ -1,4 +1,6 @@
-{% extends 'base-services.html' %}{% load static %} {% block title %}Display booking{% endblock title %}
+{% extends 'base-services.html' %}{% load static %} {% load group_tags %}
+<!---->
+{% block title %}Display booking{% endblock title %}
 <!-- Content Body -->
 {% block content %}
 <div class="container mt-5 fade-slide">
@@ -11,7 +13,7 @@
     </ol>
   </nav>
 
-  <form method="POST" action="" class="p-4 rounded shadow">
+  <form method="POST" action="{% url 'display-booking' booking.id %}" class="p-4 rounded shadow">
     {% csrf_token %}
 
     <!--<h4 class="mb-4">Book a Test Drive</h4>-->
@@ -26,7 +28,12 @@
     </div>
 
     <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="model" name="vehicle_model" value="{{booking.model}}" required />
+      <select name="vehicle_type" id="vehicle_type" class="form-select" required>
+        <option selected disabled>Select type</option>
+        {% for model in models %}
+        <option value="{{model.id}}">{{model.name}}</option>
+        {% endfor %}
+      </select>
       <label for="model">Vehicle Model</label>
     </div>
 
