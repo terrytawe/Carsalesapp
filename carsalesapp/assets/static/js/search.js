@@ -1,7 +1,7 @@
 document.getElementById("btn-search").addEventListener("click", function (event) {
   if (event) event.preventDefault();
 
-  const form = document.getElementById("form-category");
+  const form = document.getElementById("form-search");
   const formData = new URLSearchParams();
 
   const elements = form.querySelectorAll("input, select");
@@ -16,19 +16,16 @@ document.getElementById("btn-search").addEventListener("click", function (event)
   });
 
   const queryString = formData.toString();
-  fetch(`/ajax/search/?${queryString}`, {
+  fetch(`/search-results/?${queryString}`, {
     method: "GET",
     headers: {
       "X-Requested-With": "XMLHttpRequest",
     },
     credentials: "same-origin",
   })
-    .then((response) => response.text())
-    .then((html) => {
-      const parser = new DOMParser();
-      const newDoc = parser.parseFromString(html, "text/html");
-      const newResults = newDoc.getElementById("results-container");
-      document.getElementById("results-container").innerHTML = newResults.innerHTML;
+    .then((response) => response.json())
+    .then((data) => {
+      document.getElementById("results-container").innerHTML = data.html;
     })
     .catch((err) => {
       console.error("AJAX search error:", err);
