@@ -10,16 +10,20 @@ document.getElementById("btn-search").addEventListener("click", function (event)
     if (el.name && !el.disabled) {
       if (el.type === "checkbox") {
         if (el.checked) formData.append(el.name, el.value);
-      } else {
+      } else if (el.value.trim() !== "") {
         formData.append(el.name, el.value);
       }
     }
   });
 
-  if (sortValue) formData.append("sort", sortValue);
+  if (sortValue && sortValue.trim() !== "") {
+    formData.append("sort", sortValue);
+  }
 
   const queryString = formData.toString();
-  fetch(`/search-results/?${queryString}`, {
+  const newUrl = `/search-results/?${queryString}`;
+  window.history.replaceState(null, "", newUrl);
+  fetch(newUrl, {
     method: "GET",
     headers: {
       "X-Requested-With": "XMLHttpRequest",
