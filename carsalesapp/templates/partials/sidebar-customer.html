@@ -1,7 +1,5 @@
 <div class="nav nav-pills nav-item filter-title">
-  <a href="">
-    <strong>Overview</strong>
-  </a>
+  <span> <strong>Overview</strong></span>
 </div>
 <ul class="nav nav-pills flex-column">
   <!--<li class="nav-item">
@@ -30,7 +28,7 @@
     <!--Settings submenu-->
     <ul class="sub-menu" data-parent="menu-settings">
       <div>
-        <li><a href="#">Account Details</a></li>
+        <li><a href="{% url 'account_update' %}">Account Details</a></li>
         <li><a href="{% url 'change_password' %}">Password</a></li>
         <li><a href="#">Vehicles</a></li>
         <li><a href="#">Reviews</a></li>

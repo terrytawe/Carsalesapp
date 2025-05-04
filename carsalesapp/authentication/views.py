@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .forms import SignUpForm
+from .forms import SignUpForm, AccountUpdateForm
+from .models import Profile
 from django.contrib.auth.views import PasswordChangeView
 from django.core.mail import send_mail
 from django.conf import settings
@@ -83,6 +85,27 @@ def register_user(request):
     else:
         return render(request, 'authentication/register.html', {'form': form})
 
+
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+#
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+#
+@login_required
+def update_account(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
+
+    if request.method == 'POST':
+        form = AccountUpdateForm(request.POST, instance=profile, user=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your account information has been updated.')
+            return redirect('account_update')
+        else:
+            messages.error(request, 'Please correct the errors below.')
+    else:
+        form = AccountUpdateForm(instance=profile, user=request.user)
+
+    return render(request, 'authentication/account-update.html', {'form': form})
 
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Password change

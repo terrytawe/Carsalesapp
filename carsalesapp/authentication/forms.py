@@ -1,7 +1,12 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Profile
 
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+# 
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+# 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(
         label="Email Address", 
@@ -57,3 +62,51 @@ class SignUpForm(UserCreationForm):
         self.fields['password2'].help_text = (
             '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'
         )
+
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+# 
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+# 
+
+class AccountUpdateForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={
+        'class': 'form-control', 'placeholder': 'First Name'
+    }))
+    last_name = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={
+        'class': 'form-control', 'placeholder': 'Last Name'
+    }))
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={
+        'class': 'form-control', 'placeholder': 'Email'
+    }))
+
+    class Meta:
+        model = Profile
+        fields = ['phone_number', 'address']
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super(AccountUpdateForm, self).__init__(*args, **kwargs)
+
+        if user:
+            # Set initial values for User fields
+            self.fields['first_name'].initial = user.first_name
+            self.fields['last_name'].initial = user.last_name
+            self.fields['email'].initial = user.email
+            self.fields['phone_number'].widget.attrs.update({
+                'class': 'form-control', 'placeholder': 'Phone Number'
+            })
+            self.fields['address'].widget.attrs.update({
+                'class': 'form-control', 'placeholder': 'Address'
+            })
+
+    def save(self, commit=True):
+        profile = super().save(commit=False)
+        user = self.instance.user
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.email = self.cleaned_data['email']
+
+        if commit:
+            user.save()
+            profile.save()
+        return profile
