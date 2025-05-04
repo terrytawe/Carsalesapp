@@ -76,10 +76,11 @@ def results(request):
 def ajax_search(request):
     if not request.headers.get('x-requested-with') == 'XMLHttpRequest':
         return JsonResponse({'error': 'Invalid request'}, status=400)
-
+    
     query = Q()
+    sort_option = request.GET.get("sort")
+    ordering = None
 
-    # Dynamic filters from combined forms
     if request.GET.get('search-type'):
         query &= Q(category_id=request.GET.get('search-type'))
 
@@ -92,7 +93,18 @@ def ajax_search(request):
     if request.GET.getlist('features'):
         query &= Q(features__in=request.GET.getlist('features'))
 
-    results = VehicleModel.objects.filter(query).distinct()
+    results = VehicleModel.objects.filter(query).distinct() 
+   
+    if sort_option == "price_asc":
+        ordering = "price"
+    elif sort_option == "price_desc":
+        ordering = "-price"
+    elif sort_option == "name_asc":
+        ordering = "name"
+    elif sort_option == "name_desc":
+        ordering = "-name"
+    if ordering:
+        results = results.order_by(ordering)
 
     html = render_to_string('partials/vehicle-card-list.html', {'results': results})
     return JsonResponse({'html': html})

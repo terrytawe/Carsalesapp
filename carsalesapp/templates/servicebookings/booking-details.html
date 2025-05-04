@@ -1,4 +1,4 @@
-{% extends 'base-services.html' %}{% load static %} {% load group_tags %}
+{% extends 'base-services.html' %}{% load static %} {% load group_tags %} {% load status_filters %}
 <!---->
 {% block title %}Display booking{% endblock title %}
 <!-- Content Body -->
@@ -50,7 +50,20 @@
       <label for="notes">Additional Notes (Optional)</label>
     </div>
 
-    <button type="submit" class="btn btn-primary w-100 py-2">Book Test Drive</button>
+    <div class="row mt-4">
+      {% if values.status|is_cancelled %}
+      <div class="col-md-12">
+        <input type="submit" name="action" value="Delete" class="btn btn-danger w-100" />
+      </div>
+      {% else %}
+      <div class="col-md-6">
+        <input type="submit" name="action" value="Update" class="btn btn-primary w-100" />
+      </div>
+      <div class="col-md-6">
+        <input type="submit" name="action" value="Delete" class="btn btn-danger w-100" />
+      </div>
+      {% endif %}
+    </div>
   </form>
 </div>
 {% endblock content %}

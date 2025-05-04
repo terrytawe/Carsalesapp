@@ -3,6 +3,7 @@ document.getElementById("btn-search").addEventListener("click", function (event)
 
   const form = document.getElementById("form-search");
   const formData = new URLSearchParams();
+  const sortValue = document.getElementById("sort-select").value;
 
   const elements = form.querySelectorAll("input, select");
   elements.forEach((el) => {
@@ -14,6 +15,8 @@ document.getElementById("btn-search").addEventListener("click", function (event)
       }
     }
   });
+
+  if (sortValue) formData.append("sort", sortValue);
 
   const queryString = formData.toString();
   fetch(`/search-results/?${queryString}`, {
@@ -30,4 +33,8 @@ document.getElementById("btn-search").addEventListener("click", function (event)
     .catch((err) => {
       console.error("AJAX search error:", err);
     });
+});
+
+document.getElementById("sort-select").addEventListener("change", function () {
+  document.getElementById("btn-search").click();
 });
