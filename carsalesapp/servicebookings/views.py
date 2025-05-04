@@ -14,7 +14,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from .utils import msg_booking_status, msg_service_status
-from authentication.templatetags.group_tags import has_group
+from authentication.utils import has_group
 # from .signals import
 
 
@@ -197,11 +197,22 @@ class TestDriveBookingUpdateView(LoginRequiredMixin, UpdateView):
 #
 class ServiceRecordUpdateView(LoginRequiredMixin, UpdateView):
     model = ServiceRecord
-    template_name = 'servicebookings/service-details.html' 
+    # template_name = 'servicebookings/service-details.html' 
     fields = [] 
 
+    def get_template_names(self):
+        user = self.request.user
+        if has_group(user, 'Admin'):
+            return ['servicebookings/service-manage.html']
+        elif has_group(user, 'Technician'):
+            return ['servicebookings/service-manage.html']
+        elif has_group(user, 'Customer'):
+            return ['servicebookings/service-details.html']
+        else:
+            return ['servicebookings/service-details.html'] 
+
     def get_success_url(self):
-        return reverse_lazy('display-service') 
+        return reverse_lazy('list-service') 
 
     def get_context_data(self, **kwargs):
         context                     = super().get_context_data(**kwargs)
