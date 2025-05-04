@@ -10,6 +10,7 @@ import datetime
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Service & Booking Status Model
 # ────────────────────────────────────────────────────────────────────────────────────────────────
+#
 class Status(models.TextChoices):
     PENDING         = 'PENDING', 'Pending'
     IN_PROGRESS     = 'IN_PROGRESS', 'In Progress'
@@ -19,6 +20,7 @@ class Status(models.TextChoices):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Service types
 # ────────────────────────────────────────────────────────────────────────────────────────────────
+#
 class ServiceType(models.Model):
     name            = models.CharField(max_length=100, null=False, blank=False)
     description     = models.TextField(blank=True, null=True)
@@ -30,6 +32,7 @@ class ServiceType(models.Model):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Vehicle for Test Drive or Service
 # ────────────────────────────────────────────────────────────────────────────────────────────────
+#
 class CustomerVehicle(models.Model):
     make            = models.CharField(max_length=100)
     model           = models.CharField(max_length=100)
@@ -46,6 +49,7 @@ class CustomerVehicle(models.Model):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Customer Service 
 # ────────────────────────────────────────────────────────────────────────────────────────────────
+#
 class ServiceRecord(models.Model):
     vehicle          = models.ForeignKey(CustomerVehicle, on_delete=models.CASCADE, related_name='services_received')
     service_type     = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='service_type')
@@ -72,6 +76,7 @@ class ServiceRecord(models.Model):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Test Drive Service 
 # ────────────────────────────────────────────────────────────────────────────────────────────────
+#
 class TestDriveRecord(models.Model):
     vehicle          = models.ForeignKey(VehicleModel, on_delete=models.CASCADE, related_name='tests_driven')
     description      = models.TextField(blank=True, null=True)
@@ -95,6 +100,7 @@ class TestDriveRecord(models.Model):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Review Record
 # ────────────────────────────────────────────────────────────────────────────────────────────────
+#
 class Review(models.Model):
     created_by      = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='reviews_created')
     created_on      = models.DateTimeField(auto_now_add=True)

@@ -14,12 +14,14 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from .utils import msg_booking_status, msg_service_status
+from authentication.templatetags.group_tags import has_group
 # from .signals import
 
 
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Test Drive Booking Views
 # ────────────────────────────────────────────────────────────────────────────────────────────────
+#
 #@group_required(['Admin', 'Service'], redirect_url='dashboard-customer')
 def booking_create(request):
     categories      = Category.objects.all()
@@ -69,6 +71,7 @@ def booking_create(request):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Display list
 # ────────────────────────────────────────────────────────────────────────────────────────────────
+#
 @login_required
 def booking_list(request):
     try:
@@ -88,6 +91,7 @@ def booking_list(request):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Manage test drive
 # ────────────────────────────────────────────────────────────────────────────────────────────────
+#
 @login_required
 def booking_manage(request, id):
 
@@ -97,6 +101,7 @@ def booking_manage(request, id):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Service Request Creation View (with error handling)
 # ────────────────────────────────────────────────────────────────────────────────────────────────
+#
 @login_required
 def service_create(request):
 
@@ -163,6 +168,7 @@ def service_create(request):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Display Test Drive Views
 # ────────────────────────────────────────────────────────────────────────────────────────────────
+#
 class TestDriveBookingUpdateView(LoginRequiredMixin, UpdateView):
     model = TestDriveRecord
     template_name= 'servicebookings/booking-details.html'
@@ -188,6 +194,7 @@ class TestDriveBookingUpdateView(LoginRequiredMixin, UpdateView):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Display Service View
 # ────────────────────────────────────────────────────────────────────────────────────────────────
+#
 class ServiceRecordUpdateView(LoginRequiredMixin, UpdateView):
     model = ServiceRecord
     template_name = 'servicebookings/service-details.html' 
@@ -203,6 +210,7 @@ class ServiceRecordUpdateView(LoginRequiredMixin, UpdateView):
         context['service']          = self.object
         context['values']           = self.object
         context['customers']        = User.objects.filter(is_staff=False)
+        context['employees']        = User.objects.filter(is_staff=True)
 
         return context
 
@@ -226,14 +234,11 @@ class ServiceRecordUpdateView(LoginRequiredMixin, UpdateView):
             description     = request.POST.get('description', '').strip()
             status          = request.POST.get('status')
 
-            # import pdb; pdb.set_trace()
-            # Basic validations
             if not all([make, model, year_raw, license_plate, service_type_id]):
                 messages.error(self.request, "All fields except notes are required.")
                 return self.form_invalid(self.get_form())
 
             try:
-                # Year validation
                 year = int(year_raw)
             except ValueError:
                 messages.error(self.request, "Year must be a valid number.")
@@ -241,7 +246,6 @@ class ServiceRecordUpdateView(LoginRequiredMixin, UpdateView):
 
             service_type = ServiceType.objects.get(pk=service_type_id)
 
-            # Vehicle handling
             vehicle, created = CustomerVehicle.objects.get_or_create(
                 license_plate=license_plate,
                 defaults={'make': make, 'model': model, 'year': year}
@@ -253,13 +257,11 @@ class ServiceRecordUpdateView(LoginRequiredMixin, UpdateView):
                 vehicle.year    = year
                 vehicle.save()
 
-            import pdb; pdb.set_trace()
-            # Update Service Record
+            # import pdb; pdb.set_trace()
             self.object.vehicle          = vehicle
             self.object.service_type     = service_type
             self.object.description      = description
             self.object.status           = status if status else 'PENDING'
-            self.object.created_by       = self.request.user  #Only update when user is creating
             self.object.last_modified_by = self.request.user
             self.object.save()
 
@@ -273,6 +275,7 @@ class ServiceRecordUpdateView(LoginRequiredMixin, UpdateView):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Service Management View (safe and stable)
 # ────────────────────────────────────────────────────────────────────────────────────────────────
+#
 @login_required
 def service_manage(request, id):
     service_record = ServiceRecord.objects.get(pk=id)
@@ -288,6 +291,7 @@ def service_manage(request, id):
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 # Service Management View (safe and stable)
 # ────────────────────────────────────────────────────────────────────────────────────────────────
+#
 @login_required
 def service_list(request):
     try:

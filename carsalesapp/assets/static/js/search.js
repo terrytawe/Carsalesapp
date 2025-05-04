@@ -75,6 +75,7 @@ document.getElementById("sort-select").addEventListener("change", function () {
   performSearch(params.toString());
 });
 
+// Clear Buttons
 document.getElementById("btn-clear").addEventListener("click", function () {
   const form = document.getElementById("form-search");
   const sortSelect = document.getElementById("sort-select");

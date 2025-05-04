@@ -1,14 +1,29 @@
 const sidebar = document.getElementById("sidebar");
 
+/**
+ * ────────────────────────────────────────────────────────────────────────────────────────────────
+ * Toggle Sidebar Function
+ * ────────────────────────────────────────────────────────────────────────────────────────────────
+ */
 function toggleSideBar() {
   sidebar.classList.toggle("show");
 }
 
+/**
+ * ────────────────────────────────────────────────────────────────────────────────────────────────
+ * Toggle Menu Function
+ * ────────────────────────────────────────────────────────────────────────────────────────────────
+ */
 function toggleMenu(button) {
   button.nextElementSibling.classList.toggle("show");
   button.classList.toggle("rotate");
 }
 
+/**
+ * ────────────────────────────────────────────────────────────────────────────────────────────────
+ * Toggle Sub Menu Function
+ * ────────────────────────────────────────────────────────────────────────────────────────────────
+ */
 function toggleSubMenu(button) {
   //button.nextElementSibling.classList.toggle("show");
   //button.classList.toggle("rotate");
@@ -28,6 +43,12 @@ function toggleSubMenu(button) {
     localStorage.removeItem("activeSidebarMenu");
   }
 }
+
+/**
+ * ────────────────────────────────────────────────────────────────────────────────────────────────
+ * Event Handling
+ * ────────────────────────────────────────────────────────────────────────────────────────────────
+ */
 
 document.addEventListener("DOMContentLoaded", () => {
   // Restore the active menu from localStorage

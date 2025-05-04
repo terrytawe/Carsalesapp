@@ -1,11 +1,21 @@
 from django import template
+from authentication.utils import has_group, has_any_group
 
 register = template.Library()
 
-@register.filter
-def has_group(user, group_name):
-    return user.groups.filter(name=group_name).exists()
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+#
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+#
+@register.filter(name='has_group')
+def has_group_filter(user, group_name):
+    return has_group(user, group_name)
 
-@register.filter
-def has_any_group(user, group_names):
-    return user.groups.filter(name__in=[g.strip() for g in group_names.split(',')]).exists()
+
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+#
+# ────────────────────────────────────────────────────────────────────────────────────────────────
+#
+@register.filter(name='has_any_group')
+def has_any_group_filter(user, group_names):
+    return has_any_group(user, group_names)

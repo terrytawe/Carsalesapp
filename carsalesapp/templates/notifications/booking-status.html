@@ -24,7 +24,7 @@
         text-align: center;
       }
       .button {
-        background-color: rgb(147, 205, 149);
+        background-color: rgba(156, 182, 201, 0.75);
         color: white;
         padding: 12px 24px;
         text-decoration: none;
@@ -36,11 +36,10 @@
   </head>
   <body>
     <div class="card">
-      <div class="header">Django CRM App</div>
+      <div class="header">Car Sales &amp; Services Portal</div>
       <div class="body">
-        <p>Welcome {{ username }}!</p>
-        <p>You account was created successfully. Click below to activate your account:</p>
-        <a href="{{ link }}" class="button">Activate Account</a>
+        <p>Hello {{ username }},</p>
+        <p>Your booking status has been updated to: <strong>{{ status }}</strong>.</p>
       </div>
     </div>
   </body>
