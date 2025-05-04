@@ -9,6 +9,6 @@ urlpatterns = [
     path('list-service', views.service_list, name="list-service"),
     path('display-booking/<int:pk>', TestDriveBookingUpdateView.as_view(), name="display-booking"),
     path('display-service/<int:pk>', ServiceRecordUpdateView.as_view(), name="display-service"),
-    path('manage-booking/<int:pk>', views.booking_manage, name="manage-booking"),
-    path('manage-service/<int:pk>', views.service_manage, name="manage-service")
+    path('manage-booking/<int:pk>', TestDriveBookingUpdateView.as_view(), name="manage-booking"),
+    path('manage-service/<int:pk>', ServiceRecordUpdateView.as_view(), name="manage-service")
 ]

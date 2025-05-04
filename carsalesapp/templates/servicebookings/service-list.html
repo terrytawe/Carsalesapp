@@ -47,8 +47,13 @@
             <span class="badge bg-{{ service.status|status_badge_class }}">{{ service.get_status_display }}</span>
           </td>
           <td class="text-end">
+            {% if request.user|has_group:"Customer" %}
             <a href="{% url 'display-service' service.id %}" class="btn btn-sm btn-outline-secondary ml-4">View</a>
-            <!--<a href="" class="btn btn-sm btn-outline-danger">Delete</a>-->
+            {% elif request.user|has_group:"Admin" %}
+            <a href="{% url 'manage-service' service.id %}" class="btn btn-sm btn-outline-secondary ml-4">View</a>
+            {% else %}
+            <span class="text-muted">No access</span>
+            {% endif %}
           </td>
         </tr>
         {% empty %}

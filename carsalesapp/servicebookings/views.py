@@ -202,6 +202,7 @@ class ServiceRecordUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_template_names(self):
         user = self.request.user
+        # import pdb; pdb.set_trace()
         if has_group(user, 'Admin'):
             return ['servicebookings/service-manage.html']
         elif has_group(user, 'Technician'):

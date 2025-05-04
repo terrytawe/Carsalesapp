@@ -49,37 +49,41 @@
 
     </div>
 
-    <div class="form-floating mb-3">
-      {% if request.user|has_group:'Admin' %}
-      <input type="number" class="form-control" id="year" name="year" value="{{values.vehicle.year}}" required readonly />
-      {% else %}
-      <input type="number" class="form-control" id="year" name="year" value="{{values.vehicle.year}}" required />
-      {% endif %}
-      <label for="year" class="form-label">Year of Manufacture</label>
+    <div class="row mt-4">
+
+      <div class="form-floating mb-3 col-md-6" >
+        {% if request.user|has_group:'Admin' %}
+        <input type="number" class="form-control" id="year" name="year" value="{{values.vehicle.year}}" required readonly />
+        {% else %}
+        <input type="number" class="form-control" id="year" name="year" value="{{values.vehicle.year}}" required />
+        {% endif %}
+        <label for="year" class="form-label" style="margin-left: 5;">Year of Manufacture</label>
+      </div>
+
+      <!--License Plate-->
+      <div class="form-floating mb-3 col-md-6">
+        {% if request.user|has_group:'Admin' %}
+        <input
+          type="text"
+          class="form-control"
+          id="plate"
+          name="license_plate"
+          value="{{values.vehicle.license_plate}}"
+          required
+          readonly />
+        {% else %}
+        <input type="text" class="form-control" id="plate" name="license_plate" value="{{values.vehicle.license_plate}}" required />
+        {% endif %}
+        <label for="plate" class="form-label" style="margin-left: 5;">License Plate</label>
+      </div>
     </div>
 
-    <div class="form-floating mb-3">
-      {% if request.user|has_group:'Admin' %}
-      <input
-        type="text"
-        class="form-control"
-        id="plate"
-        name="license_plate"
-        value="{{values.vehicle.license_plate}}"
-        required
-        readonly />
-      {% else %}
-      <input type="text" class="form-control" id="plate" name="license_plate" value="{{values.vehicle.license_plate}}" required />
-      {% endif %}
-      <label for="plate" class="form-label">License Plate</label>
-    </div>
-
+    <!-- Service Type -->
     <div class="form-floating mb-3">
       {% if request.user|has_group:'Admin' %}
       <select class="form-select" disabled>
         <option value="{{values.service_type}}" selected>{{values.service_type}}</option>
       </select>
-
       <!-- Hidden but POSTed -->
       <input type="hidden" name="service_type" value="{{ values.service_type.id }}" />
       {% else %}
@@ -93,6 +97,7 @@
       <label for="service" class="form-label">Service Type</label>
     </div>
 
+    <!--Notes-->
     <div class="form-floating mb-3">
       <textarea class="form-control" id="notes" name="description" rows="3">
       {{values.description}}
@@ -100,10 +105,20 @@
       <label for="notes" class="form-label">Additional Notes</label>
     </div>
 
-    {% if request.user|has_group:'Admin' %}
-    <!--</fieldset>-->
-    {%endif %}
-    <!---->
+    <!-- Admin assign to staff -->
+     {% if request.user|has_group:'Admin' %}
+    <div class="form-floating mb-3">
+      <select class="form-control" name="status" id="id-status">
+       {% for employee in employees %}
+        <option value="{{ employee.username }}" >{{ employee.username }} {{ values.assigned_to}}</option>
+       {% endfor %}
+      </select>
+      <label for="id-status" class="form-label">Assigned to</label>
+    </div>
+    {% endif %}
+
+
+    <!-- Status Update-->
     {% if request.user|has_group:'Admin' %}
     <div class="form-floating mb-3">
       <select class="form-control" name="status" id="id-status">
@@ -115,6 +130,7 @@
     </div>
     {% endif %}
 
+    <!-- Buttons-->
     <div class="row mt-4">
       {% if values.status|is_cancelled %}
       <div class="col-md-12">
